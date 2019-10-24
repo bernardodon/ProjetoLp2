@@ -1,23 +1,22 @@
 package programa;
 
 public class Pesquisa {
-	
+
 	private String descricao;
 	private String campoInterese;
 	private String codigo;
 	private boolean ativa;
-	
-	
+
 	public Pesquisa(String descricao, String campoInterese, String codigo) {
 		this.descricao = descricao;
 		this.campoInterese = campoInterese;
-		this.codigo = codigo; 
+		this.codigo = codigo;
 		this.ativa = true;
 	}
 
 	@Override
 	public String toString() {
-		return codigo + " - " + descricao + " - " + campoInterese;
+		return codigo + " - " + this.descricao + " - " + campoInterese + " ";
 	}
 
 	@Override
@@ -27,7 +26,6 @@ public class Pesquisa {
 		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
 		return result;
 	}
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -45,15 +43,15 @@ public class Pesquisa {
 			return false;
 		return true;
 	}
-	
+
 	public void encerrarPesquisa() {
-		if (ativa == true) {
+		if (this.ativa == true) {
 			ativa = false;
 		} else {
 			throw new IllegalArgumentException("Pesquisa desativada.");
 		}
 	}
-	
+
 	public void ativarPesquisa() {
 		if (ativa == true) {
 			throw new IllegalArgumentException("Pesquisa ja ativada.");
@@ -61,16 +59,27 @@ public class Pesquisa {
 			ativa = false;
 		}
 	}
-	
+
 	public boolean ehAtiva() {
 		return this.ativa;
 	}
-	
+
 	public void alteraPesquisa(String campo, String novoValor) {
-		if (campo.equals("DESCRICAO")) {
+		if (ativa == false) {
+			throw new IllegalArgumentException("Pesquisa desativada.");
+		}
+
+		if (campo.equals("descricao")) {
+			if (novoValor.trim().equals("")) {
+				throw new IllegalArgumentException("Formato do campo de interesse invalido.");
+			}
 			this.descricao = novoValor;
-		} else if (campo.equals("CAMPO")) {
+		
+		} else if (campo.equals("campoDeInteresse")) {
 			this.campoInterese = novoValor;
+		
+		} else {
+			throw new IllegalArgumentException("Campo de interesse invalido.");
 		}
 	}
 

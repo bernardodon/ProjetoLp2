@@ -10,6 +10,8 @@ public class PesquisaController {
 	private Validador validador;
 
 	public PesquisaController() {
+		this.pesquisas = new HashMap<String, Pesquisa>();
+		this.validador = new Validador();
 	}
 
 	public String cadastraPesquisa(String descricao, String campoInteresse) {
@@ -17,8 +19,15 @@ public class PesquisaController {
 
 		validarCampoInteresse(campoInteresse);
 
-		int quantPesquisas = pesquisas.size();
-		String codigo = campoInteresse.substring(0, 3) + String.valueOf(quantPesquisas + 1);
+		int num = 1;
+		for (String chave : pesquisas.keySet()) {
+			if (chave.contains(campoInteresse.toUpperCase().subSequence(0, 3))) {
+				num += 1;
+			}
+		}
+
+		String codigo = campoInteresse.substring(0, 3) + String.valueOf(num);
+		codigo = codigo.toUpperCase();
 		pesquisas.put(codigo, new Pesquisa(descricao, campoInteresse, codigo));
 		return codigo;
 	}
@@ -26,7 +35,7 @@ public class PesquisaController {
 	public void alteraPesquisa(String codigo, String campo, String novoValor) {
 		if (pesquisas.containsKey(codigo)) {
 
-			if (campo.equals("CAMPO")) {
+			if (campo.equals("campoDeInteresse")) {
 				validarCampoInteresse(campo);
 			}
 			pesquisas.get(codigo).alteraPesquisa(campo, novoValor);
@@ -34,6 +43,7 @@ public class PesquisaController {
 		} else {
 			throw new IllegalArgumentException("Pesquisa nao encontrada.");
 		}
+
 	}
 
 	public void ativaPesquisa(String codigo) {
@@ -52,8 +62,17 @@ public class PesquisaController {
 		}
 	}
 
+	public void enceraPesquisa(String codigo) {
+		if (pesquisas.containsKey(codigo)) {
+			pesquisas.get(codigo).encerrarPesquisa();
+		} else {
+			throw new IllegalArgumentException("Pesquisa nao encontrada.");
+		}
+	}
+
 	public String exibePesquisa(String codigo) {
 		if (pesquisas.containsKey(codigo)) {
+			System.out.println(pesquisas.get(codigo));
 			return pesquisas.get(codigo).toString();
 		} else {
 			throw new IllegalArgumentException("Pesquisa nao encontrada.");
@@ -71,13 +90,22 @@ public class PesquisaController {
 	private void validarCampoInteresse(String campoInteresse) {
 		validador.validar(campoInteresse, "Formato do campo de interesse invalido.");
 
-		String[] campos = campoInteresse.split(",");
-		if (campos.length < 3) {
+		if (campoInteresse.length() >= 255) {
 			throw new IllegalArgumentException("Formato do campo de interesse invalido.");
 		}
 
+		String[] campos = campoInteresse.split(",");
+		if (campos.length > 4) {
+			throw new IllegalArgumentException("Formato do campo de interesse invalido.");
+		}
 		for (String campo : campos) {
-			if (campos.equals("")) {
+
+			if (campo.length() < 3) {
+				throw new IllegalArgumentException("Formato do campo de interesse invalido.");
+			}
+
+			if (campo.equals("")) {
+				System.out.println("laá");
 				throw new IllegalArgumentException("Formato do campo de interesse invalido.");
 			}
 		}
