@@ -1,23 +1,22 @@
 package programa;
 
+public class Problema {
 
-public class Problema{
-
-	private int descricao;
+	private String  descricao;
 	private int viabilidade;
-
+	private String codigo;
 	
-
-	public Problema(int descricao, int viabilidade){
+	public Problema(String descricao, int viabilidade, String codigo) {
 		this.descricao = descricao;
 		this.viabilidade = viabilidade;
-
+		this.codigo = codigo;
 	}
 
-	public String toString(){
-		return this.codigo+ " - " + this.descricao + " - " + this.viabilidade;
+	public String toString() {
+		return this.codigo + " - " + this.descricao + " - " + this.viabilidade;
 	}
 
+	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
@@ -25,14 +24,15 @@ public class Problema{
 		return result;
 	}
 
-public boolean equals(Object obj) {
+	@Override
+	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
 		if (obj == null)
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Pesquisa other = (Pesquisa) obj;
+		Problema other = (Problema) obj;
 		if (codigo == null) {
 			if (other.codigo != null)
 				return false;
@@ -41,5 +41,6 @@ public boolean equals(Object obj) {
 		return true;
 	}
 
-}
+	
 
+}

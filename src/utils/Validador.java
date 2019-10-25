@@ -1,7 +1,7 @@
 package utils;
 
 public class Validador {
-	private void verificarVazio(String nome, String mensagem) {
+	private void verificarVazioString(String nome, String mensagem) {
 		if (nome.trim().equals("")) {
 			throw new IllegalArgumentException(mensagem);
 		}
@@ -13,7 +13,7 @@ public class Validador {
 	 * @param nome     O nome que se dejesa verificar
 	 * @param mensagem A mensagem que mostrada caso haja um exceção
 	 */
-	private void verificarNull(String nome, String mensagem) {
+	private void verificarNullString(String nome, String mensagem) {
 		if (nome == null) {
 			throw new NullPointerException(mensagem);
 		}
@@ -26,7 +26,15 @@ public class Validador {
 	 * @param mensagem A mensagem que mostrada caso haja um exceção
 	 */
 	public void validar(String nome, String mensaegem) {
-		verificarNull(nome, mensaegem);
-		verificarVazio(nome, mensaegem);
+		verificarNullString(nome, mensaegem);
+		verificarVazioString(nome, mensaegem);
 	}
+	
+	public void validarPontuacao(int valor, String mensagem) {
+		if (valor > 5 || valor < 1) {
+			throw new IllegalArgumentException(mensagem);
+		}
+	}
+	
+
 }

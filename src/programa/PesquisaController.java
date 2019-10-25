@@ -1,12 +1,13 @@
 package programa;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import utils.Validador;
 
 public class PesquisaController {
 
-	private HashMap<String, Pesquisa> pesquisas;
+	private Map<String, Pesquisa> pesquisas;
 	private Validador validador;
 
 	public PesquisaController() {
