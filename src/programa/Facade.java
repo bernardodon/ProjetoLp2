@@ -29,13 +29,14 @@ public class Facade {
 		return pesquisaController.exibePesquisa(codigo);
 	}
 	
-	public boolean ehAtiva(String codigo) {
+	public boolean pesquisaEhAtiva(String codigo) {
 		return pesquisaController.ehAtiva(codigo);
 	}
 	
-	public String cadastraProblema(String descricao, int viabilidade) {
+	public String cadastraProblema(String descricao, Integer viabilidade) {
 		return problemaObjetivoController.cadastraProblema(descricao, viabilidade);
 	}
+
 	
 	public String cadastraObjetivo(String tipo, String descricao, int aderencia, int viabilidade) {
 		return problemaObjetivoController.cadastraObjetivo(tipo, descricao, aderencia, viabilidade);

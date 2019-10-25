@@ -20,19 +20,16 @@ public class ControllerProblemaObjetivo {
 		this.validador = new Validador();
 	}
 
-	public String cadastraProblema(String descricao, Object viabilidade) {
-		validador.validar(descricao, "Campo descricao nao pode ser nulo ou vazio.");
-
-		if (validador.getClass().equals(String.class)) {
-			throw new IllegalArgumentException("blaa");
+	public String cadastraProblema(String descricao, Integer viabilidade) {
+		if (viabilidade.equals(null)) {
+			throw new IllegalArgumentException("Campo viabilidade nao pode ser nulo ou vazio.");
 		}
-
-		int viabilidadeInteiro = (int) viabilidade;
 		
-		validador.validarPontuacao(viabilidadeInteiro, "Valor invalido de viabilidade.");
+		validador.validar(descricao, "Campo descricao nao pode ser nulo ou vazio.");
+		validador.validarPontuacao(viabilidade, "Valor invalido de viabilidade.");
 
 		String codigo = "P" + String.valueOf(contadorProblemas);
-		Problema problema = new Problema(descricao, viabilidadeInteiro, codigo);
+		Problema problema = new Problema(descricao, viabilidade, codigo);
 		problemas.put(codigo, problema);
 		this.contadorProblemas++;
 		return codigo;
@@ -45,17 +42,15 @@ public class ControllerProblemaObjetivo {
 	public String cadastraObjetivo(String tipo, String descricao, int aderencia, int viabilidade) {
 		validador.validar(tipo, "Campo tipo nao pode ser nulo ou vazio.");
 		validador.validar(descricao, "Campo descricao nao pode ser nulo ou vazio.");
-		
+
 		if (!tipo.equals("GERAL") && !tipo.equals("ESPECIFICO")) {
 			throw new IllegalArgumentException("Valor invalido de tipo.");
 		}
-		
+
 		validador.validarPontuacao(aderencia, "Valor invalido de aderencia");
-		
+
 		validador.validarPontuacao(viabilidade, "Valor invalido de viabilidade.");
 
-		
-		
 		String codigo = "O" + contadorObjetivos;
 		Objetivo objetivo = new Objetivo(tipo, descricao, aderencia, viabilidade, codigo);
 		objetivos.put("O" + contadorObjetivos, objetivo);
@@ -65,7 +60,7 @@ public class ControllerProblemaObjetivo {
 
 	public String exibeProblema(String codigo) {
 		validador.validar(codigo, "Campo codigo nao pode ser nulo ou vazio.");
-		
+
 		if (problemas.containsKey(codigo)) {
 			return problemas.get(codigo).toString();
 		} else {
@@ -76,9 +71,9 @@ public class ControllerProblemaObjetivo {
 
 	public String exibeObjetivo(String codigo) {
 		validador.validar(codigo, "Campo codigo nao pode ser nulo ou vazio.");
-		
+
 		if (objetivos.containsKey(codigo)) {
-			return objetivos.get(codigo).toString();			
+			return objetivos.get(codigo).toString();
 		} else {
 			throw new IllegalArgumentException("Objetivo nao encontrado");
 		}
@@ -86,9 +81,9 @@ public class ControllerProblemaObjetivo {
 
 	public void apagarProblema(String codigo) {
 		validador.validar(codigo, "Campo codigo nao pode ser nulo ou vazio.");
-		
+
 		if (problemas.containsKey(codigo)) {
-			problemas.remove(codigo);			
+			problemas.remove(codigo);
 		} else {
 			throw new IllegalArgumentException("Problema nao encontrado");
 		}
@@ -96,7 +91,7 @@ public class ControllerProblemaObjetivo {
 
 	public void apagarObjetivo(String codigo) {
 		if (objetivos.containsKey(codigo)) {
-			objetivos.remove(codigo);			
+			objetivos.remove(codigo);
 		} else {
 			throw new IllegalArgumentException("Objetivo nao encontrado");
 		}

@@ -1,4 +1,4 @@
-﻿# Cadastro de Pesquisa
+# Cadastro de Pesquisa
 
 # - COM1: ativada
 # - ELE1: ativada

@@ -81,6 +81,8 @@ public class PesquisaController {
 	}
 
 	public boolean ehAtiva(String codigo) {
+		validador.validar(codigo, "Codigo nao pode ser nulo ou vazio.");
+		
 		if (pesquisas.containsKey(codigo)) {
 			return pesquisas.get(codigo).ehAtiva();
 		} else {
