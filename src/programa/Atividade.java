@@ -1,5 +1,6 @@
 package programa;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Atividade {
@@ -13,6 +14,7 @@ public class Atividade {
 		this.descricaoAtvd = descricaoAtvd;
 		this.descricaoRisco = descricaoRisco;
 		this.risco =risco;
+		this.itens = new ArrayList<Item>();
 	}
 	
 	public List<Item> getItens() {

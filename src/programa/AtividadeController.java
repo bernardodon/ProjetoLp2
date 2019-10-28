@@ -20,7 +20,7 @@ public class AtividadeController {
 		validador.validar(nivelRisco, "Campo nivelRisco nao pode ser nulo ou vazio.");
 		validador.validar(descricaoRisco, "Campo descricaoRisco nao pode ser nulo ou vazio.");
 
-		if (!nivelRisco.equals("ALTO") ||  !nivelRisco.equals("BAIXO") || !nivelRisco.equals("MEDIO")) {
+		if (!nivelRisco.equals("ALTO") && !nivelRisco.equals("BAIXO") && !nivelRisco.equals("MEDIO")) {
 			throw new IllegalArgumentException("Valor invalido do nivel do risco.");
 		}
 		

@@ -1,12 +1,40 @@
 package programa;
 
+/**
+ * Representação de uma Pesquisa
+ * 
+ * @author Hiarly Fernandes de Souto
+ *
+ */
 public class Pesquisa {
 
+	/**
+	 * Um texto livre com um resumo da pesquisa a ser realizada.
+	 */
 	private String descricao;
+	/**
+	 * Um marcador da área ou tema a ser colocado. Pode ter até 4 tópicos, separados
+	 * por vírgula e ter até 255 caracteres.
+	 */
 	private String campoInterese;
+	
+	/**
+	 * O códgio de indentificação da pesquisa
+	 */
 	private String codigo;
+	/**
+	 * Armaza se a pesquisa está ativa ou não
+	 */
 	private boolean ativa;
 
+	/**
+	 * Constroi uma pesquisa a partir da descricao, 
+	 * do campo de interesse e do código de identificação da pesquisa
+	 * @param descricao Um texto livre com um resumo da pesquisa a ser realizada.
+	 * @param campoInterese Um marcador da área ou tema a ser colocado. Pode ter até 4 tópicos, separados
+	 * por vírgula e ter até 255 caracteres.
+	 * @param codigo O código de idetificação da pesquisa
+	 */
 	public Pesquisa(String descricao, String campoInterese, String codigo) {
 		this.descricao = descricao;
 		this.campoInterese = campoInterese;
@@ -14,11 +42,17 @@ public class Pesquisa {
 		this.ativa = true;
 	}
 
+	/**
+	 * Representação, em String, de uma pesquisa
+	 */
 	@Override
 	public String toString() {
-		return codigo + " - " + this.descricao + " - " + campoInterese + " ";
+		return codigo + " - " + this.descricao + " - " + campoInterese;
 	}
 
+	/**
+	 * Gera o hashCode da pesquisa
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -27,6 +61,9 @@ public class Pesquisa {
 		return result;
 	}
 
+	/**
+	 * Compara duas pesquisas a partir do código
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -44,6 +81,9 @@ public class Pesquisa {
 		return true;
 	}
 
+	/**
+	 * Encerra uma pesquisa que estav aativa
+	 */
 	public void encerrarPesquisa() {
 		if (this.ativa == true) {
 			ativa = false;
@@ -52,6 +92,9 @@ public class Pesquisa {
 		}
 	}
 
+	/**
+	 * Ativa uma pesquisa que estava desativada
+	 */
 	public void ativarPesquisa() {
 		if (ativa == true) {
 			throw new IllegalArgumentException("Pesquisa ja ativada.");
@@ -60,10 +103,20 @@ public class Pesquisa {
 		}
 	}
 
+	/**
+	 * Verifica se a pesquisa esta ativada
+	 * @return
+	 */
 	public boolean ehAtiva() {
 		return this.ativa;
 	}
 
+	/**
+	 * Altera uma pesquisa
+	 * @param campo O campo da pesquisa a ser alterado, 
+	 * descricao ou campo de interesse
+	 * @param novoValor O novo valor do campo selecionado
+	 */
 	public void alteraPesquisa(String campo, String novoValor) {
 		if (ativa == false) {
 			throw new IllegalArgumentException("Pesquisa desativada.");
@@ -74,10 +127,10 @@ public class Pesquisa {
 				throw new IllegalArgumentException("Formato do campo de interesse invalido.");
 			}
 			this.descricao = novoValor;
-		
+
 		} else if (campo.equals("campoDeInteresse")) {
 			this.campoInterese = novoValor;
-		
+
 		} else {
 			throw new IllegalArgumentException("Campo de interesse invalido.");
 		}

@@ -5,16 +5,38 @@ import java.util.Map;
 
 import utils.Validador;
 
+/**
+ * Representaçao de um controllador da pesquisas
+ * @author Hiarly Fernandes de Souto
+ *
+ */
 public class PesquisaController {
 
+	/**
+	 * Um mapa com todas as pesquisas cadastradas no sistema
+	 */
 	private Map<String, Pesquisa> pesquisas;
+	
+	/**
+	 * Um validador que serve para verificar os parâmetros dos métodos
+	 */
 	private Validador validador;
 
+	/**
+	 * Constroi um Controlador dde Pesquisa
+	 */
 	public PesquisaController() {
 		this.pesquisas = new HashMap<String, Pesquisa>();
 		this.validador = new Validador();
 	}
 
+	/**
+	 * Cadastra uma pesquisa no HashMap de pesquisas
+	 * @param descricao Um texto livre com um resumo da pesquisa a ser realizada.
+	 * @param campoInterese Um marcador da área ou tema a ser colocado. Pode ter até 4 tópicos, separados
+	 * por vírgula e ter até 255 caracteres.
+	 * @return Retorna o código de identificação da pesquisa no HashMap
+	 */
 	public String cadastraPesquisa(String descricao, String campoInteresse) {
 		validador.validar(descricao, "Descricao nao pode ser nula ou vazia.");
 
@@ -33,6 +55,13 @@ public class PesquisaController {
 		return codigo;
 	}
 
+	/**
+	 * Alera uma pesquisa que ja foi cadastrada
+	 * @param codigo O código da pesquisa que se deseja alterar
+	 * @param campo O campo a ser alterado na pesquisa,
+	 * campo de Interesse ou descrição
+	 * @param novoValor O novo valor do campo selecinado
+	 */
 	public void alteraPesquisa(String codigo, String campo, String novoValor) {
 		if (pesquisas.containsKey(codigo)) {
 
@@ -47,6 +76,11 @@ public class PesquisaController {
 
 	}
 
+	/**
+	 * Ativa uma pesquisa que já esta cadastrada no sistema e esta
+	 * desativada
+	 * @param codigo O código da pesquisa que se deseja ativar
+	 */
 	public void ativaPesquisa(String codigo) {
 		if (pesquisas.containsKey(codigo)) {
 			pesquisas.get(codigo).ativarPesquisa();
@@ -55,6 +89,12 @@ public class PesquisaController {
 		}
 	}
 
+	/**
+	 * Encerra uma pesquisa que está cadastrada no sistema e esta
+	 * ativada
+	 * @param codigo O código da pesqusia
+	 * @param motivo O motivo do encerramento
+	 */
 	public void enceraPesquisa(String codigo, String motivo) {
 		if (pesquisas.containsKey(codigo)) {
 			pesquisas.get(codigo).encerrarPesquisa();
@@ -62,7 +102,13 @@ public class PesquisaController {
 			throw new IllegalArgumentException("Pesquisa nao encontrada.");
 		}
 	}
+	
 
+	/**
+	 * Encerra uma pesquisa que está cadastrada no sistema e esta
+	 * ativada
+	 * @param codigo O código da pesqusia
+	 */
 	public void enceraPesquisa(String codigo) {
 		if (pesquisas.containsKey(codigo)) {
 			pesquisas.get(codigo).encerrarPesquisa();
@@ -71,6 +117,12 @@ public class PesquisaController {
 		}
 	}
 
+	/**
+	 * Exibe uma pesquisa que está cadastrada no sistema
+	 * @param codigo O código da pesquisa
+	 * @return Retorna uma representação em String 
+	 * da pesqusa buscada
+	 */
 	public String exibePesquisa(String codigo) {
 		if (pesquisas.containsKey(codigo)) {
 			System.out.println(pesquisas.get(codigo));
@@ -80,6 +132,12 @@ public class PesquisaController {
 		}
 	}
 
+	/**
+	 * Verifica se uma pesquisa cadastrada no sistema esta ativada
+	 * @param codigo O código da pesquisa
+	 * @return Retorna true, cado a pesquisa esteja ativa. Caso
+	 * esteja desativada retorna false
+	 */
 	public boolean ehAtiva(String codigo) {
 		validador.validar(codigo, "Codigo nao pode ser nulo ou vazio.");
 		
@@ -90,6 +148,11 @@ public class PesquisaController {
 		}
 	}
 
+	/**
+	 * Valida o Campo de interesse de acordo com os critérios definidos
+	 * @param campoInteresse O valor, em String, do campo de interesse que se
+	 * deseja validar	
+	 */
 	private void validarCampoInteresse(String campoInteresse) {
 		validador.validar(campoInteresse, "Formato do campo de interesse invalido.");
 
