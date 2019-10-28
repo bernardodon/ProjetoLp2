@@ -35,6 +35,24 @@ public class Validador {
 			throw new IllegalArgumentException(mensagem);
 		}
 	}
-	
 
+	/**
+	 * Valida o URL da foto de um pesquisador, se possui no minimo o "http://" ou o "https://" no começo.
+	 * @param fotoURL URL da foto a ser validado.
+	 */
+	public void validarFotoPesquisador(String fotoURL) {
+		if( fotoURL.length() < 7 ||(!fotoURL.substring(0,7).equals("http://") && !fotoURL.substring(0,8).equals("https://"))) {
+			throw new IllegalArgumentException("Formato de foto invalido.");
+		}
+	}
+
+	/**
+	 * Valida o email de um pesquisador, se possui um @ e pelo menos um caractere antes e depois do @.
+	 * @param email Email do pesquisador.
+	 */
+	public void validarEmailPesquisador(String email) {
+		if (String.valueOf(email.charAt(0)).equals("@") || email.substring(email.length() - 1).equals("@") || !email.contains("@")) {
+			throw new IllegalArgumentException("Formato de email invalido.");
+		}
+	}
 }

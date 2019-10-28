@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Atividade {
 	private String descricaoAtvd;
-	private String duração;
+	private String duracao;
 	private String risco;
 	private String descricaoRisco;
 	private List<Item> itens;

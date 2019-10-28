@@ -5,6 +5,7 @@ public class Facade {
 	private PesquisaController pesquisaController = new PesquisaController();
 	private ControllerProblemaObjetivo problemaObjetivoController = new ControllerProblemaObjetivo();
 	private AtividadeController atividadeController = new AtividadeController();
+	private PesquisadorController pesquisadorController = new PesquisadorController();
 	
 	public String cadastraPesquisa(String descricao, String campoDeInteresse) {
 		return pesquisaController.cadastraPesquisa(descricao, campoDeInteresse);
@@ -82,6 +83,31 @@ public class Facade {
 	
 	public int contaItensRealizados(String codigo) {
 		return atividadeController.contaItensRealizados(codigo);
+	}
+	
+
+	public void cadastraPesquisador(String nome, String funcao, String biografia, String email, String fotoURL) {
+		pesquisadorController.cadastraPesquisador(nome, funcao, biografia, email, fotoURL);
+	}
+
+	public void alteraPesquisador(String email, String atributo, String novoValor) {
+		pesquisadorController.alteraPesquisador(email, atributo, novoValor);
+	}
+	
+	public String exibePesquisador(String email) {
+		return pesquisadorController.exibePesquisador(email);
+	}
+	
+	public void ativaPesquisador(String email) {
+		pesquisadorController.ativaPesquisador(email);
+	}
+	
+	public void desativaPesquisador(String email) {
+		pesquisadorController.desativaPesquisador(email);
+	}
+	
+	public boolean pesquisadorEhAtivo(String email) {
+		return pesquisadorController.pesquisadorEhAtivo(email);
 	}
 	
 }
