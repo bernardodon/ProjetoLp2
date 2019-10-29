@@ -173,6 +173,7 @@ public class PesquisaController {
 			if (campo.equals("")) {
 				throw new IllegalArgumentException("Formato do campo de interesse invalido.");
 			}
+			
 		}
 	}
 
