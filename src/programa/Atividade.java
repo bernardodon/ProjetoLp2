@@ -9,6 +9,12 @@ import java.util.List;
  * @author Ítalo Miguel Castor Diniz Pinheiro.
  */
 public class Atividade {
+	
+	/**
+	 * O codigo da atividade.
+	 */
+	private String codigo;
+	
 	/*
 	 * Descrição da atividade.
 	 */
@@ -38,10 +44,11 @@ public class Atividade {
 	 * Constrói uma atividade a partir de sua descrição, do nível do risco dela e da descrição do risco.
 	 * 
 	 * @param descricaoAtvd a descrição da atividade.
-	 * @param risco	o nível de risco da atividade.
+	 * @param risco	o nível de risco da atividade.cc
 	 * @param descricaoRisco a descrição do risco da atividade.
 	 */
-	public Atividade(String descricaoAtvd, String risco, String descricaoRisco) {
+	public Atividade(String descricaoAtvd, String risco, String descricaoRisco, String codigo) {
+		this.codigo = codigo;
 		this.descricaoAtvd = descricaoAtvd;
 		this.descricaoRisco = descricaoRisco;
 		this.risco =risco;
@@ -96,6 +103,33 @@ public class Atividade {
 		return cont;
 	}
 	
+	
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Atividade other = (Atividade) obj;
+		if (codigo == null) {
+			if (other.codigo != null)
+				return false;
+		} else if (!codigo.equals(other.codigo))
+			return false;
+		return true;
+	}
+
 	/**
 	 * Retorna a String que representa os itens de uma atividade.
 	 * 

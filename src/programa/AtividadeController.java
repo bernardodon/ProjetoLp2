@@ -54,8 +54,8 @@ public class AtividadeController {
 			throw new IllegalArgumentException("Valor invalido do nivel do risco.");
 		}
 
-		Atividade atvd = new Atividade(descricaoAtvd, nivelRisco, descricaoRisco);
 		String cod = "A" + Integer.toString(unidade);
+		Atividade atvd = new Atividade(descricaoAtvd, nivelRisco, descricaoRisco, cod);
 		atividades.put(cod, atvd);
 
 		unidade++;
