@@ -10,6 +10,7 @@ public class Atividade {
 	private String descricaoRisco;
 	private List<Item> itens;
 	
+	
 	public Atividade(String descricaoAtvd, String risco, String descricaoRisco) {
 		this.descricaoAtvd = descricaoAtvd;
 		this.descricaoRisco = descricaoRisco;

@@ -122,17 +122,17 @@ public class Pesquisa {
 			throw new IllegalArgumentException("Pesquisa desativada.");
 		}
 
-		if (campo.equals("descricao")) {
+		if (campo.equals("DESCRICAO")) {
 			if (novoValor.trim().equals("")) {
-				throw new IllegalArgumentException("Formato do campo de interesse invalido.");
+				throw new IllegalArgumentException("Descricao nao pode ser nula ou vazia.");
 			}
 			this.descricao = novoValor;
 
-		} else if (campo.equals("campoDeInteresse")) {
+		} else if (campo.equals("CAMPO")) {
 			this.campoInterese = novoValor;
 
 		} else {
-			throw new IllegalArgumentException("Campo de interesse invalido.");
+			throw new IllegalArgumentException("Nao e possivel alterar esse valor de pesquisa.");
 		}
 	}
 

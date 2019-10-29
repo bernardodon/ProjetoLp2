@@ -65,8 +65,8 @@ public class PesquisaController {
 	public void alteraPesquisa(String codigo, String campo, String novoValor) {
 		if (pesquisas.containsKey(codigo)) {
 
-			if (campo.equals("campoDeInteresse")) {
-				validarCampoInteresse(campo);
+			if (campo.equals("CAMPO")) {
+				validarCampoInteresse(novoValor);
 			}
 			pesquisas.get(codigo).alteraPesquisa(campo, novoValor);
 
@@ -171,7 +171,6 @@ public class PesquisaController {
 			}
 
 			if (campo.equals("")) {
-				System.out.println("laá");
 				throw new IllegalArgumentException("Formato do campo de interesse invalido.");
 			}
 		}
