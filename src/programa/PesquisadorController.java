@@ -48,36 +48,39 @@ public class PesquisadorController {
 	}
 
 	/**
-	 * 	Altera um atributo de um pesquisador a partir do email dele, do nome do atributo que sera alterado e do novo valor a ser assumido.
+	 *  Altera um atributo de um pesquisador a partir do email dele, do nome do atributo que sera alterado e do novo valor a ser assumido.
 	 * @param email Email do pesquisador.
 	 * @param atributo Atributo do pesquisador.
 	 * @param novoValor Novo valor a ser assumido pelo atributo.
 	 */
 	public void alteraPesquisador(String email, String atributo, String novoValor) {
 		
+		validador.validar(atributo, "Atributo nao pode ser vazio ou nulo.");
 		validador.validarEmailPesquisador(email);
 		checaInexistenciaPesquisador(email);
 		
 		switch (atributo) {
-			case "nome":
+			case "NOME":
 				alteraNome(email, novoValor);
 				break;
 				
-			case "funcao":
+			case "FUNCAO":
 				alteraFuncao(email, novoValor);
 				break;
 			
-			case "biografia":
+			case "BIOGRAFIA":
 				alteraBiografia(email, novoValor);
 				break;
 				
-			case "email":
+			case "EMAIL":
 				alteraEmail(email, novoValor);
 				break;
 				
-			case "fotoURL":
+			case "FOTO":
 				alteraFotoURL(email, novoValor);
 				break;
+			default:
+				throw new IllegalArgumentException("Atributo invalido.");
 		}
 	}
 	
