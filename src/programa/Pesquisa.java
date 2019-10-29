@@ -105,7 +105,7 @@ public class Pesquisa {
 
 	/**
 	 * Verifica se a pesquisa esta ativada
-	 * @return
+	 * @return o boolean se uma conta é ativa ou não.
 	 */
 	public boolean ehAtiva() {
 		return this.ativa;
