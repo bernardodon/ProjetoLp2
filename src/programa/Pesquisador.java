@@ -51,7 +51,7 @@ public class Pesquisador {
 	
 	/**
 	 * Constroi um pesquisador a partir de outro pesquisador, e de um email.
-	 * @param pesquisadorAntigo Outro pesquisador que servirá como alicerce para o primeiro.
+	 * @param pesquisadorAntigo Outro pesquisador que servir como alicerce para o primeiro.
 	 * @param email Novo email a ser utilizado.
 	 */
 	public Pesquisador(Pesquisador pesquisadorAntigo, String email) {
@@ -84,7 +84,7 @@ public class Pesquisador {
 	}
 	
 	/**
-	 * Retorna a representacao textual de um Pesquisador, no formato: "NOME (FUNÇÃO) - BIOGRAFIA - EMAIL - FOTO".
+	 * Retorna a representacao textual de um Pesquisador, no formato: "NOME (FUNï¿½ï¿½O) - BIOGRAFIA - EMAIL - FOTO".
 	 */
 	@Override
 	public String toString() {
