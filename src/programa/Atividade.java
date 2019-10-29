@@ -48,16 +48,15 @@ public class Atividade {
 	
 	public String exibeItens() {
 		String msg = "";
-		int cont = 1;
+		
 		for(Item i: itens) {
-			msg += " | " + i.getStatus() + " - " + "ITEM" + cont;
-			cont ++;
+			msg += " | " + i.toString();
 		}
 		return msg;
 	}
 	
 	@Override
 	public String toString() {
-		return this.descricaoAtvd + "(" + this.risco + " - " + this.descricaoRisco + ")";
+		return this.descricaoAtvd + " (" + this.risco + " - " + this.descricaoRisco + ")";
 	}
 }
