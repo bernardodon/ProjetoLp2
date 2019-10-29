@@ -61,8 +61,8 @@ expect "COM1 - Homofobia em mensagens online de alunos de computação do primei
 
 expectError "Codigo nao pode ser nulo ou vazio." pesquisaEhAtiva codigo=""
 expectError "Pesquisa nao encontrada." pesquisaEhAtiva codigo="ENE1"
-expected true pesquisaEhAtiva codigo="COM1"
-expected false pesquisaEhAtiva codigo="FER1"
+expect true pesquisaEhAtiva codigo="COM1"
+expect false pesquisaEhAtiva codigo="FER1"
 
 
 # Caso de precedencia de erros
