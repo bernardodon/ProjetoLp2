@@ -32,10 +32,6 @@ public class ControllerProblemaObjetivo {
 		return codigo;
 	}
 
-	public String cadastraProblema(String descricao, String viabilidade) {
-		throw new IllegalArgumentException("Campo viabilidade nao pode ser nulo ou vazio.");
-	}
-
 	public String cadastraObjetivo(String tipo, String descricao, int aderencia, int viabilidade) {
 		validador.validar(tipo, "Campo tipo nao pode ser nulo ou vazio.");
 		validador.validar(descricao, "Campo descricao nao pode ser nulo ou vazio.");

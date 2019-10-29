@@ -1,7 +1,6 @@
 package Testes;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -24,14 +23,6 @@ class ProblemaTeste {
 		
 		p4 = new Problema("A dificuldade da predicao do sistema eleitoral brasileiro", 1, "P3");
 		p5 = new Problema("A problematica do aprendizado dos conceitos de programacao orientada a objeto", 5, "P2");
-	}
-	
-	@Test
-	void testViabilidadeInvalida() {
-//		assertThrows(IllegalArgumentException.class () -> new Problema("O problema do discurso homofobico em chats online de alunos de computacao de primeiro periodo", 0, "P1"));
-		Problema p6 = new Problema("O problema do discurso homofobico em chats online de alunos de computacao de primeiro periodo", 0, "P1");
-		Problema p7 = new Problema("A problematica do aprendizado dos conceitos de programacao orientada a objeto", -3, "P2");
-		Problema p8 = new Problema("A problematica do aprendizado dos conceitos de programacao orientada a objeto", 111, "P2");
 	}
 	
 	@Test
