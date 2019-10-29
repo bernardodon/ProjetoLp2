@@ -31,13 +31,13 @@ public class Validador {
 	}
 	
 	public void validarPontuacao(int valor, String mensagem) {
-		if (valor > 5 || valor < 1) {
+		if (valor > 5 || valor < 1 || valor == 0) {
 			throw new IllegalArgumentException(mensagem);
 		}
 	}
 
 	/**
-	 * Valida o URL da foto de um pesquisador, se possui no minimo o "http://" ou o "https://" no começo.
+	 * Valida o URL da foto de um pesquisador, se possui no minimo o "http://" ou o "https://" no comeï¿½o.
 	 * @param fotoURL URL da foto a ser validado.
 	 */
 	public void validarFotoPesquisador(String fotoURL) {
