@@ -1,7 +1,7 @@
 package programa;
 
 /**
- * Representação de uma Pesquisa
+ * Representaçao de uma Pesquisa
  * 
  * @author Hiarly Fernandes de Souto
  *
@@ -13,27 +13,27 @@ public class Pesquisa {
 	 */
 	private String descricao;
 	/**
-	 * Um marcador da área ou tema a ser colocado. Pode ter até 4 tópicos, separados
-	 * por vírgula e ter até 255 caracteres.
+	 * Um marcador da area ou tema a ser colocado. Pode ter ate 4 topicos, separados
+	 * por vírgula e ter ate 255 caracteres.
 	 */
 	private String campoInterese;
 	
 	/**
-	 * O códgio de indentificação da pesquisa
+	 * O codgio de indentificaçao da pesquisa
 	 */
 	private String codigo;
 	/**
-	 * Armaza se a pesquisa está ativa ou não
+	 * Armaza se a pesquisa esta ativa ou nao
 	 */
 	private boolean ativa;
 
 	/**
 	 * Constroi uma pesquisa a partir da descricao, 
-	 * do campo de interesse e do código de identificação da pesquisa
+	 * do campo de interesse e do codigo de identificaçao da pesquisa
 	 * @param descricao Um texto livre com um resumo da pesquisa a ser realizada.
-	 * @param campoInterese Um marcador da área ou tema a ser colocado. Pode ter até 4 tópicos, separados
-	 * por vírgula e ter até 255 caracteres.
-	 * @param codigo O código de idetificação da pesquisa
+	 * @param campoInterese Um marcador da area ou tema a ser colocado. Pode ter ate 4 topicos, separados
+	 * por vírgula e ter ate 255 caracteres.
+	 * @param codigo O codigo de idetificaçao da pesquisa
 	 */
 	public Pesquisa(String descricao, String campoInterese, String codigo) {
 		this.descricao = descricao;
@@ -43,7 +43,7 @@ public class Pesquisa {
 	}
 
 	/**
-	 * Representação, em String, de uma pesquisa
+	 * Representaçao, em String, de uma pesquisa
 	 */
 	@Override
 	public String toString() {
@@ -62,7 +62,7 @@ public class Pesquisa {
 	}
 
 	/**
-	 * Compara duas pesquisas a partir do código
+	 * Compara duas pesquisas a partir do codigo
 	 */
 	@Override
 	public boolean equals(Object obj) {
@@ -82,7 +82,7 @@ public class Pesquisa {
 	}
 
 	/**
-	 * Encerra uma pesquisa que estav aativa
+	 * Encerra uma pesquisa que esta ativa
 	 */
 	public void encerrarPesquisa() {
 		if (this.ativa == true) {

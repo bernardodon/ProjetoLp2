@@ -6,7 +6,7 @@ import java.util.Map;
 import utils.Validador;
 
 /**
- * Representaçao de um controllador da pesquisas
+ * Representacao de um controllador da pesquisas
  * @author Hiarly Fernandes de Souto
  *
  */
@@ -18,7 +18,7 @@ public class PesquisaController {
 	private Map<String, Pesquisa> pesquisas;
 	
 	/**
-	 * Um validador que serve para verificar os parâmetros dos métodos
+	 * Um validador que serve para verificar os parâmetros dos metodos
 	 */
 	private Validador validador;
 
@@ -33,9 +33,9 @@ public class PesquisaController {
 	/**
 	 * Cadastra uma pesquisa no HashMap de pesquisas
 	 * @param descricao Um texto livre com um resumo da pesquisa a ser realizada.
-	 * @param campoInterese Um marcador da área ou tema a ser colocado. Pode ter até 4 tópicos, separados
-	 * por vírgula e ter até 255 caracteres.
-	 * @return Retorna o código de identificação da pesquisa no HashMap
+	 * @param campoInterese Um marcador da área ou tema a ser colocado. Pode ter ate 4 topicos, separados
+	 * por virgula e ter ate 255 caracteres.
+	 * @return Retorna o codigo de identificacao da pesquisa no HashMap
 	 */
 	public String cadastraPesquisa(String descricao, String campoInteresse) {
 		validador.validar(descricao, "Descricao nao pode ser nula ou vazia.");
@@ -57,9 +57,9 @@ public class PesquisaController {
 
 	/**
 	 * Alera uma pesquisa que ja foi cadastrada
-	 * @param codigo O código da pesquisa que se deseja alterar
+	 * @param codigo O codigo da pesquisa que se deseja alterar
 	 * @param campo O campo a ser alterado na pesquisa,
-	 * campo de Interesse ou descrição
+	 * campo de Interesse ou descricao
 	 * @param novoValor O novo valor do campo selecinado
 	 */
 	public void alteraPesquisa(String codigo, String campo, String novoValor) {
@@ -79,7 +79,7 @@ public class PesquisaController {
 	/**
 	 * Ativa uma pesquisa que já esta cadastrada no sistema e esta
 	 * desativada
-	 * @param codigo O código da pesquisa que se deseja ativar
+	 * @param codigo O codigo da pesquisa que se deseja ativar
 	 */
 	public void ativaPesquisa(String codigo) {
 		if (pesquisas.containsKey(codigo)) {
@@ -92,7 +92,7 @@ public class PesquisaController {
 	/**
 	 * Encerra uma pesquisa que está cadastrada no sistema e esta
 	 * ativada
-	 * @param codigo O código da pesqusia
+	 * @param codigo O codigo da pesqusia
 	 * @param motivo O motivo do encerramento
 	 */
 	public void enceraPesquisa(String codigo, String motivo) {
@@ -107,7 +107,7 @@ public class PesquisaController {
 	/**
 	 * Encerra uma pesquisa que está cadastrada no sistema e esta
 	 * ativada
-	 * @param codigo O código da pesqusia
+	 * @param codigo O codigo da pesqusia
 	 */
 	public void enceraPesquisa(String codigo) {
 		if (pesquisas.containsKey(codigo)) {
@@ -119,8 +119,8 @@ public class PesquisaController {
 
 	/**
 	 * Exibe uma pesquisa que está cadastrada no sistema
-	 * @param codigo O código da pesquisa
-	 * @return Retorna uma representação em String 
+	 * @param codigo O codigo da pesquisa
+	 * @return Retorna uma representacao em String 
 	 * da pesqusa buscada
 	 */
 	public String exibePesquisa(String codigo) {
@@ -134,7 +134,7 @@ public class PesquisaController {
 
 	/**
 	 * Verifica se uma pesquisa cadastrada no sistema esta ativada
-	 * @param codigo O código da pesquisa
+	 * @param codigo O codigo da pesquisa
 	 * @return Retorna true, cado a pesquisa esteja ativa. Caso
 	 * esteja desativada retorna false
 	 */
@@ -149,7 +149,7 @@ public class PesquisaController {
 	}
 
 	/**
-	 * Valida o Campo de interesse de acordo com os critérios definidos
+	 * Valida o Campo de interesse de acordo com os criterios definidos
 	 * @param campoInteresse O valor, em String, do campo de interesse que se
 	 * deseja validar	
 	 */
