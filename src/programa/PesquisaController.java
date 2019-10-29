@@ -129,7 +129,6 @@ public class PesquisaController {
 	 */
 	public String exibePesquisa(String codigo) {
 		if (pesquisas.containsKey(codigo)) {
-			System.out.println(pesquisas.get(codigo));
 			return pesquisas.get(codigo).toString();
 		} else {
 			throw new IllegalArgumentException("Pesquisa nao encontrada.");

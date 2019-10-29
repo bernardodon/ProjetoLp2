@@ -40,7 +40,4 @@ public class Problema {
 			return false;
 		return true;
 	}
-
-	
-
 }

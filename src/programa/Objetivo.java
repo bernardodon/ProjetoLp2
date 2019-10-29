@@ -1,6 +1,7 @@
 package programa;
 
 public class Objetivo {
+	
 	private String tipo;
 	private String descricao;
 	private int aderenciaProblema;
@@ -45,6 +46,4 @@ public class Objetivo {
 			return false;
 		return true;
 	}
-
-
 }
