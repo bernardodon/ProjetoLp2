@@ -1,5 +1,7 @@
 package programa;
 
+import utils.Validador;
+
 /**
  * Representaçao de uma Pesquisa
  * 
@@ -8,6 +10,10 @@ package programa;
  */
 public class Pesquisa {
 
+	/**
+	 * Uma classe validador, serve para validar as entradas nos metodos
+	 */
+	private Validador validador;
 	/**
 	 * Um texto livre com um resumo da pesquisa a ser realizada.
 	 */
@@ -36,10 +42,13 @@ public class Pesquisa {
 	 * @param codigo O codigo de idetificaçao da pesquisa
 	 */
 	public Pesquisa(String descricao, String campoInterese, String codigo) {
+		this.validador = new Validador();
 		this.descricao = descricao;
 		this.campoInterese = campoInterese;
 		this.codigo = codigo;
 		this.ativa = true;
+		validador.validar(descricao, "Descricao nao pode ser nula ou vazia.");
+		validador.validar(campoInterese, "Formato do campo de interesse invalido.");
 	}
 
 	/**
@@ -118,6 +127,7 @@ public class Pesquisa {
 	 * @param novoValor O novo valor do campo selecionado
 	 */
 	public void alteraPesquisa(String campo, String novoValor) {
+		validador.validar(campoInterese, "Formato do campo de interesse invalido.");
 		if (ativa == false) {
 			throw new IllegalArgumentException("Pesquisa desativada.");
 		}
