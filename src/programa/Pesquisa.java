@@ -8,7 +8,6 @@ import utils.Validador;
  * @author Hiarly Fernandes de Souto
  *
  */
-
 public class Pesquisa {
 
 	/**
