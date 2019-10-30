@@ -3,6 +3,8 @@ package programa;
 import java.util.ArrayList;
 import java.util.List;
 
+import utils.Validador;
+
 /**
  * Representação de uma atividade referentes a uma pesquisa científica. Toda atividade deve ter uma descricao, uma duração, um nível de risco e uma descrição do risco.
  *	
@@ -10,6 +12,10 @@ import java.util.List;
  */
 public class Atividade {
 	
+	/**
+	 * Um validador.
+	 */
+	private Validador validador;
 	/**
 	 * O codigo da atividade.
 	 */
@@ -19,11 +25,6 @@ public class Atividade {
 	 * Descrição da atividade.
 	 */
 	private String descricaoAtvd;
-	
-	/**
-	 * Duração da atividade.
-	 */
-	private String duracao;
 	
 	/**
 	 * O nível de risco de uma atividade.
@@ -46,13 +47,20 @@ public class Atividade {
 	 * @param descricaoAtvd a descrição da atividade.
 	 * @param risco	o nível de risco da atividade.cc
 	 * @param descricaoRisco a descrição do risco da atividade.
+	 * @param codigo o codigo da atividade.
 	 */
 	public Atividade(String descricaoAtvd, String risco, String descricaoRisco, String codigo) {
+		this.validador = new Validador();
 		this.codigo = codigo;
 		this.descricaoAtvd = descricaoAtvd;
 		this.descricaoRisco = descricaoRisco;
 		this.risco =risco;
 		this.itens = new ArrayList<Item>();
+		
+		validador.validar(descricaoAtvd, "Campo Descricao nao pode ser nulo ou vazio.");
+		validador.validar(risco, "Campo nivelRisco nao pode ser nulo ou vazio.");
+		validador.validar(descricaoRisco, "Campo descricaoRisco nao pode ser nulo ou vazio.");
+		validador.validar(codigo, "Valor invalido do nivel do risco.");
 	}
 	
 	/**
@@ -104,7 +112,9 @@ public class Atividade {
 	}
 	
 	
-	
+	/**
+	 * Gera o hashCode de uma atividade.
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -113,6 +123,9 @@ public class Atividade {
 		return result;
 	}
 
+	/**
+	 * Compara duas atividades a partir do codigo de cada uma. 
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
