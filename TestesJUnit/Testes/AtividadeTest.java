@@ -14,22 +14,23 @@ class AtividadeTest{
 	Atividade a3;
 	Atividade a4;
 	Atividade a5;
+	Atividade a6;
 
 
 @BeforeEach
 	void testCriaAtividade(){
 
-		a1 = new Atividade("Atividade mt doida", "ALTO", "Risco bem alto ne", "A1")
-		a2 = new Atividade("Atividade suave", "MEDIO", "Risco DE BOA", "A2")
-		a3 = new Atividade("Atividade chata", "BAIXO", "Risco bem baixo ne", "A3")
-		a4 = new Atividade("Atividade mt doida", "ALTO", "Risco perigoso", "A4")
-		a5 = new Atividade("Atividade mt doida", "ALTO", "Risco perigoso", "A4")
-		a6 = new Atividade("Atividade chata", "BAIXO", "Risco bem baixo ne", "A6")
+		a1 = new Atividade("Atividade mt doida", "ALTO", "Risco bem alto ne", "A1");
+		a2 = new Atividade("Atividade suave", "MEDIO", "Risco DE BOA", "A2");
+		a3 = new Atividade("Atividade chata", "BAIXO", "Risco bem baixo ne", "A3");
+		a4 = new Atividade("Atividade mt doida", "ALTO", "Risco perigoso", "A4");
+		a5 = new Atividade("Atividade mt doida", "ALTO", "Risco perigoso", "A4");
+		a6 = new Atividade("Atividade chata", "BAIXO", "Risco bem baixo ne", "A6");
 	}
 
 
 	@Test
-	void testAtividadeToString(){
+	void testTostring() {
 		assertEquals("Atividade mt doida (ALTO - Risco bem alto ne)", a1.toString());
 		assertEquals("Atividade suave (MEDIO - Risco DE BOA)", a2.toString());
 		assertEquals("Atividade chata (BAIXO - Risco bem baixo ne)", a3.toString());

@@ -61,6 +61,7 @@ public class AtividadeController {
 		unidade++;
 	}
 	
+	
 	/**
 	 * Apaga uma atividade do sistema. Caso não apague, um erro será lançado explicando o que ocorreu. 
 	 * 

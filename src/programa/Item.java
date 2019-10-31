@@ -22,7 +22,7 @@ public class Item {
 	 * 
 	 * @param descricao a descrição do item.
 	 */
-	Item(String descricao) {
+	public Item(String descricao) {
 		this.status = "PENDENTE";
 		this.descricao = descricao;
 	}

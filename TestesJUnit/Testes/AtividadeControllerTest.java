@@ -16,19 +16,21 @@ class AtividadeControllerTest{
 	void testAtividadeController() {
 		controller = new AtividadeController();
 
+	 }
 
 	 @Test
 	 void testCadastraAtividade() {
 
-	 	controller.CadastraAtividade("Atividade mt doida", "ALTO", "Risco bem alto ne", "A1");
-	 	controller.CadastraAtividade("Atividade suave", "MEDIO", "Risco DE BOA", "A2");
+	 	controller.cadastraAtividade("Atividade mt doida", "ALTO", "Risco bem alto ne");
+	 	controller.cadastraAtividade("Atividade suave", "MEDIO", "Risco DE BOA");
 
+	 
 	}
 
 	@Test
 
 	void testCadastraItem(){
-
+		testCadastraAtividade();
 		controller.cadastraItem("A1","pular corda");
 		controller.cadastraItem("A2","nadar");
 
@@ -38,7 +40,9 @@ class AtividadeControllerTest{
 
 	@Test
 	void testExibeAtividades() {
-		assertEquals("Atividade mt doida (ALTO - Risco bem alto ne) | PENDENTE - ITEM1 |", controller.exibeAtividade("A1"));
+		testCadastraAtividade();
+
+		assertEquals("Atividade mt doida (ALTO - Risco bem alto ne)", controller.exibeAtividade("A1"));
 
 
 	}

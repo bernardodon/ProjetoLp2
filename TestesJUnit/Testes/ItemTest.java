@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import programa.Item;
 
-class ItemTest{
+class ItemTest {
 
 	Item i1;
 	Item i2;
@@ -16,7 +16,7 @@ class ItemTest{
 	Item i5;
 
 	@BeforeEach
-	void testCriaItem(){
+	void testCriaItem() {
 
 		i1 = new Item("bola");
 		i2 = new Item("golf");
@@ -25,10 +25,11 @@ class ItemTest{
 		i5 = new Item("dale");
 	}
 
-@Test
-	void testItemToString(){
+	@Test
+	void testItemToString() {
 		assertEquals("PENDENTE - bola", i1.toString());
 		assertEquals("PENDENTE - golf", i2.toString());
 		assertEquals("PENDENTE - loucura", i3.toString());
-}
+	}
 
+}
