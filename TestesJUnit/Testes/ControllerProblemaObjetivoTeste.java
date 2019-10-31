@@ -6,15 +6,15 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import programa.ControllerProblemaObjetivo;
+import programa.ProblemaObjetivoController;
 
 class ControllerProblemaObjetivoTeste {
 
-	ControllerProblemaObjetivo cpo;
+	ProblemaObjetivoController cpo;
 	
 	@BeforeEach
 	void inicia() {
-		cpo = new ControllerProblemaObjetivo();
+		cpo = new ProblemaObjetivoController();
 	}
 	
 	@BeforeEach

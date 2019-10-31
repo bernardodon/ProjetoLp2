@@ -5,14 +5,14 @@ import java.util.Map;
 
 import utils.Validador;
 
-public class ControllerProblemaObjetivo {
+public class ProblemaObjetivoController {
 	private Map<String, Problema> problemas;
 	private Map<String, Objetivo> objetivos;
 	private int contadorProblemas;
 	private int contadorObjetivos;
 	private Validador validador;
 
-	public ControllerProblemaObjetivo() {
+	public ProblemaObjetivoController() {
 		this.problemas = new HashMap<String, Problema>();
 		this.objetivos = new HashMap<String, Objetivo>();
 		this.contadorProblemas = 1;

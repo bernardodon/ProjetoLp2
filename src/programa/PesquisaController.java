@@ -34,11 +34,11 @@ public class PesquisaController {
 	/**
 	 * Cadastra uma pesquisa no HashMap de pesquisas.
 	 * 
-	 * @param descricao     Um texto livre com um resumo da pesquisa a ser
-	 *                      realizada.
-	 * @param campoInteresse Um marcador da área ou tema a ser colocado. Pode ter ate
-	 *                      4 topicos, separados por virgula e ter ate 255
-	 *                      caracteres.
+	 * @param descricao      Um texto livre com um resumo da pesquisa a ser
+	 *                       realizada.
+	 * @param campoInteresse Um marcador da área ou tema a ser colocado. Pode ter
+	 *                       ate 4 topicos, separados por virgula e ter ate 255
+	 *                       caracteres.
 	 * @return Retorna o codigo de identificacao da pesquisa no HashMap
 	 */
 	public String cadastraPesquisa(String descricao, String campoInteresse) {
