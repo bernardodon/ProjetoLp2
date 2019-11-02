@@ -102,6 +102,7 @@ public class Facade {
 		pesquisadorController.alteraPesquisador(email, atributo, novoValor);
 	}
 
+
 	public String exibePesquisador(String email) {
 		return pesquisadorController.exibePesquisador(email);
 	}
@@ -117,5 +118,15 @@ public class Facade {
 	public boolean pesquisadorEhAtivo(String email) {
 		return pesquisadorController.pesquisadorEhAtivo(email);
 	}
+	
+	public void cadastraEspecialidadeAluno(String email, int semestre, double IEA) {
+		pesquisadorController.cadastraEspecialidadeAluno(email, semestre, IEA);
+	}
+	
+	public void cadastraEspecialidadeProfessor(String email, String formacao, String unidade, String data) {
+		pesquisadorController.cadastratEspecialidadeProfessor(email, formacao, unidade, data);
+	}
+	
+
 
 }
