@@ -7,6 +7,7 @@ public class Objetivo {
 	private int aderenciaProblema;
 	private int viabilidade;
 	private String codigo;
+	private boolean associado;
 
 	public Objetivo(String tipo, String descricao, int aderencia, int viabilidade, String codigo) {
 		this.tipo = tipo;
@@ -14,6 +15,11 @@ public class Objetivo {
 		this.aderenciaProblema = aderencia;
 		this.viabilidade = viabilidade;
 		this.codigo = codigo;
+		this.associado = false;
+	}
+
+	public void setAssociado(boolean associado) {
+		this.associado = associado;
 	}
 
 	public String toString(){
@@ -45,5 +51,9 @@ public class Objetivo {
 		} else if (!codigo.equals(other.codigo))
 			return false;
 		return true;
+	}
+
+	public boolean isAssociado() {
+		return associado;
 	}
 }

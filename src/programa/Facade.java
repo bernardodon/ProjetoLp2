@@ -11,7 +11,7 @@ public class Facade {
 	public Facade() {
 		this.controllerGeral = new ControllerGeral();
 		this.pesquisaController = controllerGeral.getPesquisaController();
-		this.problemaObjetivoController = new ProblemaObjetivoController();
+		this.problemaObjetivoController = controllerGeral.getProblemaObjetivoController();
 		this.atividadeController = new AtividadeController();
 		this.pesquisadorController = controllerGeral.getPesquisadorController();
 	}
@@ -136,5 +136,21 @@ public class Facade {
 	public String listaPesquisadores(String tipo) {
 		return pesquisadorController.listaPesquisadores(tipo);
 	}
+	
+	public String associaProblema(String idPesquisa, String idProblema) {
+		return pesquisaController.associaProblema(idPesquisa, idProblema);
+	}
+	
+	public String desassociaProblema(String idPesquisa, String idProblema) {
+		return pesquisaController.desassociaProblema(idPesquisa, idProblema);
+	}
+	
+	public String associaObjetivo(String idPesquisa, String idObjetivo) {
+		return pesquisaController.associaObjetivo(idPesquisa, idObjetivo);
+	}
 
+	public String desassociaObjetivo(String idPesquisa, String idObjetivo) {
+		return pesquisaController.desassociaObjetivo(idPesquisa, idObjetivo);
+	}
+	
 }

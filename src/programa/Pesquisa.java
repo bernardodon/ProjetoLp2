@@ -1,6 +1,7 @@
 package programa;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import utils.Validador;
 
@@ -11,7 +12,16 @@ import utils.Validador;
  *
  */
 public class Pesquisa {
-
+	
+	/**
+	 * Problema associado a uma pesquisa.
+	 */
+	private Problema problema;
+	/**
+	 * Lista respoavel por armazenas os objetivos de uma pesquisa.
+	 */
+	private List<Objetivo> objetivos;
+	
 	private ArrayList<Pesquisador> pesquisadores;
 	/**
 	 * Uma classe validador, serve para validar as entradas nos metodos
@@ -56,6 +66,8 @@ public class Pesquisa {
 		validador.validar(descricao, "Descricao nao pode ser nula ou vazia.");
 		validador.validar(campoInterese, "Formato do campo de interesse invalido.");
 		this.pesquisadores = new ArrayList<Pesquisador>();
+		this.objetivos = new ArrayList<Objetivo>();
+		this.problema = null;
 	}
 
 	/**
@@ -163,4 +175,54 @@ public class Pesquisa {
 		pesquisadores.remove(pesquisador);
 	}
 
+	/**
+	 * Associa um Problema a pesquisa.
+	 * @param problema Problema a ser associado.
+	 * @return Retorna sucesso caso tenha sucesso e false caso contrario.
+	 */
+	public String associaProblema(Problema problema) {
+		if(this.problema == null) {
+			this.problema = problema;
+			return "sucesso";
+		}
+		if(this.problema.equals(problema)) {
+			return "false";
+		}
+		throw new IllegalArgumentException("Pesquisa ja associada a um problema.");
+	}
+	/**
+	 * Desassocia um Problema a pesquisa.
+	 * @param problema Problema a ser associado.
+	 * @return Retorna sucesso caso tenha sucesso e false caso contrario.
+	 */
+	public String desassociaProblema(Problema problema) {
+		if(this.problema == null || !this.problema.equals(problema)) {
+			return "false";
+		}
+		this.problema = null;
+		return "sucesso";
+	}
+	
+	/**
+	 * Associa um objetivo a pesquisa adicionando o objetivo ao array de objetivos.
+	 * @param objetivo Objetivo a ser associado.
+	 * @return Retorna sucesso caso seja associado e false caso contrario.
+	 */
+	public String associaObjetivo(Objetivo objetivo) {
+		for(Objetivo objetivoAtual : objetivos) {
+			if (objetivo.equals(objetivoAtual)) {
+				return "false";
+			}
+		}
+		objetivos.add(objetivo);
+		return "sucesso";
+	}
+	
+	/**
+	 * Desassocia um objetivo da pesquisa.
+	 * @param objetivo Objetivo a ser desassiciado.
+	 */
+	public void desassociaObjetivo(Objetivo objetivo) {
+		objetivos.remove(objetivo);
+	}	
 }

@@ -226,10 +226,109 @@ public class PesquisaController {
 	}
 
 	public Pesquisa getPesquisa(String idPesquisa) {
-		if (!pesquisas.containsKey(idPesquisa)) {
+		checaInexistenciaPesquisa(idPesquisa);
+		return pesquisas.get(idPesquisa);
+	}
+
+	/**
+	 * Associa um Problema a uma Pesquisa a partir do id do problema e da pesquisa.
+	 * @param idPesquisa Id da pesquisa.
+	 * @param idProblema Id do problema.
+	 * @return Retorna sucesso caso tenha associado com sucesso e false caso contrario.
+	 */
+	public String associaProblema(String idPesquisa, String idProblema) {
+		validador.validar(idPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
+		validador.validar(idProblema, "Campo idProblema nao pode ser nulo ou vazio.");
+		checaInexistenciaPesquisa(idPesquisa);
+		checaDesativacao(idPesquisa);
+		Pesquisa pesquisa = pesquisas.get(idPesquisa);
+		Problema problema = controllerGeral.getProblema(idProblema);
+		return pesquisa.associaProblema(problema);
+	}
+	
+	/**
+	 * Desassocia um Problema a uma Pesquisa a partir do id do problema e da pesquisa.
+	 * @param idPesquisa Id da pesquisa.
+	 * @param idProblema Id do problema.
+	 * @return Retorna sucesso caso tenha associado com sucesso e false caso contrario.
+	 */
+	public String desassociaProblema(String idPesquisa, String idProblema) {
+		validador.validar(idPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
+		validador.validar(idProblema, "Campo idProblema nao pode ser nulo ou vazio.");
+		checaInexistenciaPesquisa(idPesquisa);
+		checaDesativacao(idPesquisa);
+		Pesquisa pesquisa = pesquisas.get(idPesquisa);
+		Problema problema = controllerGeral.getProblema(idProblema);
+		return pesquisa.desassociaProblema(problema);
+	}	
+	
+	/**
+	 * Associa um objetivo a uma pesquisa, a partir do id da pesquisa e do objetivo.
+	 * @param idPesquisa Id da pesquisa.
+	 * @param idObjetivo Id do objetivo.
+	 * @return Retorna false caso a associacao seja mal sucedida e sucesso caso contrario.
+	 */
+	public String associaObjetivo(String idPesquisa, String idObjetivo) {
+		validador.validar(idPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
+		validador.validar(idObjetivo, "Campo idObjetivo nao pode ser nulo ou vazio.");
+		checaInexistenciaPesquisa(idPesquisa);
+		checaDesativacao(idPesquisa);
+		Pesquisa pesquisa = pesquisas.get(idPesquisa);
+		Objetivo objetivo = controllerGeral.getObjetivo(idObjetivo);
+		
+		String retorno = pesquisa.associaObjetivo(objetivo);
+		
+		if (retorno.equals("false") && controllerGeral.objetivoIsAssociado(idObjetivo)) {
+			System.out.println(idPesquisa);
+			return retorno;
+		} else if(controllerGeral.objetivoIsAssociado(idObjetivo)) {
+			throw new IllegalArgumentException("Objetivo ja associado a uma pesquisa.");
+		}
+		controllerGeral.setObjetivoAssociado(idObjetivo, true);
+		return retorno;
+	}
+	/**
+	 * Dessocia um objetivo a uma pesquisa, a partir do id da pesquisa e do objetivo.
+	 * @param idPesquisa Id da pesquisa.
+	 * @param idObjetivo Id do objetivo.
+	 * @return Retorna false caso a desassociacao seja mal sucedida e sucesso caso contrario.
+	 */
+	public String desassociaObjetivo(String idPesquisa, String idObjetivo) {
+		validador.validar(idPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
+		validador.validar(idObjetivo, "Campo idObjetivo nao pode ser nulo ou vazio.");
+		checaInexistenciaPesquisa(idPesquisa);
+		checaDesativacao(idPesquisa);
+		Pesquisa pesquisa = pesquisas.get(idPesquisa);
+		Objetivo objetivo = controllerGeral.getObjetivo(idObjetivo);
+		
+		
+		if(!controllerGeral.objetivoIsAssociado(idObjetivo)) {
+			return "false";
+		}
+		
+		pesquisa.desassociaObjetivo(objetivo);
+		controllerGeral.setObjetivoAssociado(idObjetivo, false);
+		return "sucesso";
+	}
+
+	/**
+	 * Confere, a partir do id, se uma pesquisa existe ou nao, lancando uma excecao caso nao exista.
+	 * @param idPesquisa Id da pesquisa.
+	 */
+	private void checaInexistenciaPesquisa(String idPesquisa) {
+		if(!pesquisas.containsKey(idPesquisa)) {
 			throw new IllegalArgumentException("Pesquisa nao encontrada.");
 		}
-		return pesquisas.get(idPesquisa);
+	}
+	
+	/**
+	 * Confere, a partir do id, se uma pesquisa esta desativada ou nao, lancando uma excecao caso esteja.
+	 * @param idPesquisa Id da pesquisa.
+	 */
+	private void checaDesativacao(String idPesquisa) {
+		if(!pesquisas.get(idPesquisa).ehAtiva()) {
+			throw new IllegalArgumentException("Pesquisa desativada.");
+		}
 	}
 
 }

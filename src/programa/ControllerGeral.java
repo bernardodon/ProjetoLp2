@@ -10,7 +10,7 @@ public class ControllerGeral {
 	public ControllerGeral() {
 		this.atividadeController = new AtividadeController();
 		this.pesquisaController = new PesquisaController(this);
-		this.problemaObjetivoController = new ProblemaObjetivoController();
+		this.problemaObjetivoController = new ProblemaObjetivoController(this);
 		this.pesquisadorController = new PesquisadorController(this);
 	}
 
@@ -21,6 +21,10 @@ public class ControllerGeral {
 	public PesquisadorController getPesquisadorController() {
 		return this.pesquisadorController;
 	}
+	
+	public ProblemaObjetivoController getProblemaObjetivoController() {
+		return this.problemaObjetivoController;
+	}
 
 	public Pesquisa getPesquisa(String idPesquisa) {
 		return pesquisaController.getPesquisa(idPesquisa);
@@ -29,5 +33,20 @@ public class ControllerGeral {
 	public Pesquisador getPesquisador(String email) {
 		return pesquisadorController.getPesquisador(email);
 	}
-
+	
+	public Problema getProblema(String codigo) {
+		return problemaObjetivoController.getProblema(codigo);
+	}
+	
+	public Objetivo getObjetivo(String codigo){
+		return problemaObjetivoController.getObjetivo(codigo);
+	}
+	
+	public void setObjetivoAssociado(String idObjetivo, boolean associado) {
+		problemaObjetivoController.setObjetivoAssociado(idObjetivo, associado);
+	}
+	
+	public boolean objetivoIsAssociado(String idObjetivo) {
+		return problemaObjetivoController.objetivoIsAssociado(idObjetivo);
+	}
 }

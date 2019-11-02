@@ -6,15 +6,17 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import programa.ControllerGeral;
 import programa.ProblemaObjetivoController;
 
 class ControllerProblemaObjetivoTeste {
 
+	ControllerGeral controllerGeral = new ControllerGeral();
 	ProblemaObjetivoController cpo;
 	
 	@BeforeEach
 	void inicia() {
-		cpo = new ProblemaObjetivoController();
+		cpo = controllerGeral.getProblemaObjetivoController();
 	}
 	
 	@BeforeEach
@@ -76,21 +78,11 @@ class ControllerProblemaObjetivoTeste {
 		assertThrows(IllegalArgumentException.class, () -> cpo.cadastraObjetivo("GERAL", "descricao2", 4, 111));
 	}
 	
-	@Test
-	void testApagarProblema() {
-		cpo.apagarProblema("P3");
-	}
-	
-	@Test
+	@BeforeEach
 	void testApagarProblemaInvalidoVazioOuNulo() {
 		assertThrows(IllegalArgumentException.class, () -> cpo.apagarProblema(""));
 		assertThrows(IllegalArgumentException.class, () -> cpo.apagarProblema("P33"));
 		assertThrows(NullPointerException.class, () -> cpo.apagarProblema(null));
-	}
-	
-	@Test
-	void testApagarObjetivo() {
-		cpo.apagarObjetivo("O3");
 	}
 	
 	@Test
@@ -108,7 +100,8 @@ class ControllerProblemaObjetivoTeste {
 	
 	@Test
 	void testExibirProblemaInvalido() {
-//		assertThrows(IllegalArgumentException.class, () -> cpo.exibeProblema("P3"));
+		cpo.apagarProblema("P3");
+		assertThrows(IllegalArgumentException.class, () -> cpo.exibeProblema("P3"));
 		assertThrows(IllegalArgumentException.class, () -> cpo.exibeProblema("P33"));
 	}
 	
@@ -120,7 +113,8 @@ class ControllerProblemaObjetivoTeste {
 	
 	@Test
 	void testExibirObjetivoInvalido() {
-//		assertThrows(IllegalArgumentException.class, () -> cpo.exibeObjetivo("O3"));
+		cpo.apagarObjetivo("O3");
+		assertThrows(IllegalArgumentException.class, () -> cpo.exibeObjetivo("O3"));
 		assertThrows(IllegalArgumentException.class, () -> cpo.exibeObjetivo("O333"));
 	}
 }
