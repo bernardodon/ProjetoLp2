@@ -25,9 +25,13 @@ public class PesquisadorController {
 	/**
 	 * Constroi um controlador de pesquisador.
 	 */
-	public PesquisadorController() {
+
+	private ControllerGeral controllerGeral;
+
+	public PesquisadorController(ControllerGeral controllerGeral) {
 		pesquisadores = new HashMap<>();
 		validador = new Validador();
+		this.controllerGeral = controllerGeral;
 	}
 
 	/**
@@ -72,8 +76,6 @@ public class PesquisadorController {
 			pesquisadores.get(email).alteraAtributo(atributo, novoValor);
 		}
 	}
-	
-	
 
 	/**
 	 * Ativa um Pesquisador.
@@ -129,7 +131,11 @@ public class PesquisadorController {
 	 * @return Retorna um pesquisador.
 	 */
 	public Pesquisador getPesquisador(String email) {
-		return pesquisadores.get(email);
+		if (pesquisadores.containsKey(email)) {
+			return pesquisadores.get(email);
+		} else {
+			throw new IllegalArgumentException("Pesquisador nao encontrado.");
+		}
 	}
 
 	public void cadastraEspecialidadeAluno(String email, int semestre, double iEA) {
@@ -146,7 +152,7 @@ public class PesquisadorController {
 			pesquisadores.put(email, aluna);
 		}
 	}
-	
+
 	public void cadastratEspecialidadeProfessor(String email, String formacao, String unidade, String data) {
 		validador.validar(email, "Campo email nao pode ser nulo ou vazio.");
 		validador.validar(formacao, "Campo formacao nao pode ser nulo ou vazio.");
@@ -154,7 +160,7 @@ public class PesquisadorController {
 		validador.validar(data, "Campo data nao pode ser nulo ou vazio.");
 		validador.validarDataProfessor(data);
 		checaInexistenciaPesquisador(email);
-		
+
 		if (!pesquisadores.get(email).getFuncao().equals("professor")) {
 			throw new IllegalArgumentException("Pesquisador nao compativel com a especialidade.");
 		} else {
@@ -162,8 +168,22 @@ public class PesquisadorController {
 			pesquisadores.remove(email);
 			pesquisadores.put(email, professor);
 		}
-		
-		
+
+	}
+
+	public String listaPesquisadores(String tipo) {
+		validador.validarTipo(tipo);
+
+		String str = "";
+		for (Pesquisador pesquisador : this.pesquisadores.values()) {
+			if (pesquisador.getFuncao().equals(tipo.toLowerCase())) {
+				str += pesquisador.toString() + " | ";
+			}
+		}
+
+		str = str.substring(0, str.length() - 3);
+		return str;
+
 	}
 
 	/**
@@ -176,11 +196,11 @@ public class PesquisadorController {
 			throw new IllegalArgumentException("Pesquisador nao encontrado");
 		}
 	}
-	
+
 	private void alteraEmail(String email, String novoValor) {
 		validador.validar(novoValor, "Campo email nao pode ser nulo ou vazio.");
 		validador.validarEmailPesquisador(novoValor);
-		
+
 		Pesquisador pesquisadorAntigo = pesquisadores.get(email);
 		Pesquisador novoPesquisador = pesquisadorAntigo.alterarEmail(novoValor);
 		pesquisadores.remove(email);

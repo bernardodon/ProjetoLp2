@@ -9,12 +9,11 @@ public class Facade {
 	private ControllerGeral controllerGeral;
 
 	public Facade() {
-		this.pesquisaController = new PesquisaController();
+		this.controllerGeral = new ControllerGeral();
+		this.pesquisaController = controllerGeral.getPesquisaController();
 		this.problemaObjetivoController = new ProblemaObjetivoController();
 		this.atividadeController = new AtividadeController();
-		this.pesquisadorController = new PesquisadorController();
-		this.controllerGeral = new ControllerGeral(atividadeController, pesquisaController, problemaObjetivoController,
-				pesquisadorController);
+		this.pesquisadorController = controllerGeral.getPesquisadorController();
 	}
 
 	public String cadastraPesquisa(String descricao, String campoDeInteresse) {
@@ -102,7 +101,6 @@ public class Facade {
 		pesquisadorController.alteraPesquisador(email, atributo, novoValor);
 	}
 
-
 	public String exibePesquisador(String email) {
 		return pesquisadorController.exibePesquisador(email);
 	}
@@ -118,15 +116,25 @@ public class Facade {
 	public boolean pesquisadorEhAtivo(String email) {
 		return pesquisadorController.pesquisadorEhAtivo(email);
 	}
-	
+
 	public void cadastraEspecialidadeAluno(String email, int semestre, double IEA) {
 		pesquisadorController.cadastraEspecialidadeAluno(email, semestre, IEA);
 	}
-	
+
 	public void cadastraEspecialidadeProfessor(String email, String formacao, String unidade, String data) {
 		pesquisadorController.cadastratEspecialidadeProfessor(email, formacao, unidade, data);
 	}
-	
 
+	public void associaPesquisador(String idPesquisa, String emailPesquisador) {
+		pesquisaController.associaPesquisador(idPesquisa, emailPesquisador);
+	}
+
+	public void desassociaPesquisador(String idPesquisa, String emailPesquisador) {
+		pesquisaController.desassociaPesquisador(idPesquisa, emailPesquisador);
+	}
+
+	public String listaPesquisadores(String tipo) {
+		return pesquisadorController.listaPesquisadores(tipo);
+	}
 
 }

@@ -13,6 +13,7 @@ import utils.Validador;
  */
 public class PesquisaController {
 
+	private ControllerGeral controllerGeral;
 	/**
 	 * Um mapa com todas as pesquisas cadastradas no sistema
 	 */
@@ -26,9 +27,10 @@ public class PesquisaController {
 	/**
 	 * Constroi um Controlador dde Pesquisa
 	 */
-	public PesquisaController() {
+	public PesquisaController(ControllerGeral controller) {
 		this.pesquisas = new HashMap<String, Pesquisa>();
 		this.validador = new Validador();
+		this.controllerGeral = controller;
 	}
 
 	/**
@@ -180,6 +182,54 @@ public class PesquisaController {
 			}
 
 		}
+	}
+
+	public void associaPesquisador(String idPesquisa, String emailPesquisador) {
+		validador.validar(idPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
+		validador.validar(emailPesquisador, "Campo emailPesquisador nao pode ser nulo ou vazio.");
+		
+		if (pesquisas.containsKey(idPesquisa)) {
+
+			Pesquisador pesquisador = controllerGeral.getPesquisador(emailPesquisador);
+			Pesquisa pesquisa = pesquisas.get(idPesquisa);
+
+			if (pesquisa.ehAtiva()) {
+				pesquisa.adicionarPesquisador(pesquisador);
+			} else {
+				throw new IllegalArgumentException("Pesquisa desativada.");
+			}
+
+		} else {
+			throw new IllegalArgumentException("Pesquisa nao encontrada.");
+		}
+	}
+	
+	public void desassociaPesquisador(String idPesquisa, String emailPesquisador) {
+		validador.validar(idPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
+		validador.validar(emailPesquisador, "Campo emailPesquisador nao pode ser nulo ou vazio.");
+		
+		if (pesquisas.containsKey(idPesquisa)) {
+
+			Pesquisador pesquisador = controllerGeral.getPesquisador(emailPesquisador);
+			Pesquisa pesquisa = pesquisas.get(idPesquisa);
+
+			if (pesquisa.ehAtiva()) {
+				pesquisa.removerPesquisador(pesquisador);
+			} else {
+				throw new IllegalArgumentException("Pesquisa desativada.");
+			}
+
+		} else {
+			throw new IllegalArgumentException("Pesquisa nao encontrada.");
+		}
+		
+	}
+
+	public Pesquisa getPesquisa(String idPesquisa) {
+		if (!pesquisas.containsKey(idPesquisa)) {
+			throw new IllegalArgumentException("Pesquisa nao encontrada.");
+		}
+		return pesquisas.get(idPesquisa);
 	}
 
 }

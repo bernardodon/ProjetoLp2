@@ -6,15 +6,17 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import programa.ControllerGeral;
 import programa.PesquisadorController;
 
 class PesquisadorControllerTeste {
 
+	ControllerGeral controllerGeral = new ControllerGeral();
 	PesquisadorController controller;
 
 	@BeforeEach
 	void testPesquisadorController() {
-		controller = new PesquisadorController();
+		controller = controllerGeral.getPesquisadorController();
 	}
 
 	@Test

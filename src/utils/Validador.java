@@ -80,7 +80,7 @@ public class Validador {
 	}
 
 	public void validaSemestreAluno(Integer semestre) {
-		if (semestre == null) {
+		if (semestre == null || semestre == 0) {
 			throw new IllegalArgumentException("Campo semestre nao pode ser nulo ou vazio.");
 		}
 		
@@ -90,12 +90,20 @@ public class Validador {
 	}
 
 	public void validaIeaAluno(Double IEA) {
-		if (IEA == null) {
-			throw new IllegalArgumentException("");
+		if (IEA == null || IEA == 0) {
+			throw new IllegalArgumentException("Campo IEA nao pode ser nulo ou vazio.");
 		}
 		
 		if (IEA < 0.0 || IEA > 10.0) {
 			throw new IllegalArgumentException("Atributo IEA com formato invalido.");
+		}
+	}
+
+	public void validarTipo(String tipo) {
+		validar(tipo, "Campo tipo nao pode ser nulo ou vazio.");
+		
+		if (!tipo.equals("EXTERNO") && !tipo.equals("PROFESSOR") && !tipo.equals("ESTUDANTE")) {
+			throw new IllegalArgumentException("Tipo " + tipo + " inexistente.");
 		}
 	}
 

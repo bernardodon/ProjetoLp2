@@ -1,5 +1,7 @@
 package programa;
 
+import java.util.ArrayList;
+
 import utils.Validador;
 
 /**
@@ -36,6 +38,8 @@ public class Pesquisador {
 	 */
 	protected boolean ativado;
 
+	
+	private ArrayList<Pesquisa> pesquisas;
 	/**
 	 * Constroi um Pesquisador a partir do nome, biografia, email, fotoURL e funcao.
 	 *
@@ -53,6 +57,7 @@ public class Pesquisador {
 		this.fotoURL = fotoURL;
 		this.funcao = funcao;
 		this.ativado = true;
+		this.pesquisas = new ArrayList<Pesquisa>();
 	}
 
 	/**
@@ -147,6 +152,10 @@ public class Pesquisador {
 					formacao, unidade, data);
 			return professor;
 		}
+	}
+	
+	public void addPesquisa(Pesquisa pesquisa) {
+		pesquisas.add(pesquisa);
 	}
 
 	public void alteraAtributo(String atributo, String novoValor) {

@@ -1,5 +1,7 @@
 package programa;
 
+import java.util.ArrayList;
+
 import utils.Validador;
 
 /**
@@ -10,6 +12,7 @@ import utils.Validador;
  */
 public class Pesquisa {
 
+	private ArrayList<Pesquisador> pesquisadores;
 	/**
 	 * Uma classe validador, serve para validar as entradas nos metodos
 	 */
@@ -23,7 +26,7 @@ public class Pesquisa {
 	 * por vírgula e ter ate 255 caracteres.
 	 */
 	private String campoInterese;
-	
+
 	/**
 	 * O codgio de indentificaçao da pesquisa
 	 */
@@ -34,12 +37,15 @@ public class Pesquisa {
 	private boolean ativa;
 
 	/**
-	 * Constroi uma pesquisa a partir da descricao, 
-	 * do campo de interesse e do codigo de identificaçao da pesquisa
-	 * @param descricao Um texto livre com um resumo da pesquisa a ser realizada.
-	 * @param campoInterese Um marcador da area ou tema a ser colocado. Pode ter ate 4 topicos, separados
-	 * por vírgula e ter ate 255 caracteres.
-	 * @param codigo O codigo de idetificaçao da pesquisa
+	 * Constroi uma pesquisa a partir da descricao, do campo de interesse e do
+	 * codigo de identificaçao da pesquisa
+	 * 
+	 * @param descricao     Um texto livre com um resumo da pesquisa a ser
+	 *                      realizada.
+	 * @param campoInterese Um marcador da area ou tema a ser colocado. Pode ter ate
+	 *                      4 topicos, separados por vírgula e ter ate 255
+	 *                      caracteres.
+	 * @param codigo        O codigo de idetificaçao da pesquisa
 	 */
 	public Pesquisa(String descricao, String campoInterese, String codigo) {
 		this.validador = new Validador();
@@ -49,6 +55,7 @@ public class Pesquisa {
 		this.ativa = true;
 		validador.validar(descricao, "Descricao nao pode ser nula ou vazia.");
 		validador.validar(campoInterese, "Formato do campo de interesse invalido.");
+		this.pesquisadores = new ArrayList<Pesquisador>();
 	}
 
 	/**
@@ -108,12 +115,13 @@ public class Pesquisa {
 		if (ativa == true) {
 			throw new IllegalArgumentException("Pesquisa ja ativada.");
 		} else {
-			ativa = false;
+			ativa = true;
 		}
 	}
 
 	/**
 	 * Verifica se a pesquisa esta ativada
+	 * 
 	 * @return o boolean se uma conta é ativa ou não.
 	 */
 	public boolean ehAtiva() {
@@ -122,8 +130,9 @@ public class Pesquisa {
 
 	/**
 	 * Altera uma pesquisa
-	 * @param campo O campo da pesquisa a ser alterado, 
-	 * descricao ou campo de interesse
+	 * 
+	 * @param campo     O campo da pesquisa a ser alterado, descricao ou campo de
+	 *                  interesse
 	 * @param novoValor O novo valor do campo selecionado
 	 */
 	public void alteraPesquisa(String campo, String novoValor) {
@@ -144,6 +153,14 @@ public class Pesquisa {
 		} else {
 			throw new IllegalArgumentException("Nao e possivel alterar esse valor de pesquisa.");
 		}
+	}
+
+	public void adicionarPesquisador(Pesquisador pesquisador) {
+		pesquisadores.add(pesquisador);
+	}
+
+	public void removerPesquisador(Pesquisador pesquisador) {
+		pesquisadores.remove(pesquisador);
 	}
 
 }
