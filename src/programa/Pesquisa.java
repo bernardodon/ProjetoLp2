@@ -11,17 +11,19 @@ import utils.Validador;
  * @author Hiarly Fernandes de Souto
  *
  */
-public class Pesquisa {
+public class Pesquisa implements Comparable<Pesquisa>{
 	
 	/**
 	 * Problema associado a uma pesquisa.
 	 */
 	private Problema problema;
 	/**
-	 * Lista respoavel por armazenas os objetivos de uma pesquisa.
+	 * Lista responsavel por armazenar os objetivos de uma pesquisa.
 	 */
 	private List<Objetivo> objetivos;
-	
+	/**
+	 * Lista responsavel por armazenar os pesquisadores que fazem parte de uma pesquisa.
+	 */
 	private ArrayList<Pesquisador> pesquisadores;
 	/**
 	 * Uma classe validador, serve para validar as entradas nos metodos
@@ -76,6 +78,10 @@ public class Pesquisa {
 	@Override
 	public String toString() {
 		return codigo + " - " + this.descricao + " - " + campoInterese;
+	}
+
+	public Problema getProblema() {
+		return problema;
 	}
 
 	/**
@@ -166,11 +172,17 @@ public class Pesquisa {
 			throw new IllegalArgumentException("Nao e possivel alterar esse valor de pesquisa.");
 		}
 	}
-
+	/**
+	 * Adiciona um pesquisador a lista de pesquisadores dessa pesquisa.
+	 * @param pesquisador Pesquisador a ser adicionado.
+	 */
 	public void adicionarPesquisador(Pesquisador pesquisador) {
 		pesquisadores.add(pesquisador);
 	}
-
+	/**
+	 * Remove um pesquisador da lista de pesquisadores dessa pesquisa.
+	 * @param pesquisador Pesquisador a ser removido.
+	 */
 	public void removerPesquisador(Pesquisador pesquisador) {
 		pesquisadores.remove(pesquisador);
 	}
@@ -180,13 +192,13 @@ public class Pesquisa {
 	 * @param problema Problema a ser associado.
 	 * @return Retorna sucesso caso tenha sucesso e false caso contrario.
 	 */
-	public String associaProblema(Problema problema) {
+	public boolean associaProblema(Problema problema) {
 		if(this.problema == null) {
 			this.problema = problema;
-			return "sucesso";
+			return true;
 		}
 		if(this.problema.equals(problema)) {
-			return "false";
+			return false;
 		}
 		throw new IllegalArgumentException("Pesquisa ja associada a um problema.");
 	}
@@ -195,12 +207,12 @@ public class Pesquisa {
 	 * @param problema Problema a ser associado.
 	 * @return Retorna sucesso caso tenha sucesso e false caso contrario.
 	 */
-	public String desassociaProblema(Problema problema) {
+	public boolean desassociaProblema(Problema problema) {
 		if(this.problema == null || !this.problema.equals(problema)) {
-			return "false";
+			return false;
 		}
 		this.problema = null;
-		return "sucesso";
+		return true;
 	}
 	
 	/**
@@ -208,14 +220,14 @@ public class Pesquisa {
 	 * @param objetivo Objetivo a ser associado.
 	 * @return Retorna sucesso caso seja associado e false caso contrario.
 	 */
-	public String associaObjetivo(Objetivo objetivo) {
+	public boolean associaObjetivo(Objetivo objetivo) {
 		for(Objetivo objetivoAtual : objetivos) {
 			if (objetivo.equals(objetivoAtual)) {
-				return "false";
+				return false;
 			}
 		}
 		objetivos.add(objetivo);
-		return "sucesso";
+		return true;
 	}
 	
 	/**
@@ -224,5 +236,19 @@ public class Pesquisa {
 	 */
 	public void desassociaObjetivo(Objetivo objetivo) {
 		objetivos.remove(objetivo);
+	}
+
+	@Override
+	public int compareTo(Pesquisa o) {
+		return o.getCodigo().compareTo(this.codigo);
+	}
+
+	public String getCodigo() {
+		return codigo;
+	}
+
+	public List<Objetivo> getObjetivos() {
+		return objetivos;
 	}	
+	
 }

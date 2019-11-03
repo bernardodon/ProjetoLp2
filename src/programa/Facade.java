@@ -137,20 +137,23 @@ public class Facade {
 		return pesquisadorController.listaPesquisadores(tipo);
 	}
 	
-	public String associaProblema(String idPesquisa, String idProblema) {
+	public boolean associaProblema(String idPesquisa, String idProblema) {
 		return pesquisaController.associaProblema(idPesquisa, idProblema);
 	}
 	
-	public String desassociaProblema(String idPesquisa, String idProblema) {
+	public boolean desassociaProblema(String idPesquisa, String idProblema) {
 		return pesquisaController.desassociaProblema(idPesquisa, idProblema);
 	}
 	
-	public String associaObjetivo(String idPesquisa, String idObjetivo) {
+	public boolean associaObjetivo(String idPesquisa, String idObjetivo) {
 		return pesquisaController.associaObjetivo(idPesquisa, idObjetivo);
 	}
 
-	public String desassociaObjetivo(String idPesquisa, String idObjetivo) {
+	public boolean desassociaObjetivo(String idPesquisa, String idObjetivo) {
 		return pesquisaController.desassociaObjetivo(idPesquisa, idObjetivo);
 	}
 	
+	public String listaPesquisas(String ordem) {
+		return pesquisaController.listaPesquisas(ordem);
+	}
 }
