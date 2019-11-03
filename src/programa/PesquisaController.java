@@ -278,13 +278,13 @@ public class PesquisaController {
 		
 		String retorno = pesquisa.associaObjetivo(objetivo);
 		
-		if (retorno.equals("false") && controllerGeral.objetivoIsAssociado(idObjetivo)) {
+		if (retorno.equals("false") && objetivo.isAssociado()) {
 			System.out.println(idPesquisa);
 			return retorno;
-		} else if(controllerGeral.objetivoIsAssociado(idObjetivo)) {
+		} else if(objetivo.isAssociado()) {
 			throw new IllegalArgumentException("Objetivo ja associado a uma pesquisa.");
 		}
-		controllerGeral.setObjetivoAssociado(idObjetivo, true);
+		objetivo.setAssociado(true);
 		return retorno;
 	}
 	/**
@@ -302,12 +302,12 @@ public class PesquisaController {
 		Objetivo objetivo = controllerGeral.getObjetivo(idObjetivo);
 		
 		
-		if(!controllerGeral.objetivoIsAssociado(idObjetivo)) {
+		if(!objetivo.isAssociado()) {
 			return "false";
 		}
 		
 		pesquisa.desassociaObjetivo(objetivo);
-		controllerGeral.setObjetivoAssociado(idObjetivo, false);
+		objetivo.setAssociado(false);
 		return "sucesso";
 	}
 

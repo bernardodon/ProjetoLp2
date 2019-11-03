@@ -11,15 +11,13 @@ public class ProblemaObjetivoController {
 	private int contadorProblemas;
 	private int contadorObjetivos;
 	private Validador validador;
-	private ControllerGeral controllerGeral;
 
-	public ProblemaObjetivoController(ControllerGeral controller) {
+	public ProblemaObjetivoController() {
 		this.problemas = new HashMap<String, Problema>();
 		this.objetivos = new HashMap<String, Objetivo>();
 		this.contadorProblemas = 1;
 		this.contadorObjetivos = 1;
 		this.validador = new Validador();
-		this.controllerGeral = controller;
 	}
 
 	public String cadastraProblema(String descricao, int viabilidade) {
@@ -98,13 +96,5 @@ public class ProblemaObjetivoController {
 	
 	public Objetivo getObjetivo(String codigo) {
 		return objetivos.get(codigo);
-	}
-	
-	public void setObjetivoAssociado(String idObjetivo, boolean associado) {
-		getObjetivo(idObjetivo).setAssociado(associado);
-	}
-
-	public boolean objetivoIsAssociado(String idObjetivo) {
-		return getObjetivo(idObjetivo).isAssociado();
 	}
 }
