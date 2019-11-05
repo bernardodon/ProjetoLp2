@@ -26,12 +26,9 @@ public class PesquisadorController {
 	 * Constroi um controlador de pesquisador.
 	 */
 
-	private ControllerGeral controllerGeral;
-
-	public PesquisadorController(ControllerGeral controllerGeral) {
+	public PesquisadorController() {
 		pesquisadores = new HashMap<>();
 		validador = new Validador();
-		this.controllerGeral = controllerGeral;
 	}
 
 	/**
