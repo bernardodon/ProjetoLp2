@@ -70,11 +70,15 @@ public class AtividadeController {
 	public void apagaAtividade(String codigo) {
 		validador.validar(codigo, "Campo codigo nao pode ser nulo ou vazio.");
 
-		if (atividades.containsKey(codigo)) {
+		if (existeAtividade(codigo)) {
 			atividades.remove(codigo);
 		} else {
 			throw new IllegalArgumentException("Atividade nao encontrada");
 		}
+	}
+
+	public boolean existeAtividade(String codigo) {
+		return atividades.containsKey(codigo);
 	}
 
 	/**
@@ -86,7 +90,7 @@ public class AtividadeController {
 	public void cadastraItem(String codigo, String item) {
 		validador.validar(codigo, "Campo codigo nao pode ser nulo ou vazio.");
 		validador.validar(item, "Item nao pode ser nulo ou vazio.");
-		if (atividades.containsKey(codigo)) {
+		if (existeAtividade(codigo)) {
 			Atividade atvd = atividades.get(codigo);
 			Item i = new Item(item);
 			atvd.adicionaItem(i);
@@ -102,7 +106,7 @@ public class AtividadeController {
 	 * @return a representação em String de uma atividade.Caso não retorne a String, um erro será lançado explicando o que ocorreu.
 	 */
 	public String exibeAtividade(String codigo) {
-		if (atividades.containsKey(codigo)) {
+		if (existeAtividade(codigo)) {
 			Atividade atvd = atividades.get(codigo);
 			return atvd.toString() + atvd.exibeItens();
 		} else {
@@ -118,7 +122,7 @@ public class AtividadeController {
 	 */
 	public int contaItensPendentes(String codigo) {
 		validador.validar(codigo, "Campo codigo nao pode ser nulo ou vazio.");
-		if (atividades.containsKey(codigo)) {
+		if (existeAtividade(codigo)) {
 			Atividade atvd = atividades.get(codigo);
 			return atvd.quantPendentes();
 		} else {
@@ -134,7 +138,7 @@ public class AtividadeController {
 	 */
 	public int contaItensRealizados(String codigo) {
 		validador.validar(codigo, "Campo codigo nao pode ser nulo ou vazio.");
-		if (atividades.containsKey(codigo)) {
+		if (existeAtividade(codigo)) {
 			Atividade atvd = atividades.get(codigo);
 			return atvd.quantRealizados();
 		} else {
