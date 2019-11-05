@@ -5,7 +5,7 @@ public class Facade {
 	private PesquisaController pesquisaController;
 	private ProblemaObjetivoController problemaObjetivoController;
 	private AtividadeController atividadeController;
-	private PesquisadorController pesquisadorController;
+	private PesquisaPesquisadorController pesquisaPesquisadorController;
 	private ControllerGeral controllerGeral;
 
 	public Facade() {
@@ -13,7 +13,7 @@ public class Facade {
 		this.pesquisaController = controllerGeral.getPesquisaController();
 		this.problemaObjetivoController = controllerGeral.getProblemaObjetivoController();
 		this.atividadeController = new AtividadeController();
-		this.pesquisadorController = controllerGeral.getPesquisadorController();
+		this.pesquisaPesquisadorController = new PesquisaPesquisadorController(pesquisaController);
 	}
 
 	public String cadastraPesquisa(String descricao, String campoDeInteresse) {
@@ -94,43 +94,43 @@ public class Facade {
 	}
 
 	public void cadastraPesquisador(String nome, String funcao, String biografia, String email, String fotoURL) {
-		pesquisadorController.cadastraPesquisador(nome, funcao, biografia, email, fotoURL);
+		pesquisaPesquisadorController.cadastraPesquisador(nome, funcao, biografia, email, fotoURL);
 	}
 
 	public void alteraPesquisador(String email, String atributo, String novoValor) {
-		pesquisadorController.alteraPesquisador(email, atributo, novoValor);
+		pesquisaPesquisadorController.alteraPesquisador(email, atributo, novoValor);
 	}
 
 	public String exibePesquisador(String email) {
-		return pesquisadorController.exibePesquisador(email);
+		return pesquisaPesquisadorController.exibePesquisador(email);
 	}
 
 	public void ativaPesquisador(String email) {
-		pesquisadorController.ativaPesquisador(email);
+		pesquisaPesquisadorController.ativaPesquisador(email);
 	}
 
 	public void desativaPesquisador(String email) {
-		pesquisadorController.desativaPesquisador(email);
+		pesquisaPesquisadorController.desativaPesquisador(email);
 	}
 
 	public boolean pesquisadorEhAtivo(String email) {
-		return pesquisadorController.pesquisadorEhAtivo(email);
+		return pesquisaPesquisadorController.pesquisadorEhAtivo(email);
 	}
 
 	public void cadastraEspecialidadeAluno(String email, int semestre, double IEA) {
-		pesquisadorController.cadastraEspecialidadeAluno(email, semestre, IEA);
+		pesquisaPesquisadorController.cadastraEspecialidadeAluno(email, semestre, IEA);
 	}
 
 	public void cadastraEspecialidadeProfessor(String email, String formacao, String unidade, String data) {
-		pesquisadorController.cadastratEspecialidadeProfessor(email, formacao, unidade, data);
+		pesquisaPesquisadorController.cadastratEspecialidadeProfessor(email, formacao, unidade, data);
 	}
 
 	public void associaPesquisador(String idPesquisa, String emailPesquisador) {
-		pesquisaController.associaPesquisador(idPesquisa, emailPesquisador);
+		pesquisaPesquisadorController.associaPesquisador(idPesquisa, emailPesquisador);
 	}
 
 	public void desassociaPesquisador(String idPesquisa, String emailPesquisador) {
-		pesquisaController.desassociaPesquisador(idPesquisa, emailPesquisador);
+		pesquisaPesquisadorController.desassociaPesquisador(idPesquisa, emailPesquisador);
 	}
 
 	public String listaPesquisadores(String tipo) {

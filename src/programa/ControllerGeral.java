@@ -9,9 +9,9 @@ public class ControllerGeral {
 
 	public ControllerGeral() {
 		this.atividadeController = new AtividadeController();
-		this.pesquisaController = new PesquisaController(this);
+		this.pesquisaController = new PesquisaController();
 		this.problemaObjetivoController = new ProblemaObjetivoController();
-		this.pesquisadorController = new PesquisadorController(this);
+		this.pesquisadorController = new PesquisadorController();
 	}
 
 	public PesquisaController getPesquisaController() {
