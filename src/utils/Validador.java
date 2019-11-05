@@ -80,11 +80,11 @@ public class Validador {
 	}
 
 	public void validaSemestreAluno(Integer semestre) {
-		if (semestre == null || semestre == 0) {
+		if (semestre == null) {
 			throw new IllegalArgumentException("Campo semestre nao pode ser nulo ou vazio.");
 		}
 		
-		if (semestre < 1) {
+		if (semestre < 1 | semestre == 0) {
 			throw new IllegalArgumentException("Atributo semestre com formato invalido.");
 		}
 	}

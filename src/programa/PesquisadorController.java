@@ -144,9 +144,7 @@ public class PesquisadorController {
 		if (!pesquisadores.get(email).getFuncao().equals("estudante")) {
 			throw new IllegalArgumentException("Pesquisador nao compativel com a especialidade.");
 		} else {
-			Aluna aluna = pesquisadores.get(email).especializarAluna(semestre, iEA);
-			pesquisadores.remove(email);
-			pesquisadores.put(email, aluna);
+			pesquisadores.get(email).adicionarEspecialidadeAluno(semestre, iEA);
 		}
 	}
 
@@ -161,9 +159,7 @@ public class PesquisadorController {
 		if (!pesquisadores.get(email).getFuncao().equals("professor")) {
 			throw new IllegalArgumentException("Pesquisador nao compativel com a especialidade.");
 		} else {
-			Professor professor = pesquisadores.get(email).especializarProfessor(formacao, unidade, data);
-			pesquisadores.remove(email);
-			pesquisadores.put(email, professor);
+			pesquisadores.get(email).adicionaEspecialidadeProfessor(formacao, unidade, data);
 		}
 
 	}

@@ -176,15 +176,23 @@ public class Pesquisa implements Comparable<Pesquisa>{
 	 * Adiciona um pesquisador a lista de pesquisadores dessa pesquisa.
 	 * @param pesquisador Pesquisador a ser adicionado.
 	 */
-	public void adicionarPesquisador(Pesquisador pesquisador) {
+	public boolean adicionarPesquisador(Pesquisador pesquisador) {
+		if (pesquisadores.contains(pesquisador)) {
+			return false;
+		}
 		pesquisadores.add(pesquisador);
+		return true;
 	}
 	/**
 	 * Remove um pesquisador da lista de pesquisadores dessa pesquisa.
 	 * @param pesquisador Pesquisador a ser removido.
 	 */
-	public void removerPesquisador(Pesquisador pesquisador) {
+	public boolean removerPesquisador(Pesquisador pesquisador) {
+		if (!pesquisadores.contains(pesquisador)) {
+			return false;
+		}
 		pesquisadores.remove(pesquisador);
+		return true;
 	}
 
 	/**

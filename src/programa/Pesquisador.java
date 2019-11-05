@@ -16,28 +16,29 @@ public class Pesquisador {
 	/**
 	 * Nome do pesquisador.
 	 */
-	protected String nome;
+	private String nome;
 	/**
 	 * Biografia do pesquisador.
 	 */
-	protected String biografia;
+	private String biografia;
 	/**
 	 * Email do pesquisador.
 	 */
-	protected String email;
+	private String email;
 	/**
 	 * URL da foto do pesquisador.
 	 */
-	protected String fotoURL;
+	private String fotoURL;
 	/**
 	 * Funcao exercida pelo pesquisador.
 	 */
-	protected String funcao;
+	private String funcao;
 	/**
 	 * Status da ativacao do pesquisador.
 	 */
-	protected boolean ativado;
+	private boolean ativado;
 
+	private Especializacao especializacao;
 	
 	private ArrayList<Pesquisa> pesquisas;
 	/**
@@ -58,6 +59,7 @@ public class Pesquisador {
 		this.funcao = funcao;
 		this.ativado = true;
 		this.pesquisas = new ArrayList<Pesquisa>();
+		this.especializacao = null;
 	}
 
 	/**
@@ -88,12 +90,18 @@ public class Pesquisador {
 	 */
 	@Override
 	public String toString() {
-		return nome + " (" + funcao + ") - " + biografia + " - " + email + " - " + fotoURL;
+		String str = nome + " (" + funcao + ") - " + biografia + " - " + email + " - " + fotoURL;
+		if (especializacao != null) {
+			str += especializacao.toString();
+		}
+		
+		return str;
 	}
 
 	public boolean getAtivado() {
 		return this.ativado;
 	}
+	
 
 	/**
 	 * Retorna a representacao em inteiro da classe.
@@ -135,50 +143,64 @@ public class Pesquisador {
 		return this.funcao;
 	}
 
-	public Aluna especializarAluna(int semestre, double iea) {
-		if (!this.funcao.equals("estudante")) {
-			throw new IllegalArgumentException("Pesquisador nao compativel com a especialidade.");
-		}
-
-		Aluna aluna = new Aluna(this.nome, this.biografia, this.email, this.fotoURL, this.funcao, semestre, iea);
-		return aluna;
-	}
-
-	public Professor especializarProfessor(String formacao, String unidade, String data) {
-		if (!this.funcao.equals("professor")) {
-			throw new IllegalArgumentException("Pesquisador nao compativel com a especialidade.");
-		} else {
-			Professor professor = new Professor(this.nome, this.biografia, this.email, this.fotoURL, this.funcao,
-					formacao, unidade, data);
-			return professor;
-		}
-	}
 	
 	public void addPesquisa(Pesquisa pesquisa) {
 		pesquisas.add(pesquisa);
 	}
 
+	public void adicionaEspecialidadeProfessor(String formacao, String unidade, String data) {
+		validador.validar(formacao, "Campo formacao nao pode ser nulo ou vazio.");
+		validador.validar(unidade, "Campo unidade nao pode ser nulo ou vazio.");
+		validador.validarDataProfessor(data);
+		this.especializacao = new Professor(formacao, unidade, data);
+	}
+	
+	public void adicionarEspecialidadeAluno(int semestre, double IEA) {
+		validador.validaIeaAluno(IEA);
+		validador.validaSemestreAluno(semestre);
+		this.especializacao = new Aluna(semestre, IEA);
+	}
+	
+	public void removerEspecialidadeProfessor() {
+		this.especializacao = null;
+	}
+	
+	public void removerEspecializacaoAluno() {
+		this.especializacao = null;
+	}
+	
 	public void alteraAtributo(String atributo, String novoValor) {
 		validador.validar(atributo, "Atributo nao pode ser vazio ou nulo.");
 		switch (atributo) {
 		case "NOME":
 			alteraNome(novoValor);
 			break;
-
 		case "FUNCAO":
 			alteraFuncao(novoValor);
 			break;
-
 		case "BIOGRAFIA":
 			alteraBiografia(novoValor);
 			break;
-
 		case "EMAIL":
 			alteraEmail(novoValor);
 			break;
-
 		case "FOTO":
 			alteraFotoURL(novoValor);
+			break;
+		case "FORMACAO":
+			especializacao.alteraAtributo(atributo, novoValor);
+			break;
+		case "UNIDADE":
+			especializacao.alteraAtributo(atributo, novoValor);
+			break;
+		case "DATA":
+			especializacao.alteraAtributo(atributo, novoValor);
+			break;
+		case "SEMESTRE":
+			especializacao.alteraAtributo(atributo, novoValor);
+			break;
+		case "IEA":
+			especializacao.alteraAtributo(atributo, novoValor);
 			break;
 		default:
 			throw new IllegalArgumentException("Atributo invalido.");

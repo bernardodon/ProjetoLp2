@@ -9,6 +9,7 @@ public class PesquisaPesquisadorController {
 	private Validador validador;
 
 	public PesquisaPesquisadorController(PesquisaController pesquisaController) {
+		this.pesquisadorController = new PesquisadorController();
 		this.pesquisaController = pesquisaController;
 		this.validador = new Validador();
 	}
@@ -44,8 +45,12 @@ public class PesquisaPesquisadorController {
 	public void cadastraEspecialidadeProfessor(String email, String formacao, String unidade, String data) {
 		pesquisadorController.cadastratEspecialidadeProfessor(email, formacao, unidade, data);
 	}
+	
+	public String listaPesquisadores(String tipo) {
+		return pesquisadorController.listaPesquisadores(tipo);
+	}
 
-	public void associaPesquisador(String idPesquisa, String emailPesquisador) {
+	public boolean associaPesquisador(String idPesquisa, String emailPesquisador) {
 		validador.validar(idPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
 		validador.validar(emailPesquisador, "Campo emailPesquisador nao pode ser nulo ou vazio.");
 
@@ -54,11 +59,11 @@ public class PesquisaPesquisadorController {
 
 		Pesquisador pesquisador = pesquisadorController.getPesquisador(emailPesquisador);
 		Pesquisa pesquisa = pesquisaController.getPesquisa(idPesquisa);
-		pesquisa.adicionarPesquisador(pesquisador);
+		return pesquisa.adicionarPesquisador(pesquisador);
 
 	}
 
-	public void desassociaPesquisador(String idPesquisa, String emailPesquisador) {
+	public boolean desassociaPesquisador(String idPesquisa, String emailPesquisador) {
 		validador.validar(idPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
 		validador.validar(emailPesquisador, "Campo emailPesquisador nao pode ser nulo ou vazio.");
 
@@ -67,7 +72,7 @@ public class PesquisaPesquisadorController {
 		Pesquisador pesquisador = pesquisadorController.getPesquisador(emailPesquisador);
 		Pesquisa pesquisa = pesquisaController.getPesquisa(idPesquisa);
 
-		pesquisa.removerPesquisador(pesquisador);
+		return pesquisa.removerPesquisador(pesquisador);
 
 	}
 
@@ -78,7 +83,7 @@ public class PesquisaPesquisadorController {
 	}
 
 	private void checaAtivacaoPesquisa(String idPesquisa) {
-		if (pesquisaController.getPesquisa(idPesquisa).ehAtiva()) {
+		if (!pesquisaController.getPesquisa(idPesquisa).ehAtiva()) {
 			throw new IllegalArgumentException("Pesquisa desativada.");
 		}
 	}

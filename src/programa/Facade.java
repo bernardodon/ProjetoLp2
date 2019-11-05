@@ -122,19 +122,19 @@ public class Facade {
 	}
 
 	public void cadastraEspecialidadeProfessor(String email, String formacao, String unidade, String data) {
-		pesquisaPesquisadorController.cadastratEspecialidadeProfessor(email, formacao, unidade, data);
+		pesquisaPesquisadorController.cadastraEspecialidadeProfessor(email, formacao, unidade, data);
 	}
 
-	public void associaPesquisador(String idPesquisa, String emailPesquisador) {
-		pesquisaPesquisadorController.associaPesquisador(idPesquisa, emailPesquisador);
+	public boolean associaPesquisador(String idPesquisa, String emailPesquisador) {
+		return pesquisaPesquisadorController.associaPesquisador(idPesquisa, emailPesquisador);
 	}
 
-	public void desassociaPesquisador(String idPesquisa, String emailPesquisador) {
-		pesquisaPesquisadorController.desassociaPesquisador(idPesquisa, emailPesquisador);
+	public boolean desassociaPesquisador(String idPesquisa, String emailPesquisador) {
+		return pesquisaPesquisadorController.desassociaPesquisador(idPesquisa, emailPesquisador);
 	}
 
 	public String listaPesquisadores(String tipo) {
-		return pesquisadorController.listaPesquisadores(tipo);
+		return pesquisaPesquisadorController.listaPesquisadores(tipo);
 	}
 	
 	public boolean associaProblema(String idPesquisa, String idProblema) {

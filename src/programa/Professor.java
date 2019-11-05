@@ -2,16 +2,14 @@ package programa;
 
 import utils.Validador;
 
-public class Professor extends Pesquisador {
+public class Professor implements Especializacao {
 
 	private String formacao;
 	private String unidade;
 	private String data;
 	private Validador validador;
 
-	public Professor(String nome, String biografia, String email, String fotoURL, String funcao, String formacao,
-			String unidade, String data) {
-		super(nome, biografia, email, fotoURL, funcao);
+	public Professor(String formacao, String unidade, String data) {
 		this.validador = new Validador();
 
 		this.formacao = formacao;
@@ -21,9 +19,7 @@ public class Professor extends Pesquisador {
 
 	@Override
 	public String toString() {
-		String str = super.toString();
-		str += " - " + this.formacao + " - " + this.unidade + " - " + this.data;
-		return str;
+		return " - " + this.formacao + " - " + this.unidade + " - " + this.data;
 	}
 
 	@Override
@@ -37,7 +33,7 @@ public class Professor extends Pesquisador {
 		} else if (atributo.equals("DATA")) {
 			alteraData(novoValor);
 		} else {
-			super.alteraAtributo(atributo, novoValor);
+			throw new IllegalArgumentException("Atributo invalido.");
 		}
 	}
 

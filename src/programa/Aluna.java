@@ -4,14 +4,13 @@ import java.util.Locale;
 
 import utils.Validador;
 
-public class Aluna extends Pesquisador {
+public class Aluna implements Especializacao {
 
 	private int semestre;
 	private double iea;
 	private Validador validador;
 
-	public Aluna(String nome, String biografia, String email, String fotoURL, String funcao, int semestre, double iea) {
-		super(nome, biografia, email, fotoURL, funcao);
+	public Aluna(int semestre, double iea) {
 		this.validador = new Validador();
 		this.semestre = semestre;
 		this.iea = iea;
@@ -27,7 +26,7 @@ public class Aluna extends Pesquisador {
 			double iea = Double.parseDouble(novoValor);
 			alteraIea(iea);
 		} else {
-			super.alteraAtributo(atributo, (String) novoValor);
+			throw new IllegalArgumentException("Atributo invalido.");
 		}
 	}
 
@@ -41,17 +40,11 @@ public class Aluna extends Pesquisador {
 		this.iea = novoValor;
 	}
 
-	public Pesquisador removeEspecialidade() {
-		Pesquisador pesquisador = new Pesquisador(super.nome, super.biografia, super.email, super.fotoURL,
-				super.funcao);
-		return pesquisador;
-	}
 
 	@Override
 	public String toString() {
-		String str = super.toString();
-		str += " - " + semestre + "o SEMESTRE - " + String.format(Locale.US, "%.1f", this.iea);
-		return str;
+		return " - " + semestre + "o SEMESTRE - " + String.format(Locale.US, "%.1f", this.iea);
+
 	}
 
 }

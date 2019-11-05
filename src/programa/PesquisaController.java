@@ -189,6 +189,7 @@ public class PesquisaController {
 		return pesquisas.get(idPesquisa);
 	}
 
+	
 	/**
 	 * Associa um Problema a uma Pesquisa a partir do id do problema e da pesquisa.
 	 * @param idPesquisa Id da pesquisa.
