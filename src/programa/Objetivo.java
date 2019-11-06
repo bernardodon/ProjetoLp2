@@ -1,6 +1,6 @@
 package programa;
 
-public class Objetivo {
+public class Objetivo implements Comparable<Objetivo> {
 	
 	private String tipo;
 	private String descricao;
@@ -28,6 +28,18 @@ public class Objetivo {
 
 	}
 
+	public String getDescricao() {
+		return descricao;
+	}
+	
+	public String getCodigo() {
+		return codigo;
+	}
+	
+	@Override
+	public int compareTo(Objetivo o) {
+		return o.getDescricao().compareTo(this.descricao);
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;

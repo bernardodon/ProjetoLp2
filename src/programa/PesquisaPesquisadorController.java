@@ -88,6 +88,10 @@ public class PesquisaPesquisadorController {
 		}
 	}
 	
+	public String buscaTermoPesquisador(String termo) {
+		return pesquisadorController.buscaTermoPesquisadores(termo);
+	}
+	
 	
 
 }

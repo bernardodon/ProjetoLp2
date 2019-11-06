@@ -1,6 +1,9 @@
 package programa;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import utils.Validador;
@@ -11,13 +14,15 @@ public class ProblemaObjetivoController {
 	private int contadorProblemas;
 	private int contadorObjetivos;
 	private Validador validador;
-
+	private int numeroDoResultadoProblemaObjetivo;
+	
 	public ProblemaObjetivoController() {
 		this.problemas = new HashMap<String, Problema>();
 		this.objetivos = new HashMap<String, Objetivo>();
 		this.contadorProblemas = 1;
 		this.contadorObjetivos = 1;
 		this.validador = new Validador();
+		this.numeroDoResultadoProblemaObjetivo = 0;
 	}
 
 	public String cadastraProblema(String descricao, int viabilidade) {
@@ -96,5 +101,35 @@ public class ProblemaObjetivoController {
 	
 	public Objetivo getObjetivo(String codigo) {
 		return objetivos.get(codigo);
+	}
+	
+	public String buscaTermoProblemas(String termo) {
+		String msg = "";
+		List<Problema> problemasValues = new ArrayList<Problema>();
+		problemasValues.addAll(problemas.values());
+		Collections.sort(problemasValues);
+		
+		for(Problema p: problemasValues) {
+			if (p.getDescricao().toLowerCase().contains(termo.toLowerCase())) {
+				msg += p.getCodigo()+ ": " +  p.getDescricao() + " | ";
+				numeroDoResultadoProblemaObjetivo++;
+			}
+		}
+		return msg;
+	}
+	
+	public String buscaTermoObjetivos(String termo) {
+		String msg = "";
+		List<Objetivo> objetivosValues = new ArrayList<Objetivo>();
+		objetivosValues.addAll(objetivos.values());
+		Collections.sort(objetivosValues);
+		
+		for(Objetivo obj: objetivosValues) {
+			if (obj.getDescricao().toLowerCase().contains(termo.toLowerCase())) {
+				msg += obj.getCodigo()+ ": " +  obj.getDescricao() + " | ";
+				numeroDoResultadoProblemaObjetivo++;
+			}
+		}
+		return msg;
 	}
 }

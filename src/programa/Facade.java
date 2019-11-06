@@ -158,6 +158,6 @@ public class Facade {
 	}
 	
 	public String busca(String termo) {
-		return pesquisaController.busca(termo) + pesquisaPesquisadorController.busca(termo) + pesquisaProblemaObjetivoController.busca(termo) + pesquisaAtividade.busca(termo); 
+		return pesquisaController.busca(termo) + pesquisaPesquisadorController.buscaTermoPesquisador(termo) + pesquisaProblemaObjetivoController.busca(termo) + pesquisaAtividade.busca(termo); 
 	}
 }

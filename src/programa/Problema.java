@@ -1,6 +1,6 @@
 package programa;
 
-public class Problema {
+public class Problema implements Comparable<Problema> {
 
 	private String  descricao;
 	private int viabilidade;
@@ -16,6 +16,18 @@ public class Problema {
 		return this.codigo + " - " + this.descricao + " - " + this.viabilidade;
 	}
 
+	public String getDescricao() {
+		return descricao;
+	}
+	
+	public String getCodigo() {
+		return codigo;
+	}
+	
+	@Override
+	public int compareTo(Problema o) {
+		return o.getDescricao().compareTo(this.descricao) ;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
