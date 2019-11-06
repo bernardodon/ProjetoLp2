@@ -10,7 +10,7 @@ import utils.Validador;
  *	
  * @author Ítalo Miguel Castor Diniz Pinheiro.
  */
-public class Atividade {
+public class Atividade implements Comparable<Atividade> {
 	
 	/**
 	 * Um validador.
@@ -72,6 +72,18 @@ public class Atividade {
 		return itens;
 	}
 
+	public String getDescricaoAtvd() {
+		return descricaoAtvd;
+	}
+	
+	public String getDescricaoRisco() {
+		return descricaoRisco;
+	}
+	
+	public String getCodigo() {
+		return codigo;
+	}
+	
 	/**
 	 * Adiciona um item na lista de itens.
 	 * 
@@ -156,7 +168,10 @@ public class Atividade {
 		}
 		return msg;
 	}
-	
+	@Override
+	public int compareTo(Atividade atvd) {
+		return atvd.getDescricaoAtvd().compareTo(this.descricaoAtvd);
+	}
 	/**
 	 * Retorna a String que representa uma atividade. A representação segue o formato "DescriçãoAtvd (Risco - DescriçãoRisco)
 	 */

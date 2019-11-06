@@ -3,6 +3,7 @@ package programa;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import utils.Validador;
@@ -370,5 +371,20 @@ public class PesquisaController {
 			throw new IllegalArgumentException("Pesquisa desativada.");
 		}
 	}
-
+	public String busca(String termo) {
+		String msg = "";
+		
+		List<Pesquisa> pesquisasValues = new ArrayList<Pesquisa>();
+		pesquisasValues.addAll(pesquisas.values());
+		Collections.sort(pesquisasValues);
+		
+		for (Pesquisa p: pesquisasValues) {
+			if (p.getDescricao().toLowerCase().contains(termo.toLowerCase())) {
+				msg += p.toString() + " | ";
+			}	
+		}
+		
+		return msg;
+	
+	}
 }

@@ -1,6 +1,9 @@
 package programa;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import utils.Validador;
 
@@ -28,6 +31,7 @@ public class AtividadeController {
 	 */
 	private Validador validador;
 
+	private int numeroDoResultadoAtividade;
 	/**
 	 * Constrói um controller de Atividades.
 	 */
@@ -35,6 +39,7 @@ public class AtividadeController {
 		this.atividades = new HashMap<String, Atividade>();
 		this.unidade = 1;
 		this.validador = new Validador();
+		this.numeroDoResultadoAtividade = 0;
 	}
 
 	/**
@@ -145,4 +150,29 @@ public class AtividadeController {
 			throw new IllegalArgumentException("Atividade nao encontrada");
 		}
 	}
+	
+	public String buscaTermoAtividades(String termo) {
+		String msg = "";
+		
+		List<Atividade> atividadesValues = new ArrayList<Atividade>();
+		atividadesValues.addAll(atividades.values());
+		Collections.sort(atividadesValues);
+		
+		for (Atividade atvd: atividadesValues) {
+			if (atvd.getDescricaoAtvd().toLowerCase().contains(termo.toLowerCase())) {
+				msg += atvd.getCodigo() +": " + atvd.getDescricaoAtvd() + " | ";
+				numeroDoResultadoAtividade++;
+			} else if (atvd.getDescricaoRisco().toLowerCase().contains(termo.toLowerCase())){
+				msg += atvd.getCodigo() +": " + atvd.getDescricaoRisco() + " | ";
+				numeroDoResultadoAtividade++;
+			}
+		}
+		
+		return msg;
+	}
+	
+	public int getNumeroDoResultadoAtividade() {
+		return numeroDoResultadoAtividade;
+	}
+	
 }

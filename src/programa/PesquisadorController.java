@@ -1,6 +1,9 @@
 package programa;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import utils.Validador;
@@ -25,10 +28,13 @@ public class PesquisadorController {
 	/**
 	 * Constroi um controlador de pesquisador.
 	 */
+	
+	private int numeroDoResultadoPesquisador;
 
 	public PesquisadorController() {
 		pesquisadores = new HashMap<>();
 		validador = new Validador();
+		this.numeroDoResultadoPesquisador = 0;
 	}
 
 	/**
@@ -199,4 +205,26 @@ public class PesquisadorController {
 		pesquisadores.remove(email);
 		pesquisadores.put(novoValor, novoPesquisador);
 	}
+	
+	public String buscaTermoPesquisadores(String termo) {
+		String msg = "";
+		
+		List<Pesquisador> pesquisadoresValues = new ArrayList<Pesquisador>();
+		pesquisadoresValues.addAll(pesquisadores.values());
+		Collections.sort(pesquisadoresValues);
+		
+		for (Pesquisador p: pesquisadoresValues) {
+			if (p.getBiografia().toLowerCase().contains(termo.toLowerCase())) {
+				msg += p.getEmail() + ": "+ p.getBiografia() + " | ";
+				numeroDoResultadoPesquisador++;
+			}	
+		}
+		
+		return msg;
+	}
+	
+	public int getNumeroDoResultadoPesquisador() {
+		return numeroDoResultadoPesquisador;
+	}
+	
 }

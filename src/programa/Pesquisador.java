@@ -10,7 +10,7 @@ import utils.Validador;
  * @author Bernard Dantas Odon
  * 
  */
-public class Pesquisador {
+public class Pesquisador implements Comparable<Pesquisador>{
 
 	private Validador validador;
 	/**
@@ -265,4 +265,16 @@ public class Pesquisador {
 		this.nome = novoValor;
 	}
 
+	public String getEmail() {
+		return email;
+	}
+	
+	public String getBiografia() {
+		return biografia;
+	}
+	
+	@Override
+	public int compareTo(Pesquisador p) {
+		return p.getBiografia().compareTo(this.biografia);
+	}
 }

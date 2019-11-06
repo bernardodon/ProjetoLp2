@@ -4,7 +4,7 @@ public class Facade {
 
 	private PesquisaController pesquisaController;
 	private ProblemaObjetivoController problemaObjetivoController;
-	private AtividadeController atividadeController;
+	private PesquisaAtividadeController pesquisaAtividadeController;
 	private PesquisaPesquisadorController pesquisaPesquisadorController;
 	private ControllerGeral controllerGeral;
 
@@ -12,7 +12,7 @@ public class Facade {
 		this.controllerGeral = new ControllerGeral();
 		this.pesquisaController = controllerGeral.getPesquisaController();
 		this.problemaObjetivoController = controllerGeral.getProblemaObjetivoController();
-		this.atividadeController = new AtividadeController();
+		this.pesquisaAtividadeController = new PesquisaAtividadeController(pesquisaController);
 		this.pesquisaPesquisadorController = new PesquisaPesquisadorController(pesquisaController);
 	}
 
@@ -70,27 +70,27 @@ public class Facade {
 	}
 
 	public void cadastraAtividade(String descricaoAtvd, String nivelRisco, String descricaoRisco) {
-		atividadeController.cadastraAtividade(descricaoAtvd, nivelRisco, descricaoRisco);
+		pesquisaAtividadeController.cadastraAtividade(descricaoAtvd, nivelRisco, descricaoRisco);
 	}
 
 	public void apagaAtividade(String codigo) {
-		atividadeController.apagaAtividade(codigo);
+		pesquisaAtividadeController.apagaAtividade(codigo);
 	}
 
 	public void cadastraItem(String codigo, String item) {
-		atividadeController.cadastraItem(codigo, item);
+		pesquisaAtividadeController.cadastraItem(codigo, item);
 	}
 
 	public String exibeAtividade(String codigo) {
-		return atividadeController.exibeAtividade(codigo);
+		return pesquisaAtividadeController.exibeAtividade(codigo);
 	}
 
 	public int contaItensPendentes(String codigo) {
-		return atividadeController.contaItensPendentes(codigo);
+		return pesquisaAtividadeController.contaItensPendentes(codigo);
 	}
 
 	public int contaItensRealizados(String codigo) {
-		return atividadeController.contaItensRealizados(codigo);
+		return pesquisaAtividadeController.contaItensRealizados(codigo);
 	}
 
 	public void cadastraPesquisador(String nome, String funcao, String biografia, String email, String fotoURL) {
@@ -155,5 +155,9 @@ public class Facade {
 	
 	public String listaPesquisas(String ordem) {
 		return pesquisaController.listaPesquisas(ordem);
+	}
+	
+	public String busca(String termo) {
+		return pesquisaController.busca(termo) + pesquisaPesquisadorController.busca(termo) + pesquisaProblemaObjetivoController.busca(termo) + pesquisaAtividade.busca(termo); 
 	}
 }

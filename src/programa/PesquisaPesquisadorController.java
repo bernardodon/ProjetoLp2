@@ -87,5 +87,7 @@ public class PesquisaPesquisadorController {
 			throw new IllegalArgumentException("Pesquisa desativada.");
 		}
 	}
+	
+	
 
 }
