@@ -1,4 +1,4 @@
-package programa;
+package Entidades;
 
 import java.util.Locale;
 

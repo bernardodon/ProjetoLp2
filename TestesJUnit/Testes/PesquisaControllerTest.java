@@ -6,8 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import programa.ControllerGeral;
-import programa.PesquisaController;
+import Controllers.ControllerGeral;
+import Controllers.PesquisaController;
 
 class PesquisaControllerTest {
 

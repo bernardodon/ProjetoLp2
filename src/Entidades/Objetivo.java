@@ -1,4 +1,4 @@
-package programa;
+package Entidades;
 
 public class Objetivo implements Comparable<Objetivo> {
 	

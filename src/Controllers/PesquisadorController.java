@@ -1,11 +1,11 @@
-package programa;
+package Controllers;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
+import Entidades.Pesquisador;
+import Repositorios.PesquisadoresRepositorio;
 import utils.Validador;
 
 /**
@@ -19,7 +19,7 @@ public class PesquisadorController {
 	/**
 	 * Mapa que armazena pesquisadores como valor e o email deles como chave.
 	 */
-	private PesquisadorMapController pesquisadorMapController;
+	private PesquisadoresRepositorio pesquisadorMapController;
 	/**
 	 * Validador que serve para verificar os parametros dos metodos.
 	 */
@@ -31,7 +31,7 @@ public class PesquisadorController {
 
 	private int numeroDoResultadoPesquisador;
 
-	public PesquisadorController(PesquisadorMapController pesquisadorMapContoller) {
+	public PesquisadorController(PesquisadoresRepositorio pesquisadorMapContoller) {
 		validador = new Validador();
 		this.numeroDoResultadoPesquisador = 0;
 		this.pesquisadorMapController = pesquisadorMapContoller;

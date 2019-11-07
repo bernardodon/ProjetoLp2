@@ -1,23 +1,49 @@
 package programa;
 
+import Controllers.AtividadeController;
+import Controllers.PesquisaController;
+import Controllers.PesquisaPesquisadorController;
+import Controllers.PesquisaProblemaController;
+import Controllers.PesquisadorController;
+import Controllers.ProblemaObjetivoController;
+import Repositorios.AtividadesRepositorio;
+import Repositorios.ObjetivosRepositorio;
+import Repositorios.PesquisadoresRepositorio;
+import Repositorios.PesquisasRepositorio;
+import Repositorios.ProblemasRepositorio;
+
 public class Facade {
 
+	private PesquisasRepositorio pesquisasRepositorio;
+	private PesquisadoresRepositorio pesquisadoresRepositorio;
+	private AtividadesRepositorio atividadeRepositorio;
+	private ObjetivosRepositorio objetivosRepositorio;
+	private ProblemasRepositorio problemasRepositorio;
+	
+	
 	private PesquisaController pesquisaController;
-	private ProblemaObjetivoController problemaObjetivoController;
-	private PesquisaAtividadeController pesquisaAtividadeController;
-	private PesquisadorMapController pesquisadorMapController;
-	private PesquisaPesquisadorController pesquisaPesquisadorController;
-
-	private PesquisaMapController pesquisaMapController;
 	private PesquisadorController pesquisadorController;
-
+	private AtividadeController atividadeController;
+	
+	private ProblemaObjetivoController problemaObjetivoController;
+	private PesquisaPesquisadorController pesquisaPesquisadorController;
+	private PesquisaProblemaController pesquisaProblemaController;
+	
+	
 	public Facade() {
-		this.pesquisaMapController = new PesquisaMapController();
-		this.pesquisadorMapController = new PesquisadorMapController();
-		this.pesquisaController = new PesquisaController(pesquisaMapController);
-		this.pesquisadorController = new PesquisadorController(pesquisadorMapController);
-		this.pesquisaAtividadeController = new PesquisaAtividadeController(pesquisaController);
-		this.pesquisaPesquisadorController = new PesquisaPesquisadorController(pesquisaController);
+		this.pesquisasRepositorio = new PesquisasRepositorio();
+		this.pesquisadoresRepositorio = new PesquisadoresRepositorio();
+		this.atividadeRepositorio = new AtividadesRepositorio();
+		this.objetivosRepositorio = new ObjetivosRepositorio();
+		this.problemasRepositorio = new ProblemasRepositorio();
+		
+		this.pesquisaController = new PesquisaController(pesquisasRepositorio, objetivosRepositorio);
+		this.pesquisadorController = new PesquisadorController(pesquisadoresRepositorio);
+		this.atividadeController = new AtividadeController(atividadeRepositorio);
+		
+		this.pesquisaPesquisadorController = new PesquisaPesquisadorController(pesquisadoresRepositorio, pesquisasRepositorio);
+		this.problemaObjetivoController = new ProblemaObjetivoController(objetivosRepositorio, problemasRepositorio);
+		this.pesquisaProblemaController = new PesquisaProblemaController(pesquisasRepositorio, problemasRepositorio);
 	}
 
 	public String cadastraPesquisa(String descricao, String campoDeInteresse) {
@@ -74,27 +100,27 @@ public class Facade {
 	}
 
 	public void cadastraAtividade(String descricaoAtvd, String nivelRisco, String descricaoRisco) {
-		pesquisaAtividadeController.cadastraAtividade(descricaoAtvd, nivelRisco, descricaoRisco);
+		atividadeController.cadastraAtividade(descricaoAtvd, nivelRisco, descricaoRisco);
 	}
 
 	public void apagaAtividade(String codigo) {
-		pesquisaAtividadeController.apagaAtividade(codigo);
+		atividadeController.apagaAtividade(codigo);
 	}
 
 	public void cadastraItem(String codigo, String item) {
-		pesquisaAtividadeController.cadastraItem(codigo, item);
+		atividadeController.cadastraItem(codigo, item);
 	}
 
 	public String exibeAtividade(String codigo) {
-		return pesquisaAtividadeController.exibeAtividade(codigo);
+		return atividadeController.exibeAtividade(codigo);
 	}
 
 	public int contaItensPendentes(String codigo) {
-		return pesquisaAtividadeController.contaItensPendentes(codigo);
+		return atividadeController.contaItensPendentes(codigo);
 	}
 
 	public int contaItensRealizados(String codigo) {
-		return pesquisaAtividadeController.contaItensRealizados(codigo);
+		return atividadeController.contaItensRealizados(codigo);
 	}
 
 	public void cadastraPesquisador(String nome, String funcao, String biografia, String email, String fotoURL) {
@@ -126,7 +152,7 @@ public class Facade {
 	}
 
 	public void cadastraEspecialidadeProfessor(String email, String formacao, String unidade, String data) {
-		pesquisadorController.cadastraEspecialidadeProfessor(email, formacao, unidade, data);
+		pesquisadorController.cadastratEspecialidadeProfessor(email, formacao, unidade, data);
 	}
 
 	public boolean associaPesquisador(String idPesquisa, String emailPesquisador) {
@@ -140,13 +166,12 @@ public class Facade {
 	public String listaPesquisadores(String tipo) {
 		return pesquisadorController.listaPesquisadores(tipo);
 	}
-
 	public boolean associaProblema(String idPesquisa, String idProblema) {
-		return pesquisaController.associaProblema(idPesquisa, idProblema);
+		return pesquisaProblemaController.associaProblema(idPesquisa, idProblema);
 	}
 
 	public boolean desassociaProblema(String idPesquisa, String idProblema) {
-		return pesquisaController.desassociaProblema(idPesquisa, idProblema);
+		return pesquisaProblemaController.desassociaProblema(idPesquisa, idProblema);
 	}
 
 	public boolean associaObjetivo(String idPesquisa, String idObjetivo) {
@@ -160,9 +185,9 @@ public class Facade {
 	public String listaPesquisas(String ordem) {
 		return pesquisaController.listaPesquisas(ordem);
 	}
-
+/*
 	public String busca(String termo) {
-		return pesquisaController.busca(termo) + pesquisaPesquisadorController.buscaTermoPesquisador(termo)
-				+ pesquisaProblemaObjetivoController.busca(termo) + pesquisaAtividade.busca(termo);
-	}
+		return pesquisaController.busca(termo) + pesquisadorController.buscaTermoPesquisadores(termo)
+				+ pesquisaProblemaObjetivoController.busca(termo) + atividadeController.buscaTermoAtividades(termo);
+	}*/
 }

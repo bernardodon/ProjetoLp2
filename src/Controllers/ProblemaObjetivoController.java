@@ -1,24 +1,27 @@
-package programa;
+package Controllers;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
+import Entidades.Objetivo;
+import Entidades.Problema;
+import Repositorios.ObjetivosRepositorio;
+import Repositorios.ProblemasRepositorio;
 import utils.Validador;
 
 public class ProblemaObjetivoController {
-	private Map<String, Problema> problemas;
-	private Map<String, Objetivo> objetivos;
+	private ObjetivosRepositorio objetivosRepositorio;
+	private ProblemasRepositorio problemasRepositorio;
 	private int contadorProblemas;
 	private int contadorObjetivos;
 	private Validador validador;
 	private int numeroDoResultadoProblemaObjetivo;
-	
-	public ProblemaObjetivoController() {
-		this.problemas = new HashMap<String, Problema>();
-		this.objetivos = new HashMap<String, Objetivo>();
+
+	public ProblemaObjetivoController(ObjetivosRepositorio objetivosRepositorio,
+			ProblemasRepositorio problemasRepositorio) {
+		this.problemasRepositorio = problemasRepositorio;
+		this.objetivosRepositorio = objetivosRepositorio;
 		this.contadorProblemas = 1;
 		this.contadorObjetivos = 1;
 		this.validador = new Validador();
@@ -26,13 +29,13 @@ public class ProblemaObjetivoController {
 	}
 
 	public String cadastraProblema(String descricao, int viabilidade) {
-		
+
 		validador.validar(descricao, "Campo descricao nao pode ser nulo ou vazio.");
 		validador.validarPontuacao(viabilidade, "Valor invalido de viabilidade.");
 
 		String codigo = "P" + String.valueOf(contadorProblemas);
 		Problema problema = new Problema(descricao, viabilidade, codigo);
-		problemas.put(codigo, problema);
+		problemasRepositorio.put(codigo, problema);
 		this.contadorProblemas++;
 		return codigo;
 	}
@@ -51,7 +54,7 @@ public class ProblemaObjetivoController {
 
 		String codigo = "O" + contadorObjetivos;
 		Objetivo objetivo = new Objetivo(tipo, descricao, aderencia, viabilidade, codigo);
-		objetivos.put("O" + contadorObjetivos, objetivo);
+		objetivosRepositorio.put("O" + contadorObjetivos, objetivo);
 		this.contadorObjetivos++;
 		return codigo;
 	}
@@ -59,74 +62,54 @@ public class ProblemaObjetivoController {
 	public String exibeProblema(String codigo) {
 		validador.validar(codigo, "Campo codigo nao pode ser nulo ou vazio.");
 
-		if (problemas.containsKey(codigo)) {
-			return problemas.get(codigo).toString();
-		} else {
-			throw new IllegalArgumentException("Problema nao encontrado");
-		}
+		Problema problema = problemasRepositorio.getProblema(codigo);
+		return problema.toString();
 
 	}
 
 	public String exibeObjetivo(String codigo) {
 		validador.validar(codigo, "Campo codigo nao pode ser nulo ou vazio.");
-		if (objetivos.containsKey(codigo)) {
-			return objetivos.get(codigo).toString();
-		} else {
-			throw new IllegalArgumentException("Objetivo nao encontrado");
-		}
+		Objetivo objetivo = objetivosRepositorio.getObjetivo(codigo);
+		return objetivo.toString();
+
 	}
 
 	public void apagarProblema(String codigo) {
 		validador.validar(codigo, "Campo codigo nao pode ser nulo ou vazio.");
 
-		if (problemas.containsKey(codigo)) {
-			problemas.remove(codigo);
-		} else {
-			throw new IllegalArgumentException("Problema nao encontrado");
-		}
+		problemasRepositorio.remove(codigo);
 	}
 
 	public void apagarObjetivo(String codigo) {
-		validador.validar(codigo,"Campo codigo nao pode ser nulo ou vazio.");
-		if (objetivos.containsKey(codigo)) {
-			objetivos.remove(codigo);
-		} else {
-			throw new IllegalArgumentException("Objetivo nao encontrado");
-		}
-	}
+		validador.validar(codigo, "Campo codigo nao pode ser nulo ou vazio.");
 
-	public Problema getProblema(String codigo) {
-		return problemas.get(codigo);
+		objetivosRepositorio.remove(codigo);
+
 	}
-	
-	public Objetivo getObjetivo(String codigo) {
-		return objetivos.get(codigo);
-	}
-	
 	public String buscaTermoProblemas(String termo) {
 		String msg = "";
 		List<Problema> problemasValues = new ArrayList<Problema>();
-		problemasValues.addAll(problemas.values());
+		problemasValues.addAll(problemasRepositorio.getValues());
 		Collections.sort(problemasValues);
-		
-		for(Problema p: problemasValues) {
+
+		for (Problema p : problemasValues) {
 			if (p.getDescricao().toLowerCase().contains(termo.toLowerCase())) {
-				msg += p.getCodigo()+ ": " +  p.getDescricao() + " | ";
+				msg += p.getCodigo() + ": " + p.getDescricao() + " | ";
 				numeroDoResultadoProblemaObjetivo++;
 			}
 		}
 		return msg;
 	}
-	
+
 	public String buscaTermoObjetivos(String termo) {
 		String msg = "";
 		List<Objetivo> objetivosValues = new ArrayList<Objetivo>();
-		objetivosValues.addAll(objetivos.values());
+		objetivosValues.addAll(objetivosRepositorio.getValues());
 		Collections.sort(objetivosValues);
-		
-		for(Objetivo obj: objetivosValues) {
+
+		for (Objetivo obj : objetivosValues) {
 			if (obj.getDescricao().toLowerCase().contains(termo.toLowerCase())) {
-				msg += obj.getCodigo()+ ": " +  obj.getDescricao() + " | ";
+				msg += obj.getCodigo() + ": " + obj.getDescricao() + " | ";
 				numeroDoResultadoProblemaObjetivo++;
 			}
 		}

@@ -1,6 +1,8 @@
-package programa;
+package utils;
 
 import java.util.Comparator;
+
+import Entidades.Pesquisa;
 
 public class ObjetivosComparator implements Comparator<Pesquisa> {
 	@Override

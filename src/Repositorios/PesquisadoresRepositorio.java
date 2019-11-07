@@ -1,16 +1,17 @@
-package programa;
+package Repositorios;
 
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import Entidades.Pesquisador;
 import utils.Validador;
 
-public class PesquisadorMapController {
+public class PesquisadoresRepositorio {
 	private Map<String, Pesquisador> pesquisadores;
 	private Validador validador;
 
-	public PesquisadorMapController() {
+	public PesquisadoresRepositorio() {
 		this.pesquisadores = new HashMap<String, Pesquisador>();
 		this.validador = new Validador();
 	}
@@ -39,7 +40,7 @@ public class PesquisadorMapController {
 		if (pesquisadores.containsKey(email)) {
 			return pesquisadores.get(email);
 		} else {
-			throw new IllegalArgumentException("Pesquisador nao encontrado.");
+			throw new IllegalArgumentException("Pesquisador nao encontrado");
 		}
 	}
 	

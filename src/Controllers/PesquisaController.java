@@ -1,11 +1,14 @@
-package programa;
+package Controllers;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
+import Entidades.Objetivo;
+import Entidades.Pesquisa;
+import Repositorios.ObjetivosRepositorio;
+import Repositorios.PesquisasRepositorio;
+import utils.ObjetivosComparator;
 import utils.Validador;
 
 /**
@@ -16,18 +19,21 @@ import utils.Validador;
  */
 public class PesquisaController {
 
-	private PesquisaMapController pesquisaMapController;
+	private PesquisasRepositorio pesquisasRepositorio;
 
 	/**
 	 * Um validador que serve para verificar os parâmetros dos metodos
 	 */
 	private Validador validador;
 
+	private ObjetivosRepositorio objetivosRepositorio;
+
 	/**
 	 * Constroi um Controlador dde Pesquisa
 	 */
-	public PesquisaController(PesquisaMapController pesquisaMapController) {
-		this.pesquisaMapController = pesquisaMapController;
+	public PesquisaController(PesquisasRepositorio pesquisasRepositorio, ObjetivosRepositorio objetivosRepositorio) {
+		this.pesquisasRepositorio = pesquisasRepositorio;
+		this.objetivosRepositorio = objetivosRepositorio;
 		this.validador = new Validador();
 	}
 
@@ -47,7 +53,7 @@ public class PesquisaController {
 		validarCampoInteresse(campoInteresse);
 
 		int num = 1;
-		for (String chave : pesquisaMapController.getKeys()) {
+		for (String chave : pesquisasRepositorio.getKeys()) {
 			if (chave.contains(campoInteresse.toUpperCase().subSequence(0, 3))) {
 				num += 1;
 			}
@@ -55,7 +61,7 @@ public class PesquisaController {
 
 		String codigo = campoInteresse.substring(0, 3) + String.valueOf(num);
 		codigo = codigo.toUpperCase();
-		pesquisaMapController.put(codigo, new Pesquisa(descricao, campoInteresse, codigo));
+		pesquisasRepositorio.put(codigo, new Pesquisa(descricao, campoInteresse, codigo));
 		return codigo;
 	}
 
@@ -68,7 +74,7 @@ public class PesquisaController {
 	 * @param novoValor O novo valor do campo selecinado
 	 */
 	public void alteraPesquisa(String codigo, String campo, String novoValor) {
-		Pesquisa pesquisa = pesquisaMapController.getPesquisa(codigo);
+		Pesquisa pesquisa = pesquisasRepositorio.getPesquisa(codigo);
 		if (campo.equals("CAMPO")) {
 			validarCampoInteresse(novoValor);
 		}
@@ -82,7 +88,7 @@ public class PesquisaController {
 	 * @param codigo O codigo da pesquisa que se deseja ativar
 	 */
 	public void ativaPesquisa(String codigo) {
-		Pesquisa pesquisa = pesquisaMapController.getPesquisa(codigo);
+		Pesquisa pesquisa = pesquisasRepositorio.getPesquisa(codigo);
 
 		pesquisa.ativarPesquisa();
 	}
@@ -94,7 +100,7 @@ public class PesquisaController {
 	 * @param motivo O motivo do encerramento
 	 */
 	public void enceraPesquisa(String codigo, String motivo) {
-		Pesquisa pesquisa = pesquisaMapController.getPesquisa(codigo);
+		Pesquisa pesquisa = pesquisasRepositorio.getPesquisa(codigo);
 
 		pesquisa.encerrarPesquisa();
 
@@ -106,7 +112,7 @@ public class PesquisaController {
 	 * @param codigo O codigo da pesqusia
 	 */
 	public void enceraPesquisa(String codigo) {
-		Pesquisa pesquisa = pesquisaMapController.getPesquisa(codigo);
+		Pesquisa pesquisa = pesquisasRepositorio.getPesquisa(codigo);
 
 		pesquisa.encerrarPesquisa();
 
@@ -119,7 +125,7 @@ public class PesquisaController {
 	 * @return Retorna uma representacao em String da pesqusa buscada
 	 */
 	public String exibePesquisa(String codigo) {
-		Pesquisa pesquisa = pesquisaMapController.getPesquisa(codigo);
+		Pesquisa pesquisa = pesquisasRepositorio.getPesquisa(codigo);
 
 		return pesquisa.toString();
 	}
@@ -133,7 +139,7 @@ public class PesquisaController {
 	 */
 	public boolean ehAtiva(String codigo) {
 		validador.validar(codigo, "Codigo nao pode ser nulo ou vazio.");
-		Pesquisa pesquisa = pesquisaMapController.getPesquisa(codigo);
+		Pesquisa pesquisa = pesquisasRepositorio.getPesquisa(codigo);
 
 		return pesquisa.ehAtiva();
 
@@ -180,9 +186,9 @@ public class PesquisaController {
 	public boolean associaObjetivo(String idPesquisa, String idObjetivo) {
 		validador.validar(idPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
 		validador.validar(idObjetivo, "Campo idObjetivo nao pode ser nulo ou vazio.");
-		Pesquisa pesquisa = pesquisaMapController.getPesquisa(idPesquisa);
+		Pesquisa pesquisa = pesquisasRepositorio.getPesquisa(idPesquisa);
 		checaDesativacao(pesquisa);
-		Objetivo objetivo = controllerGeral.getObjetivo(idObjetivo);
+		Objetivo objetivo = objetivosRepositorio.getObjetivo(idObjetivo);
 
 		boolean retorno = pesquisa.associaObjetivo(objetivo);
 
@@ -207,10 +213,10 @@ public class PesquisaController {
 	public boolean desassociaObjetivo(String idPesquisa, String idObjetivo) {
 		validador.validar(idPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
 		validador.validar(idObjetivo, "Campo idObjetivo nao pode ser nulo ou vazio.");
-		Pesquisa pesquisa = pesquisaMapController.getPesquisa(idPesquisa);
+		Pesquisa pesquisa = pesquisasRepositorio.getPesquisa(idPesquisa);
 
 		checaDesativacao(pesquisa);
-		Objetivo objetivo = controllerGeral.getObjetivo(idObjetivo);
+		Objetivo objetivo = objetivosRepositorio.getObjetivo(idObjetivo);
 
 		if (!objetivo.isAssociado()) {
 			return false;
@@ -251,7 +257,7 @@ public class PesquisaController {
 	private String listaPesquisasPorCodigoObjetivos() {
 		String listaPesquisas = "";
 		ArrayList<Pesquisa> listaOrdenada = new ArrayList<>();
-		listaOrdenada.addAll(pesquisaMapController.getValues());
+		listaOrdenada.addAll(pesquisasRepositorio.getValues());
 		Collections.sort(listaOrdenada, new ObjetivosComparator());
 		for (Pesquisa pesquisa : listaOrdenada) {
 			if (pesquisa.getObjetivos().size() > 0) {
@@ -277,7 +283,7 @@ public class PesquisaController {
 	private String listaPesquisasPorCodigoProblema() {
 		String listaPesquisas = "";
 		ArrayList<Pesquisa> listaOrdenada = new ArrayList<>();
-		listaOrdenada.addAll(pesquisaMapController.getValues());
+		listaOrdenada.addAll(pesquisasRepositorio.getValues());
 		Collections.sort(listaOrdenada);
 		for (Pesquisa pesquisa : listaOrdenada) {
 			if (pesquisa.getProblema() != null) {
@@ -302,7 +308,7 @@ public class PesquisaController {
 	private String listaPesquisasPorCodigoPesquisa() {
 		String listaPesquisas = "";
 		ArrayList<Pesquisa> listaOrdenada = new ArrayList<>();
-		listaOrdenada.addAll(pesquisaMapController.getValues());
+		listaOrdenada.addAll(pesquisasRepositorio.getValues());
 		Collections.sort(listaOrdenada);
 		for (Pesquisa pesquisa : listaOrdenada) {
 			listaPesquisas += pesquisa.toString() + " | ";
@@ -328,7 +334,7 @@ public class PesquisaController {
 		String msg = "";
 
 		List<Pesquisa> pesquisasValues = new ArrayList<Pesquisa>();
-		pesquisasValues.addAll(pesquisaMapController.getValues());
+		pesquisasValues.addAll(pesquisasRepositorio.getValues());
 		Collections.sort(pesquisasValues);
 
 		for (Pesquisa p : pesquisasValues) {

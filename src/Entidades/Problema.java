@@ -1,4 +1,4 @@
-package programa;
+package Entidades;
 
 public class Problema implements Comparable<Problema> {
 

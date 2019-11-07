@@ -1,4 +1,4 @@
-package programa;
+package Entidades;
 
 /**
  * Representação de um item. Todo item deve ter um status e uma descrição.

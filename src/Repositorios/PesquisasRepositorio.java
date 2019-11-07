@@ -1,13 +1,15 @@
-package programa;
+package Repositorios;
 
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-public class PesquisaMapController {
+import Entidades.Pesquisa;
+
+public class PesquisasRepositorio {
 	private Map<String, Pesquisa> pesquisas;
 
-	public PesquisaMapController() {
+	public PesquisasRepositorio() {
 		this.pesquisas = new HashMap<String, Pesquisa>();
 	}
 	
