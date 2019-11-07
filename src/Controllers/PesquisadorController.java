@@ -54,7 +54,8 @@ public class PesquisadorController {
 		validador.validar(fotoURL, "Campo fotoURL nao pode ser nulo ou vazio.");
 		validador.validarEmailPesquisador(email);
 		validador.validarFotoPesquisador(fotoURL);
-		pesquisadorMapController.cadastraPesquisador(nome, funcao, biografia, email, fotoURL);
+		Pesquisador pesquisador = new Pesquisador(nome, biografia, email, fotoURL, funcao);
+		pesquisadorMapController.put(email, pesquisador);
 	}
 
 	/**
