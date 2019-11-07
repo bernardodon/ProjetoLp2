@@ -19,7 +19,7 @@ public class PesquisadorController {
 	/**
 	 * Mapa que armazena pesquisadores como valor e o email deles como chave.
 	 */
-	private Map<String, Pesquisador> pesquisadores;
+	private PesquisadorMapController pesquisadorMapController;
 	/**
 	 * Validador que serve para verificar os parametros dos metodos.
 	 */
@@ -28,13 +28,13 @@ public class PesquisadorController {
 	/**
 	 * Constroi um controlador de pesquisador.
 	 */
-	
+
 	private int numeroDoResultadoPesquisador;
 
-	public PesquisadorController() {
-		pesquisadores = new HashMap<>();
+	public PesquisadorController(PesquisadorMapController pesquisadorMapContoller) {
 		validador = new Validador();
 		this.numeroDoResultadoPesquisador = 0;
+		this.pesquisadorMapController = pesquisadorMapContoller;
 	}
 
 	/**
@@ -54,7 +54,7 @@ public class PesquisadorController {
 		validador.validar(fotoURL, "Campo fotoURL nao pode ser nulo ou vazio.");
 		validador.validarEmailPesquisador(email);
 		validador.validarFotoPesquisador(fotoURL);
-		pesquisadores.put(email, new Pesquisador(nome, biografia, email, fotoURL, funcao));
+		pesquisadorMapController.cadastraPesquisador(nome, funcao, biografia, email, fotoURL);
 	}
 
 	/**
@@ -69,14 +69,14 @@ public class PesquisadorController {
 
 		validador.validar(atributo, "Atributo nao pode ser vazio ou nulo.");
 		validador.validarEmailPesquisador(email);
-		checaInexistenciaPesquisador(email);
+		Pesquisador pesquisador = pesquisadorMapController.getPesquisador(email);
 
 		switch (atributo) {
 		case "EMAIL":
 			alteraEmail(email, novoValor);
 			break;
 		default:
-			pesquisadores.get(email).alteraAtributo(atributo, novoValor);
+			pesquisador.alteraAtributo(atributo, novoValor);
 		}
 	}
 
@@ -86,8 +86,8 @@ public class PesquisadorController {
 	 * @param email Email do pesquisador.
 	 */
 	public void ativaPesquisador(String email) {
-		checaInexistenciaPesquisador(email);
-		getPesquisador(email).ativa();
+		Pesquisador pesquisador = pesquisadorMapController.getPesquisador(email);
+		pesquisador.ativa();
 	}
 
 	/**
@@ -96,8 +96,8 @@ public class PesquisadorController {
 	 * @param email Email do pesquisador.
 	 */
 	public void desativaPesquisador(String email) {
-		checaInexistenciaPesquisador(email);
-		getPesquisador(email).desativa();
+		Pesquisador pesquisador = pesquisadorMapController.getPesquisador(email);
+		pesquisador.desativa();
 	}
 
 	/**
@@ -110,9 +110,10 @@ public class PesquisadorController {
 		validador.validar(email, "Campo email nao pode ser nulo ou vazio.");
 		validador.validarEmailPesquisador(email);
 
-		checaInexistenciaPesquisador(email);
+		Pesquisador pesquisador = pesquisadorMapController.getPesquisador(email);
 
-		return getPesquisador(email).toString();
+
+		return pesquisador.toString();
 	}
 
 	/**
@@ -123,34 +124,22 @@ public class PesquisadorController {
 	 */
 	public boolean pesquisadorEhAtivo(String email) {
 		validador.validar(email, "Email nao pode ser vazio ou nulo.");
-		checaInexistenciaPesquisador(email);
-		return getPesquisador(email).getAtivado();
-	}
+		Pesquisador pesquisador = pesquisadorMapController.getPesquisador(email);
 
-	/**
-	 * Pega um pesquisador a partir do email.
-	 * 
-	 * @param email Email do pesquisador.
-	 * @return Retorna um pesquisador.
-	 */
-	public Pesquisador getPesquisador(String email) {
-		if (pesquisadores.containsKey(email)) {
-			return pesquisadores.get(email);
-		} else {
-			throw new IllegalArgumentException("Pesquisador nao encontrado.");
-		}
+		return pesquisador.getAtivado();
 	}
 
 	public void cadastraEspecialidadeAluno(String email, int semestre, double iEA) {
 		validador.validar(email, "Campo email nao pode ser nulo ou vazio.");
 		validador.validaSemestreAluno(semestre);
 		validador.validaIeaAluno(iEA);
-		checaInexistenciaPesquisador(email);
+		
+		Pesquisador pesquisador = pesquisadorMapController.getPesquisador(email);
 
-		if (!pesquisadores.get(email).getFuncao().equals("estudante")) {
+		if (!pesquisador.getFuncao().equals("estudante")) {
 			throw new IllegalArgumentException("Pesquisador nao compativel com a especialidade.");
 		} else {
-			pesquisadores.get(email).adicionarEspecialidadeAluno(semestre, iEA);
+			pesquisador.adicionarEspecialidadeAluno(semestre, iEA);
 		}
 	}
 
@@ -160,12 +149,13 @@ public class PesquisadorController {
 		validador.validar(unidade, "Campo unidade nao pode ser nulo ou vazio.");
 		validador.validar(data, "Campo data nao pode ser nulo ou vazio.");
 		validador.validarDataProfessor(data);
-		checaInexistenciaPesquisador(email);
+		
+		Pesquisador pesquisador = pesquisadorMapController.getPesquisador(email);
 
-		if (!pesquisadores.get(email).getFuncao().equals("professor")) {
+		if (!pesquisador.getFuncao().equals("professor")) {
 			throw new IllegalArgumentException("Pesquisador nao compativel com a especialidade.");
 		} else {
-			pesquisadores.get(email).adicionaEspecialidadeProfessor(formacao, unidade, data);
+			pesquisador.adicionaEspecialidadeProfessor(formacao, unidade, data);
 		}
 
 	}
@@ -174,7 +164,7 @@ public class PesquisadorController {
 		validador.validarTipo(tipo);
 
 		String str = "";
-		for (Pesquisador pesquisador : this.pesquisadores.values()) {
+		for (Pesquisador pesquisador : pesquisadorMapController.getPesquisadoresValues()) {
 			if (pesquisador.getFuncao().equals(tipo.toLowerCase())) {
 				str += pesquisador.toString() + " | ";
 			}
@@ -185,46 +175,35 @@ public class PesquisadorController {
 
 	}
 
-	/**
-	 * Checa se um pesquisador esta cadastrado no mapa de pesquisadores.
-	 * 
-	 * @param email Email do pesquisador.
-	 */
-	private void checaInexistenciaPesquisador(String email) {
-		if (!pesquisadores.containsKey(email)) {
-			throw new IllegalArgumentException("Pesquisador nao encontrado");
-		}
-	}
-
 	private void alteraEmail(String email, String novoValor) {
 		validador.validar(novoValor, "Campo email nao pode ser nulo ou vazio.");
 		validador.validarEmailPesquisador(novoValor);
 
-		Pesquisador pesquisadorAntigo = pesquisadores.get(email);
+		Pesquisador pesquisadorAntigo = pesquisadorMapController.getPesquisador(email);
 		Pesquisador novoPesquisador = pesquisadorAntigo.alterarEmail(novoValor);
-		pesquisadores.remove(email);
-		pesquisadores.put(novoValor, novoPesquisador);
+		pesquisadorMapController.remove(email);
+		pesquisadorMapController.put(novoValor, novoPesquisador);
 	}
-	
+
 	public String buscaTermoPesquisadores(String termo) {
 		String msg = "";
-		
+
 		List<Pesquisador> pesquisadoresValues = new ArrayList<Pesquisador>();
-		pesquisadoresValues.addAll(pesquisadores.values());
+		pesquisadoresValues.addAll(pesquisadorMapController.getPesquisadoresValues());
 		Collections.sort(pesquisadoresValues);
-		
-		for (Pesquisador p: pesquisadoresValues) {
+
+		for (Pesquisador p : pesquisadoresValues) {
 			if (p.getBiografia().toLowerCase().contains(termo.toLowerCase())) {
-				msg += p.getEmail() + ": "+ p.getBiografia() + " | ";
+				msg += p.getEmail() + ": " + p.getBiografia() + " | ";
 				numeroDoResultadoPesquisador++;
-			}	
+			}
 		}
-		
+
 		return msg;
 	}
-	
+
 	public int getNumeroDoResultadoPesquisador() {
 		return numeroDoResultadoPesquisador;
 	}
-	
+
 }
