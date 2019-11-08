@@ -39,7 +39,7 @@ public class PesquisaController {
 		this.objetivosRepositorio = objetivosRepositorio;
 
 		this.validador = new Validador();
-		this.busca = new Busca();
+		this.busca = busca;
 	}
 
 	/**
@@ -341,14 +341,14 @@ public class PesquisaController {
 		List<Pesquisa> pesquisasValues = new ArrayList<Pesquisa>();
 		pesquisasValues.addAll(pesquisasRepositorio.getValues());
 		Collections.sort(pesquisasValues);
-
+		busca.clearBuscas();
 		for (Pesquisa p : pesquisasValues) {
 			if (p.getDescricao().toLowerCase().contains(termo.toLowerCase())) {
-				busca.adicionaBusca(p.getCodigo() + ": " + p.getDescricao() + " | ");
-				busca.setNumeroDoResultado(busca.getNumeroDoResultado() + 1);
-			} else if (p.getCampoInterese().toLowerCase().contains(termo.toLowerCase())) {
-				busca.adicionaBusca(p.getCodigo() + ": " + p.getCampoInterese() + " | ");
-				busca.setNumeroDoResultado(busca.getNumeroDoResultado() + 1);
+				busca.adicionaBusca(p.getCodigo() + ": " + p.getDescricao());
+			} 
+			
+			if (p.getCampoInterese().toLowerCase().contains(termo.toLowerCase())) {
+				busca.adicionaBusca(p.getCodigo() + ": " + p.getCampoInterese());
 			}
 		}
 

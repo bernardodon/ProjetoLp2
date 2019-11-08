@@ -43,7 +43,7 @@ public class AtividadeController {
 		this.atividadeRepositorio = atividadeRepositorio;
 		this.unidade = 1;
 		this.validador = new Validador();
-		this.busca = new Busca();
+		this.busca = busca;
 	}
 
 	/**
@@ -150,11 +150,11 @@ public class AtividadeController {
 
 		for (Atividade atvd : atividadesValues) {
 			if (atvd.getDescricaoAtvd().toLowerCase().contains(termo.toLowerCase())) {
-				busca.adicionaBusca(atvd.getCodigo() + ": " + atvd.getDescricaoAtvd() + " | ");
-				busca.setNumeroDoResultado(busca.getNumeroDoResultado() + 1);
-			} else if (atvd.getDescricaoRisco().toLowerCase().contains(termo.toLowerCase())) {
-				busca.adicionaBusca(atvd.getCodigo() + ": " + atvd.getDescricaoRisco() + " | ");
-				busca.setNumeroDoResultado(busca.getNumeroDoResultado() + 1);
+				busca.adicionaBusca(atvd.getCodigo() + ": " + atvd.getDescricaoAtvd());
+			} 
+			
+			if (atvd.getDescricaoRisco().toLowerCase().contains(termo.toLowerCase())) {
+				busca.adicionaBusca(atvd.getCodigo() + ": " + atvd.getDescricaoRisco());
 			}
 		}
 	}

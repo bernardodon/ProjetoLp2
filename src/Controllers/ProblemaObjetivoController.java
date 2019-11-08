@@ -26,7 +26,7 @@ public class ProblemaObjetivoController {
 		this.contadorProblemas = 1;
 		this.contadorObjetivos = 1;
 		this.validador = new Validador();
-		this.busca = new Busca();
+		this.busca = busca;
 	}
 
 	public String cadastraProblema(String descricao, int viabilidade) {
@@ -96,8 +96,7 @@ public class ProblemaObjetivoController {
 
 		for (Problema p : problemasValues) {
 			if (p.getDescricao().toLowerCase().contains(termo.toLowerCase())) {
-				busca.adicionaBusca(p.getCodigo() + ": " + p.getDescricao() + " | ");
-				busca.setNumeroDoResultado(busca.getNumeroDoResultado() + 1);
+				busca.adicionaBusca(p.getCodigo() + ": " + p.getDescricao());
 			}
 		}
 
@@ -111,8 +110,7 @@ public class ProblemaObjetivoController {
 
 		for (Objetivo obj : objetivosValues) {
 			if (obj.getDescricao().toLowerCase().contains(termo.toLowerCase())) {
-				busca.adicionaBusca(obj.getCodigo() + ": " + obj.getDescricao() + " | ");
-				busca.setNumeroDoResultado(busca.getNumeroDoResultado() + 1);
+				busca.adicionaBusca(obj.getCodigo() + ": " + obj.getDescricao());
 			}
 		}
 

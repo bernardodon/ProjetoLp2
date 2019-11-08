@@ -21,31 +21,34 @@ public class Facade {
 	private AtividadesRepositorio atividadeRepositorio;
 	private ObjetivosRepositorio objetivosRepositorio;
 	private ProblemasRepositorio problemasRepositorio;
-	
+
 	private Busca busca;
 	private PesquisaController pesquisaController;
 	private PesquisadorController pesquisadorController;
 	private AtividadeController atividadeController;
-	
+
 	private ProblemaObjetivoController problemaObjetivoController;
 	private PesquisaPesquisadorController pesquisaPesquisadorController;
 	private PesquisaProblemaController pesquisaProblemaController;
-	
-	private PesquisaAtividadeController pesquisaAtividadeController ;
-	
+
+	private PesquisaAtividadeController pesquisaAtividadeController;
+
 	public Facade() {
 		this.pesquisasRepositorio = new PesquisasRepositorio();
 		this.pesquisadoresRepositorio = new PesquisadoresRepositorio();
 		this.atividadeRepositorio = new AtividadesRepositorio();
 		this.objetivosRepositorio = new ObjetivosRepositorio();
 		this.problemasRepositorio = new ProblemasRepositorio();
-		
+
+		this.busca = new Busca();
 		this.pesquisaController = new PesquisaController(pesquisasRepositorio, objetivosRepositorio, busca);
 		this.pesquisadorController = new PesquisadorController(pesquisadoresRepositorio, busca);
 		this.atividadeController = new AtividadeController(atividadeRepositorio, busca);
-		
-		this.pesquisaPesquisadorController = new PesquisaPesquisadorController(pesquisadoresRepositorio, pesquisasRepositorio);
-		this.problemaObjetivoController = new ProblemaObjetivoController(objetivosRepositorio, problemasRepositorio, busca);
+
+		this.problemaObjetivoController = new ProblemaObjetivoController(objetivosRepositorio, problemasRepositorio,
+				busca);
+		this.pesquisaPesquisadorController = new PesquisaPesquisadorController(pesquisadoresRepositorio,
+				pesquisasRepositorio);
 		this.pesquisaProblemaController = new PesquisaProblemaController(pesquisasRepositorio, problemasRepositorio);
 		this.pesquisaAtividadeController = new PesquisaAtividadeController(atividadeRepositorio, pesquisasRepositorio);
 	}
@@ -170,6 +173,7 @@ public class Facade {
 	public String listaPesquisadores(String tipo) {
 		return pesquisadorController.listaPesquisadores(tipo);
 	}
+
 	public boolean associaProblema(String idPesquisa, String idProblema) {
 		return pesquisaProblemaController.associaProblema(idPesquisa, idProblema);
 	}
@@ -189,57 +193,61 @@ public class Facade {
 	public String listaPesquisas(String ordem) {
 		return pesquisaController.listaPesquisas(ordem);
 	}
-	
+
 	public boolean associaAtividade(String codigoPesquisa, String codigoAtividade) {
-		return pesquisaAtividadeController.associaAtividade(codigoPesquisa,codigoAtividade);
+		return pesquisaAtividadeController.associaAtividade(codigoPesquisa, codigoAtividade);
 	}
-	
+
 	public boolean desassociaAtividade(String codigoPesquisa, String codigoAtividade) {
-		return pesquisaAtividadeController.desassociaAtividade(codigoPesquisa,codigoAtividade);
+		return pesquisaAtividadeController.desassociaAtividade(codigoPesquisa, codigoAtividade);
 	}
-	
+
 	public void executaAtividade(String codigoAtividade, int item, int duracao) {
-		pesquisaAtividadeController.executaAtividade(codigoAtividade,item,duracao);	
+		pesquisaAtividadeController.executaAtividade(codigoAtividade, item, duracao);
 	}
-	
+
 	public int cadastraResultado(String codigoAtividade, String resultado) {
-		return pesquisaAtividadeController.cadastraResultado(codigoAtividade,resultado);
+		return pesquisaAtividadeController.cadastraResultado(codigoAtividade, resultado);
 	}
-	
+
 	public boolean removeResultado(String codigoAtividade, int numeroResultado) {
-		return pesquisaAtividadeController.removeResultado(codigoAtividade,numeroResultado);
+		return pesquisaAtividadeController.removeResultado(codigoAtividade, numeroResultado);
 	}
-	
+
 	public String listaResultados(String codigoAtividade) {
-		
+
 		return pesquisaAtividadeController.listaResultados(codigoAtividade);
 	}
-	
+
 	public int getDuracao(String codigoAtividade) {
 		return pesquisaAtividadeController.getDuracao(codigoAtividade);
 	}
-	
-	
-	
-	
-	
 
 	public String busca(String termo) {
 		pesquisaController.buscaTermoPesquisa(termo);
 		pesquisadorController.buscaTermoPesquisadores(termo);
-		atividadeController.buscaTermoAtividades(termo);
 		problemaObjetivoController.buscaTermoProblemas(termo);
 		problemaObjetivoController.buscaTermoObjetivos(termo);
+		atividadeController.buscaTermoAtividades(termo);
 		return busca.resultadoDaBusca();
 	}
-	
+
 	public String busca(String termo, int numeroDoResultado) {
+		pesquisaController.buscaTermoPesquisa(termo);
+		pesquisadorController.buscaTermoPesquisadores(termo);
+		problemaObjetivoController.buscaTermoProblemas(termo);
+		problemaObjetivoController.buscaTermoObjetivos(termo);
+		atividadeController.buscaTermoAtividades(termo);
 		return busca.busca(termo, numeroDoResultado);
 	}
-	
+
 	public int contaResultadosBusca(String termo) {
+		pesquisaController.buscaTermoPesquisa(termo);
+		pesquisadorController.buscaTermoPesquisadores(termo);
+		problemaObjetivoController.buscaTermoProblemas(termo);
+		problemaObjetivoController.buscaTermoObjetivos(termo);
+		atividadeController.buscaTermoAtividades(termo);
 		return busca.contaResultadosBusca(termo);
 	}
-	
-	
+
 }
