@@ -1,6 +1,7 @@
 package Entidades;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import utils.Validador;
 
@@ -10,7 +11,7 @@ import utils.Validador;
  * @author Bernard Dantas Odon
  * 
  */
-public class Pesquisador implements Comparable<Pesquisador>{
+public class Pesquisador implements Comparable<Pesquisador> {
 
 	private Validador validador;
 	/**
@@ -38,9 +39,11 @@ public class Pesquisador implements Comparable<Pesquisador>{
 	 */
 	private boolean ativado;
 
+	/*
+	 * Uma possivel especializacao do pesquisador (Professor ou ALuno)
+	 */
 	private Especializacao especializacao;
-	
-	private ArrayList<Pesquisa> pesquisas;
+
 	/**
 	 * Constroi um Pesquisador a partir do nome, biografia, email, fotoURL e funcao.
 	 *
@@ -58,7 +61,6 @@ public class Pesquisador implements Comparable<Pesquisador>{
 		this.fotoURL = fotoURL;
 		this.funcao = funcao;
 		this.ativado = true;
-		this.pesquisas = new ArrayList<Pesquisa>();
 		this.especializacao = null;
 	}
 
@@ -94,14 +96,13 @@ public class Pesquisador implements Comparable<Pesquisador>{
 		if (especializacao != null) {
 			str += especializacao.toString();
 		}
-		
+
 		return str;
 	}
 
 	public boolean getAtivado() {
 		return this.ativado;
 	}
-	
 
 	/**
 	 * Retorna a representacao em inteiro da classe.
@@ -134,20 +135,30 @@ public class Pesquisador implements Comparable<Pesquisador>{
 		return true;
 	}
 
+	/**
+	 * Altera o email do pesquisador
+	 * @param novoEmail O novo email do pesquisador
+	 * @return Retorna um Pesquisador com o novo email desejado
+	 */
 	public Pesquisador alterarEmail(String novoEmail) {
 		Pesquisador novoPesquisador = new Pesquisador(this.nome, this.biografia, novoEmail, this.fotoURL, this.funcao);
 		return novoPesquisador;
 	}
 
+	/**
+	 * Pega a funcao do pesquisador
+	 * @return Retorna uma representacao em String da funcao do pesquisador
+	 */
 	public String getFuncao() {
 		return this.funcao;
 	}
 
-	
-	public void addPesquisa(Pesquisa pesquisa) {
-		pesquisas.add(pesquisa);
-	}
-
+	/**
+	 * Adiciona a especialidade Professor ao Pesquisador
+	 * @param formacao A formacao do professor
+	 * @param unidade A unidade que o professor foi alocada
+	 * @param data A data de contratacao do professor
+	 */
 	public void adicionaEspecialidadeProfessor(String formacao, String unidade, String data) {
 		validador.validar(formacao, "Campo formacao nao pode ser nulo ou vazio.");
 		validador.validar(unidade, "Campo unidade nao pode ser nulo ou vazio.");
@@ -155,20 +166,37 @@ public class Pesquisador implements Comparable<Pesquisador>{
 		this.especializacao = new Professor(formacao, unidade, data);
 	}
 	
+	
+	/**
+	 * Adiciona a especialidade Aluno ao Pesquisador
+	 * @param semestre O semestre de ingresso do aluno
+	 * @param IEA O IEA (Indice de Eficiencia Academica) do aluno
+	 */
 	public void adicionarEspecialidadeAluno(int semestre, double IEA) {
 		validador.validaIeaAluno(IEA);
 		validador.validaSemestreAluno(semestre);
-		this.especializacao = new Aluna(semestre, IEA);
+		this.especializacao = new Aluno(semestre, IEA);
 	}
-	
+
+	/**
+	 * Remove a especialidade Professor do Pesquisador
+	 */
 	public void removerEspecialidadeProfessor() {
 		this.especializacao = null;
 	}
-	
+
+	/**
+	 * Remove a especialidade Aluno do Pesquisador
+	 */
 	public void removerEspecializacaoAluno() {
 		this.especializacao = null;
 	}
 	
+	/**
+	 * Altera algum atributo do Pesquisador
+	 * @param atributo O atributo a ser alterado
+	 * @param novoValor O novo valor desse atributo
+	 */
 	public void alteraAtributo(String atributo, String novoValor) {
 		validador.validar(atributo, "Atributo nao pode ser vazio ou nulo.");
 		switch (atributo) {
@@ -265,14 +293,25 @@ public class Pesquisador implements Comparable<Pesquisador>{
 		this.nome = novoValor;
 	}
 
+	/**
+	 * Pega o email do Pesquisador
+	 * @return Retorna uma representacao em String do email do pesquisador
+	 */
 	public String getEmail() {
 		return email;
 	}
-	
+
+	/**
+	 * Pega a biografia do pesquisador
+	 * @return Retorna uma representacao em String da biografia do pesquisador
+	 */
 	public String getBiografia() {
 		return biografia;
 	}
-	
+
+	/**
+	 * Compara dois pesquisadores a partir da biografia deles, ordenandos-os por ordem lexicografica.
+	 */
 	@Override
 	public int compareTo(Pesquisador p) {
 		return p.getBiografia().compareTo(this.biografia);

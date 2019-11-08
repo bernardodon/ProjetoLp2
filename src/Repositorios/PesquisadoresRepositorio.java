@@ -7,13 +7,22 @@ import java.util.Map;
 import Entidades.Pesquisador;
 import utils.Validador;
 
+/**
+ * Representacao de um Repositorio de Pesquisaores
+ * @author Hiarly Fernandes de Souto
+ *
+ */
 public class PesquisadoresRepositorio {
+	/**
+	 * O Map de pesquisadores
+	 */
 	private Map<String, Pesquisador> pesquisadores;
-	private Validador validador;
 
+	/**
+	 * Constroi um Repositorio de Pesquisadores
+	 */
 	public PesquisadoresRepositorio() {
 		this.pesquisadores = new HashMap<String, Pesquisador>();
-		this.validador = new Validador();
 	}
 
 	/**
@@ -37,10 +46,18 @@ public class PesquisadoresRepositorio {
 		}
 	}
 
+	/**
+	 * Pega os valores do HashMap de pesquisadores
+	 * @return Retorna um Collection (de Pesquisador) dos valores do HashMap de Pesquisadores
+	 */
 	public Collection<Pesquisador> getPesquisadoresValues() {
 		return pesquisadores.values();
 	}
 
+	/**
+	 * Remove um elemento do hashMap de pesquisadore
+	 * @param chave O chave (em string) que sera removida
+	 */
 	public void remove(String chave) {
 		pesquisadores.remove(chave);
 	}
