@@ -8,6 +8,7 @@ import Entidades.Objetivo;
 import Entidades.Problema;
 import Repositorios.ObjetivosRepositorio;
 import Repositorios.ProblemasRepositorio;
+import utils.Busca;
 import utils.Validador;
 
 public class ProblemaObjetivoController {
@@ -16,16 +17,16 @@ public class ProblemaObjetivoController {
 	private int contadorProblemas;
 	private int contadorObjetivos;
 	private Validador validador;
-	private int numeroDoResultadoProblemaObjetivo;
+	private Busca busca;
 
 	public ProblemaObjetivoController(ObjetivosRepositorio objetivosRepositorio,
-			ProblemasRepositorio problemasRepositorio) {
+			ProblemasRepositorio problemasRepositorio, Busca busca) {
 		this.problemasRepositorio = problemasRepositorio;
 		this.objetivosRepositorio = objetivosRepositorio;
 		this.contadorProblemas = 1;
 		this.contadorObjetivos = 1;
 		this.validador = new Validador();
-		this.numeroDoResultadoProblemaObjetivo = 0;
+		this.busca = new Busca();
 	}
 
 	public String cadastraProblema(String descricao, int viabilidade) {
@@ -86,33 +87,34 @@ public class ProblemaObjetivoController {
 		objetivosRepositorio.remove(codigo);
 
 	}
-	public String buscaTermoProblemas(String termo) {
-		String msg = "";
+
+	public void buscaTermoProblemas(String termo) {
+		validador.validar(termo, "Campo termo nao pode ser nulo ou vazio.");
 		List<Problema> problemasValues = new ArrayList<Problema>();
 		problemasValues.addAll(problemasRepositorio.getValues());
 		Collections.sort(problemasValues);
 
 		for (Problema p : problemasValues) {
 			if (p.getDescricao().toLowerCase().contains(termo.toLowerCase())) {
-				msg += p.getCodigo() + ": " + p.getDescricao() + " | ";
-				numeroDoResultadoProblemaObjetivo++;
+				busca.adicionaBusca(p.getCodigo() + ": " + p.getDescricao() + " | ");
+				busca.setNumeroDoResultado(busca.getNumeroDoResultado() + 1);
 			}
 		}
-		return msg;
+
 	}
 
-	public String buscaTermoObjetivos(String termo) {
-		String msg = "";
+	public void buscaTermoObjetivos(String termo) {
+		validador.validar(termo, "Campo termo nao pode ser nulo ou vazio.");
 		List<Objetivo> objetivosValues = new ArrayList<Objetivo>();
 		objetivosValues.addAll(objetivosRepositorio.getValues());
 		Collections.sort(objetivosValues);
 
 		for (Objetivo obj : objetivosValues) {
 			if (obj.getDescricao().toLowerCase().contains(termo.toLowerCase())) {
-				msg += obj.getCodigo() + ": " + obj.getDescricao() + " | ";
-				numeroDoResultadoProblemaObjetivo++;
+				busca.adicionaBusca(obj.getCodigo() + ": " + obj.getDescricao() + " | ");
+				busca.setNumeroDoResultado(busca.getNumeroDoResultado() + 1);
 			}
 		}
-		return msg;
+
 	}
 }

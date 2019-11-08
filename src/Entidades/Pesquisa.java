@@ -84,6 +84,10 @@ public class Pesquisa implements Comparable<Pesquisa>{
 		return problema;
 	}
 
+	public String getCampoInterese() {
+		return campoInterese;
+	}
+	
 	/**
 	 * Gera o hashCode da pesquisa
 	 */

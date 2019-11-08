@@ -8,6 +8,7 @@ import Entidades.Objetivo;
 import Entidades.Pesquisa;
 import Repositorios.ObjetivosRepositorio;
 import Repositorios.PesquisasRepositorio;
+import utils.Busca;
 import utils.ObjetivosComparator;
 import utils.Validador;
 
@@ -27,14 +28,18 @@ public class PesquisaController {
 	private Validador validador;
 
 	private ObjetivosRepositorio objetivosRepositorio;
+	private Busca busca;
 
 	/**
 	 * Constroi um Controlador dde Pesquisa
 	 */
-	public PesquisaController(PesquisasRepositorio pesquisasRepositorio, ObjetivosRepositorio objetivosRepositorio) {
+	public PesquisaController(PesquisasRepositorio pesquisasRepositorio, ObjetivosRepositorio objetivosRepositorio,
+			Busca busca) {
 		this.pesquisasRepositorio = pesquisasRepositorio;
 		this.objetivosRepositorio = objetivosRepositorio;
+
 		this.validador = new Validador();
+		this.busca = new Busca();
 	}
 
 	/**
@@ -330,8 +335,8 @@ public class PesquisaController {
 		}
 	}
 
-	public String busca(String termo) {
-		String msg = "";
+	public void buscaTermoPesquisa(String termo) {
+		validador.validar(termo, "Campo termo nao pode ser nulo ou vazio.");
 
 		List<Pesquisa> pesquisasValues = new ArrayList<Pesquisa>();
 		pesquisasValues.addAll(pesquisasRepositorio.getValues());
@@ -339,11 +344,14 @@ public class PesquisaController {
 
 		for (Pesquisa p : pesquisasValues) {
 			if (p.getDescricao().toLowerCase().contains(termo.toLowerCase())) {
-				msg += p.toString() + " | ";
+				busca.adicionaBusca(p.getCodigo() + ": " + p.getDescricao() + " | ");
+				busca.setNumeroDoResultado(busca.getNumeroDoResultado() + 1);
+			} else if (p.getCampoInterese().toLowerCase().contains(termo.toLowerCase())) {
+				busca.adicionaBusca(p.getCodigo() + ": " + p.getCampoInterese() + " | ");
+				busca.setNumeroDoResultado(busca.getNumeroDoResultado() + 1);
 			}
 		}
 
-		return msg;
-
 	}
+
 }

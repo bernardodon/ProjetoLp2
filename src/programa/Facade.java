@@ -11,6 +11,7 @@ import Repositorios.ObjetivosRepositorio;
 import Repositorios.PesquisadoresRepositorio;
 import Repositorios.PesquisasRepositorio;
 import Repositorios.ProblemasRepositorio;
+import utils.Busca;
 
 public class Facade {
 
@@ -20,7 +21,7 @@ public class Facade {
 	private ObjetivosRepositorio objetivosRepositorio;
 	private ProblemasRepositorio problemasRepositorio;
 	
-	
+	private Busca busca;
 	private PesquisaController pesquisaController;
 	private PesquisadorController pesquisadorController;
 	private AtividadeController atividadeController;
@@ -37,12 +38,12 @@ public class Facade {
 		this.objetivosRepositorio = new ObjetivosRepositorio();
 		this.problemasRepositorio = new ProblemasRepositorio();
 		
-		this.pesquisaController = new PesquisaController(pesquisasRepositorio, objetivosRepositorio);
-		this.pesquisadorController = new PesquisadorController(pesquisadoresRepositorio);
-		this.atividadeController = new AtividadeController(atividadeRepositorio);
+		this.pesquisaController = new PesquisaController(pesquisasRepositorio, objetivosRepositorio, busca);
+		this.pesquisadorController = new PesquisadorController(pesquisadoresRepositorio, busca);
+		this.atividadeController = new AtividadeController(atividadeRepositorio, busca);
 		
 		this.pesquisaPesquisadorController = new PesquisaPesquisadorController(pesquisadoresRepositorio, pesquisasRepositorio);
-		this.problemaObjetivoController = new ProblemaObjetivoController(objetivosRepositorio, problemasRepositorio);
+		this.problemaObjetivoController = new ProblemaObjetivoController(objetivosRepositorio, problemasRepositorio, busca);
 		this.pesquisaProblemaController = new PesquisaProblemaController(pesquisasRepositorio, problemasRepositorio);
 	}
 
@@ -185,9 +186,23 @@ public class Facade {
 	public String listaPesquisas(String ordem) {
 		return pesquisaController.listaPesquisas(ordem);
 	}
-/*
+
 	public String busca(String termo) {
-		return pesquisaController.busca(termo) + pesquisadorController.buscaTermoPesquisadores(termo)
-				+ pesquisaProblemaObjetivoController.busca(termo) + atividadeController.buscaTermoAtividades(termo);
-	}*/
+		pesquisaController.buscaTermoPesquisa(termo);
+		pesquisadorController.buscaTermoPesquisadores(termo);
+		atividadeController.buscaTermoAtividades(termo);
+		problemaObjetivoController.buscaTermoProblemas(termo);
+		problemaObjetivoController.buscaTermoObjetivos(termo);
+		return busca.resultadoDaBusca();
+	}
+	
+	public String busca(String termo, int numeroDoResultado) {
+		return busca.busca(termo, numeroDoResultado);
+	}
+	
+	public int contaResultadosBusca(String termo) {
+		return busca.contaResultadosBusca(termo);
+	}
+	
+	
 }

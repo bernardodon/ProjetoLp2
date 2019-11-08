@@ -6,6 +6,7 @@ import java.util.List;
 
 import Entidades.Pesquisador;
 import Repositorios.PesquisadoresRepositorio;
+import utils.Busca;
 import utils.Validador;
 
 /**
@@ -25,16 +26,16 @@ public class PesquisadorController {
 	 */
 	private Validador validador;
 
+	private Busca busca;
+
 	/**
 	 * Constroi um controlador de pesquisador.
 	 */
 
-	private int numeroDoResultadoPesquisador;
-
-	public PesquisadorController(PesquisadoresRepositorio pesquisadorMapContoller) {
+	public PesquisadorController(PesquisadoresRepositorio pesquisadorMapContoller, Busca busca) {
 		validador = new Validador();
-		this.numeroDoResultadoPesquisador = 0;
 		this.pesquisadorMapController = pesquisadorMapContoller;
+		this.busca = new Busca();
 	}
 
 	/**
@@ -113,7 +114,6 @@ public class PesquisadorController {
 
 		Pesquisador pesquisador = pesquisadorMapController.getPesquisador(email);
 
-
 		return pesquisador.toString();
 	}
 
@@ -134,7 +134,7 @@ public class PesquisadorController {
 		validador.validar(email, "Campo email nao pode ser nulo ou vazio.");
 		validador.validaSemestreAluno(semestre);
 		validador.validaIeaAluno(iEA);
-		
+
 		Pesquisador pesquisador = pesquisadorMapController.getPesquisador(email);
 
 		if (!pesquisador.getFuncao().equals("estudante")) {
@@ -150,7 +150,7 @@ public class PesquisadorController {
 		validador.validar(unidade, "Campo unidade nao pode ser nulo ou vazio.");
 		validador.validar(data, "Campo data nao pode ser nulo ou vazio.");
 		validador.validarDataProfessor(data);
-		
+
 		Pesquisador pesquisador = pesquisadorMapController.getPesquisador(email);
 
 		if (!pesquisador.getFuncao().equals("professor")) {
@@ -186,25 +186,18 @@ public class PesquisadorController {
 		pesquisadorMapController.put(novoValor, novoPesquisador);
 	}
 
-	public String buscaTermoPesquisadores(String termo) {
-		String msg = "";
-
+	public void buscaTermoPesquisadores(String termo) {
+		validador.validar(termo, "Campo termo nao pode ser nulo ou vazio.");
 		List<Pesquisador> pesquisadoresValues = new ArrayList<Pesquisador>();
 		pesquisadoresValues.addAll(pesquisadorMapController.getPesquisadoresValues());
 		Collections.sort(pesquisadoresValues);
 
 		for (Pesquisador p : pesquisadoresValues) {
 			if (p.getBiografia().toLowerCase().contains(termo.toLowerCase())) {
-				msg += p.getEmail() + ": " + p.getBiografia() + " | ";
-				numeroDoResultadoPesquisador++;
+				busca.adicionaBusca(p.getEmail() + ": " + p.getBiografia() + " | ");
+				busca.setNumeroDoResultado(busca.getNumeroDoResultado() + 1);
 			}
 		}
 
-		return msg;
 	}
-
-	public int getNumeroDoResultadoPesquisador() {
-		return numeroDoResultadoPesquisador;
-	}
-
 }

@@ -7,6 +7,7 @@ import java.util.List;
 import Entidades.Atividade;
 import Entidades.Item;
 import Repositorios.AtividadesRepositorio;
+import utils.Busca;
 import utils.Validador;
 
 /**
@@ -33,16 +34,16 @@ public class AtividadeController {
 	 */
 	private Validador validador;
 
-	private int numeroDoResultadoAtividade;
+	private Busca busca;
 
 	/**
 	 * Constrói um controller de Atividades.
 	 */
-	public AtividadeController(AtividadesRepositorio atividadeRepositorio) {
+	public AtividadeController(AtividadesRepositorio atividadeRepositorio, Busca busca) {
 		this.atividadeRepositorio = atividadeRepositorio;
 		this.unidade = 1;
 		this.validador = new Validador();
-		this.numeroDoResultadoAtividade = 0;
+		this.busca = new Busca();
 	}
 
 	/**
@@ -141,28 +142,21 @@ public class AtividadeController {
 
 	}
 
-	public String buscaTermoAtividades(String termo) {
-		String msg = "";
-
+	public void buscaTermoAtividades(String termo) {
+		validador.validar(termo, "Campo termo nao pode ser nulo ou vazio.");
 		List<Atividade> atividadesValues = new ArrayList<Atividade>();
 		atividadesValues.addAll(atividadeRepositorio.getValues());
 		Collections.sort(atividadesValues);
 
 		for (Atividade atvd : atividadesValues) {
 			if (atvd.getDescricaoAtvd().toLowerCase().contains(termo.toLowerCase())) {
-				msg += atvd.getCodigo() + ": " + atvd.getDescricaoAtvd() + " | ";
-				numeroDoResultadoAtividade++;
+				busca.adicionaBusca(atvd.getCodigo() + ": " + atvd.getDescricaoAtvd() + " | ");
+				busca.setNumeroDoResultado(busca.getNumeroDoResultado() + 1);
 			} else if (atvd.getDescricaoRisco().toLowerCase().contains(termo.toLowerCase())) {
-				msg += atvd.getCodigo() + ": " + atvd.getDescricaoRisco() + " | ";
-				numeroDoResultadoAtividade++;
+				busca.adicionaBusca(atvd.getCodigo() + ": " + atvd.getDescricaoRisco() + " | ");
+				busca.setNumeroDoResultado(busca.getNumeroDoResultado() + 1);
 			}
 		}
-
-		return msg;
-	}
-
-	public int getNumeroDoResultadoAtividade() {
-		return numeroDoResultadoAtividade;
 	}
 
 	public boolean existeAtividade(String codigo) {
