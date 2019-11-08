@@ -42,7 +42,15 @@ public class Item {
 	public String toString() {
 		return this.status + " - "+ this.descricao;
 	}
-
+	
+	public void executarItem() {
+		if(this.status.equals("REALIZADO")) {
+			throw new IllegalArgumentException("Item ja executado.");
+		}else {
+		this.status = "REALIZADO";}
+	}
+	
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

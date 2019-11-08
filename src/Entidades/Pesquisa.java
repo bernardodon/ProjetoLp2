@@ -47,6 +47,8 @@ public class Pesquisa implements Comparable<Pesquisa>{
 	 * Armaza se a pesquisa esta ativa ou nao
 	 */
 	private boolean ativa;
+	
+	private List<Atividade> atividades;
 
 	/**
 	 * Constroi uma pesquisa a partir da descricao, do campo de interesse e do
@@ -70,6 +72,7 @@ public class Pesquisa implements Comparable<Pesquisa>{
 		this.pesquisadores = new ArrayList<Pesquisador>();
 		this.objetivos = new ArrayList<Objetivo>();
 		this.problema = null;
+		this.atividades = new ArrayList<Atividade>();
 	}
 
 	/**
@@ -267,4 +270,25 @@ public class Pesquisa implements Comparable<Pesquisa>{
 		return objetivos;
 	}	
 	
-}
+	public boolean adicionaAtividade(Atividade atividade) {
+		if(atividades.contains(atividade)) {
+			return false;
+		}else {
+			atividades.add(atividade);
+			return true;
+		}
+	}
+		
+	public boolean tiraAtividade(Atividade atividade) {
+		if(atividades.contains(atividade)) {
+			atividades.remove(atividade);
+			return true;
+		}else {
+			return false;
+		}
+	}
+		
+		
+	}
+	
+

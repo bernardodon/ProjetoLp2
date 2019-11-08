@@ -107,4 +107,22 @@ public class Validador {
 		}
 	}
 
+	public void validarDuracao(int numero) {
+		if(numero<0) {
+			throw new IllegalArgumentException("Duracao nao pode ser nula ou negativa.");
+		}
+
+	}
+	public void validarItem(int numero) {
+		if(numero<0) {
+			throw new IllegalArgumentException("Item nao pode ser nulo ou negativo.");
+		}
+
+	}
+	
+	public void validarNumeroResultado(int numero, String mensagem) {
+		if(numero<0) {
+			throw new IllegalArgumentException("numeroResultado nao pode ser nulo ou negativo.");
+		}
+	}
 }

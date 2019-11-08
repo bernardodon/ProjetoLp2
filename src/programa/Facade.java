@@ -1,6 +1,7 @@
 package programa;
 
 import Controllers.AtividadeController;
+import Controllers.PesquisaAtividadeController;
 import Controllers.PesquisaController;
 import Controllers.PesquisaPesquisadorController;
 import Controllers.PesquisaProblemaController;
@@ -30,6 +31,7 @@ public class Facade {
 	private PesquisaPesquisadorController pesquisaPesquisadorController;
 	private PesquisaProblemaController pesquisaProblemaController;
 	
+	private PesquisaAtividadeController pesquisaAtividadeController ;
 	
 	public Facade() {
 		this.pesquisasRepositorio = new PesquisasRepositorio();
@@ -45,6 +47,7 @@ public class Facade {
 		this.pesquisaPesquisadorController = new PesquisaPesquisadorController(pesquisadoresRepositorio, pesquisasRepositorio);
 		this.problemaObjetivoController = new ProblemaObjetivoController(objetivosRepositorio, problemasRepositorio, busca);
 		this.pesquisaProblemaController = new PesquisaProblemaController(pesquisasRepositorio, problemasRepositorio);
+		this.pesquisaAtividadeController = new PesquisaAtividadeController(atividadeRepositorio, pesquisasRepositorio);
 	}
 
 	public String cadastraPesquisa(String descricao, String campoDeInteresse) {
@@ -186,6 +189,40 @@ public class Facade {
 	public String listaPesquisas(String ordem) {
 		return pesquisaController.listaPesquisas(ordem);
 	}
+	
+	public boolean associaAtividade(String codigoPesquisa, String codigoAtividade) {
+		return pesquisaAtividadeController.associaAtividade(codigoPesquisa,codigoAtividade);
+	}
+	
+	public boolean desassociaAtividade(String codigoPesquisa, String codigoAtividade) {
+		return pesquisaAtividadeController.desassociaAtividade(codigoPesquisa,codigoAtividade);
+	}
+	
+	public void executaAtividade(String codigoAtividade, int item, int duracao) {
+		pesquisaAtividadeController.executaAtividade(codigoAtividade,item,duracao);	
+	}
+	
+	public int cadastraResultado(String codigoAtividade, String resultado) {
+		return pesquisaAtividadeController.cadastraResultado(codigoAtividade,resultado);
+	}
+	
+	public boolean removeResultado(String codigoAtividade, int numeroResultado) {
+		return pesquisaAtividadeController.removeResultado(codigoAtividade,numeroResultado);
+	}
+	
+	public String listaResultados(String codigoAtividade) {
+		
+		return pesquisaAtividadeController.listaResultados(codigoAtividade);
+	}
+	
+	public int getDuracao(String codigoAtividade) {
+		return pesquisaAtividadeController.getDuracao(codigoAtividade);
+	}
+	
+	
+	
+	
+	
 
 	public String busca(String termo) {
 		pesquisaController.buscaTermoPesquisa(termo);
