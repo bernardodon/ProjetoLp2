@@ -1,20 +1,23 @@
 package Testes;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import Controllers.AtividadeController;
+import Repositorios.AtividadesRepositorio;
+import utils.Busca;
 
 
 class AtividadeControllerTest{
+	AtividadesRepositorio atividadesRepositorio;
+	Busca busca;
 	 AtividadeController controller;
 
 	 @BeforeEach
 	void testAtividadeController() {
-		controller = new AtividadeController();
+		controller = new AtividadeController(atividadesRepositorio, busca);
 
 	 }
 

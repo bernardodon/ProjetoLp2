@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import Entidades.Objetivo;
 import Entidades.Pesquisa;
 import Repositorios.ObjetivosRepositorio;
 import Repositorios.PesquisasRepositorio;
@@ -27,16 +26,13 @@ public class PesquisaController {
 	 */
 	private Validador validador;
 
-	private ObjetivosRepositorio objetivosRepositorio;
 	private Busca busca;
 
 	/**
 	 * Constroi um Controlador dde Pesquisa
 	 */
-	public PesquisaController(PesquisasRepositorio pesquisasRepositorio, ObjetivosRepositorio objetivosRepositorio,
-			Busca busca) {
+	public PesquisaController(PesquisasRepositorio pesquisasRepositorio, Busca busca) {
 		this.pesquisasRepositorio = pesquisasRepositorio;
-		this.objetivosRepositorio = objetivosRepositorio;
 
 		this.validador = new Validador();
 		this.busca = busca;
@@ -181,58 +177,6 @@ public class PesquisaController {
 	}
 
 	/**
-	 * Associa um objetivo a uma pesquisa, a partir do id da pesquisa e do objetivo.
-	 * 
-	 * @param idPesquisa Id da pesquisa.
-	 * @param idObjetivo Id do objetivo.
-	 * @return Retorna false caso a associacao seja mal sucedida e sucesso caso
-	 *         contrario.
-	 */
-	public boolean associaObjetivo(String idPesquisa, String idObjetivo) {
-		validador.validar(idPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
-		validador.validar(idObjetivo, "Campo idObjetivo nao pode ser nulo ou vazio.");
-		Pesquisa pesquisa = pesquisasRepositorio.getPesquisa(idPesquisa);
-		checaDesativacao(pesquisa);
-		Objetivo objetivo = objetivosRepositorio.getObjetivo(idObjetivo);
-
-		boolean retorno = pesquisa.associaObjetivo(objetivo);
-
-		if (retorno == false && objetivo.isAssociado()) {
-			return retorno;
-		} else if (objetivo.isAssociado()) {
-			throw new IllegalArgumentException("Objetivo ja associado a uma pesquisa.");
-		}
-		objetivo.setAssociado(true);
-		return retorno;
-	}
-
-	/**
-	 * Dessocia um objetivo a uma pesquisa, a partir do id da pesquisa e do
-	 * objetivo.
-	 * 
-	 * @param idPesquisa Id da pesquisa.
-	 * @param idObjetivo Id do objetivo.
-	 * @return Retorna false caso a desassociacao seja mal sucedida e sucesso caso
-	 *         contrario.
-	 */
-	public boolean desassociaObjetivo(String idPesquisa, String idObjetivo) {
-		validador.validar(idPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
-		validador.validar(idObjetivo, "Campo idObjetivo nao pode ser nulo ou vazio.");
-		Pesquisa pesquisa = pesquisasRepositorio.getPesquisa(idPesquisa);
-
-		checaDesativacao(pesquisa);
-		Objetivo objetivo = objetivosRepositorio.getObjetivo(idObjetivo);
-
-		if (!objetivo.isAssociado()) {
-			return false;
-		}
-
-		pesquisa.desassociaObjetivo(objetivo);
-		objetivo.setAssociado(false);
-		return true;
-	}
-
-	/**
 	 * Lista as pesquisas a partir de uma ordem definida no parametro, podendo ser
 	 * por problema, objetivos ou pela propria pesquisa.
 	 * 
@@ -323,30 +267,17 @@ public class PesquisaController {
 		return listaPesquisas;
 	}
 
-	/**
-	 * Confere, a partir do id, se uma pesquisa esta desativada ou nao, lancando uma
-	 * excecao caso esteja.
-	 * 
-	 * @param idPesquisa Id da pesquisa.
-	 */
-	private void checaDesativacao(Pesquisa pesquisa) {
-		if (!pesquisa.ehAtiva()) {
-			throw new IllegalArgumentException("Pesquisa desativada.");
-		}
-	}
-
 	public void buscaTermoPesquisa(String termo) {
 		validador.validar(termo, "Campo termo nao pode ser nulo ou vazio.");
 
 		List<Pesquisa> pesquisasValues = new ArrayList<Pesquisa>();
 		pesquisasValues.addAll(pesquisasRepositorio.getValues());
 		Collections.sort(pesquisasValues);
-		busca.clearBuscas();
 		for (Pesquisa p : pesquisasValues) {
 			if (p.getDescricao().toLowerCase().contains(termo.toLowerCase())) {
 				busca.adicionaBusca(p.getCodigo() + ": " + p.getDescricao());
 			}
-			
+
 			if (p.getCampoInterese().toLowerCase().contains(termo.toLowerCase())) {
 				busca.adicionaBusca(p.getCodigo() + ": " + p.getCampoInterese());
 			}

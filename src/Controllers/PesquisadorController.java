@@ -32,9 +32,9 @@ public class PesquisadorController {
 	 * Constroi um controlador de pesquisador.
 	 */
 
-	public PesquisadorController(PesquisadoresRepositorio pesquisadorMapContoller, Busca busca) {
+	public PesquisadorController(PesquisadoresRepositorio pesquisadoresRepositorio, Busca busca) {
 		validador = new Validador();
-		this.pesquisadoresRepositorio = pesquisadorMapContoller;
+		this.pesquisadoresRepositorio = pesquisadoresRepositorio;
 		this.busca = busca;
 	}
 

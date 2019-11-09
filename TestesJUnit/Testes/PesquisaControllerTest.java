@@ -6,13 +6,15 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import Controllers.ControllerGeral;
 import Controllers.PesquisaController;
+import Repositorios.PesquisasRepositorio;
+import utils.Busca;
 
 class PesquisaControllerTest {
-
-	ControllerGeral controllerGeral = new ControllerGeral();
-	PesquisaController controle = controllerGeral.getPesquisaController();
+	
+	private PesquisasRepositorio pesquisasRepositorio = new PesquisasRepositorio();
+	private Busca busca = new Busca();
+	PesquisaController controle = new PesquisaController(pesquisasRepositorio, busca);
 
 	@BeforeEach
 	void testCadastraPesquisa() {

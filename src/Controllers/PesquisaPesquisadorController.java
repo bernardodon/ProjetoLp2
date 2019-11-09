@@ -55,6 +55,7 @@ public class PesquisaPesquisadorController {
 
 		Pesquisador pesquisador = pesquisadoresRepositorio.getPesquisador(emailPesquisador);
 		Pesquisa pesquisa = pesquisasRepositorio.getPesquisa(idPesquisa);
+		checaPesquisa(pesquisa);
 		return pesquisa.adicionarPesquisador(pesquisador);
 
 	}
@@ -73,9 +74,23 @@ public class PesquisaPesquisadorController {
 
 		Pesquisador pesquisador = pesquisadoresRepositorio.getPesquisador(emailPesquisador);
 		Pesquisa pesquisa = pesquisasRepositorio.getPesquisa(idPesquisa);
-
+		checaPesquisa(pesquisa);
 		return pesquisa.removerPesquisador(pesquisador);
 
+	}
+	
+
+	/**
+	 * Confere, a partir de uma pesquisa, se uma pesquisa esta desativada ou nao, lancando uma
+	 * excecao caso esteja.
+	 * 
+	 * @param pesquisa A pesquisa que sera feita a validadcao.
+	 */
+
+	private void checaPesquisa(Pesquisa pesquisa) {
+		if (!pesquisa.ehAtiva()) {
+			throw new IllegalArgumentException("Pesquisa desativada.");
+		}
 	}
 
 }

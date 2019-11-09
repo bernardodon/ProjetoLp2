@@ -3,6 +3,7 @@ package programa;
 import Controllers.AtividadeController;
 import Controllers.PesquisaAtividadeController;
 import Controllers.PesquisaController;
+import Controllers.PesquisaObjetivoController;
 import Controllers.PesquisaPesquisadorController;
 import Controllers.PesquisaProblemaController;
 import Controllers.PesquisadorController;
@@ -30,9 +31,9 @@ public class Facade {
 	private ProblemaObjetivoController problemaObjetivoController;
 	private PesquisaPesquisadorController pesquisaPesquisadorController;
 	private PesquisaProblemaController pesquisaProblemaController;
-
 	private PesquisaAtividadeController pesquisaAtividadeController;
-
+	private PesquisaObjetivoController pesquisaObjetivoController;
+	
 	public Facade() {
 		this.pesquisasRepositorio = new PesquisasRepositorio();
 		this.pesquisadoresRepositorio = new PesquisadoresRepositorio();
@@ -41,12 +42,13 @@ public class Facade {
 		this.problemasRepositorio = new ProblemasRepositorio();
 
 		this.busca = new Busca();
-		this.pesquisaController = new PesquisaController(pesquisasRepositorio, objetivosRepositorio, busca);
+		this.pesquisaController = new PesquisaController(pesquisasRepositorio, busca);
 		this.pesquisadorController = new PesquisadorController(pesquisadoresRepositorio, busca);
 		this.atividadeController = new AtividadeController(atividadeRepositorio, busca);
 
 		this.problemaObjetivoController = new ProblemaObjetivoController(objetivosRepositorio, problemasRepositorio,
 				busca);
+		this.pesquisaObjetivoController = new PesquisaObjetivoController(pesquisasRepositorio, objetivosRepositorio);
 		this.pesquisaPesquisadorController = new PesquisaPesquisadorController(pesquisadoresRepositorio,
 				pesquisasRepositorio);
 		this.pesquisaProblemaController = new PesquisaProblemaController(pesquisasRepositorio, problemasRepositorio);
@@ -183,11 +185,11 @@ public class Facade {
 	}
 
 	public boolean associaObjetivo(String idPesquisa, String idObjetivo) {
-		return pesquisaController.associaObjetivo(idPesquisa, idObjetivo);
+		return pesquisaObjetivoController.associaObjetivo(idPesquisa, idObjetivo);
 	}
 
 	public boolean desassociaObjetivo(String idPesquisa, String idObjetivo) {
-		return pesquisaController.desassociaObjetivo(idPesquisa, idObjetivo);
+		return pesquisaObjetivoController.desassociaObjetivo(idPesquisa, idObjetivo);
 	}
 
 	public String listaPesquisas(String ordem) {
@@ -224,30 +226,29 @@ public class Facade {
 	}
 
 	public String busca(String termo) {
-		pesquisaController.buscaTermoPesquisa(termo);
-		pesquisadorController.buscaTermoPesquisadores(termo);
-		problemaObjetivoController.buscaTermoProblemas(termo);
-		problemaObjetivoController.buscaTermoObjetivos(termo);
-		atividadeController.buscaTermoAtividades(termo);
+		buscaControllers(termo);
 		return busca.resultadoDaBusca();
 	}
 
+
 	public String busca(String termo, int numeroDoResultado) {
-		pesquisaController.buscaTermoPesquisa(termo);
-		pesquisadorController.buscaTermoPesquisadores(termo);
-		problemaObjetivoController.buscaTermoProblemas(termo);
-		problemaObjetivoController.buscaTermoObjetivos(termo);
-		atividadeController.buscaTermoAtividades(termo);
+		buscaControllers(termo);
 		return busca.busca(termo, numeroDoResultado);
 	}
 
 	public int contaResultadosBusca(String termo) {
+		buscaControllers(termo);
+		return busca.contaResultadosBusca(termo);
+	}
+	
+	private void buscaControllers(String termo) {
+		busca.clearBuscas();
 		pesquisaController.buscaTermoPesquisa(termo);
 		pesquisadorController.buscaTermoPesquisadores(termo);
 		problemaObjetivoController.buscaTermoProblemas(termo);
 		problemaObjetivoController.buscaTermoObjetivos(termo);
 		atividadeController.buscaTermoAtividades(termo);
-		return busca.contaResultadosBusca(termo);
 	}
+	
 
 }

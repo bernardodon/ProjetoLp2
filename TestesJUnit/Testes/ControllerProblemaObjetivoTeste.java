@@ -6,17 +6,23 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import Controllers.ControllerGeral;
 import Controllers.ProblemaObjetivoController;
+import Repositorios.ObjetivosRepositorio;
+import Repositorios.ProblemasRepositorio;
+import utils.Busca;
 
 class ControllerProblemaObjetivoTeste {
-
-	ControllerGeral controllerGeral = new ControllerGeral();
+	ProblemasRepositorio problemasRepositorio;
+	ObjetivosRepositorio objetivosRepositorio;
+	Busca busca;
 	ProblemaObjetivoController cpo;
 	
 	@BeforeEach
 	void inicia() {
-		cpo = controllerGeral.getProblemaObjetivoController();
+		problemasRepositorio = new ProblemasRepositorio();
+		objetivosRepositorio = new ObjetivosRepositorio();
+		busca = new Busca();
+		cpo = new ProblemaObjetivoController(objetivosRepositorio, problemasRepositorio, busca);
 	}
 	
 	@BeforeEach
