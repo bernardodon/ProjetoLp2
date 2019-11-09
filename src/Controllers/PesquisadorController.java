@@ -132,9 +132,11 @@ public class PesquisadorController {
 
 	/**
 	 * Cadastra a especialdiade Aluno no Pesquisador
-	 * @param email O email do Pesquisador que tera uma especiliazaocao adicionada
+	 * 
+	 * @param email    O email do Pesquisador que tera uma especiliazaocao
+	 *                 adicionada
 	 * @param semestre O semestre de ingresso do aluno
-	 * @param iEA O IEA (Indice ce Eficiencia Academica) do aluno
+	 * @param iEA      O IEA (Indice ce Eficiencia Academica) do aluno
 	 */
 	public void cadastraEspecialidadeAluno(String email, int semestre, double iEA) {
 		validador.validar(email, "Campo email nao pode ser nulo ou vazio.");
@@ -152,10 +154,11 @@ public class PesquisadorController {
 
 	/**
 	 * Cadastra a especilaidade Professor em um Pesquisador
-	 * @param email O email do pesquisador que tera uma especialidade adicionada
+	 * 
+	 * @param email    O email do pesquisador que tera uma especialidade adicionada
 	 * @param formacao A formacado do professor
-	 * @param unidade A unidade de alocacao do professor
-	 * @param data A data de contratacao do professor
+	 * @param unidade  A unidade de alocacao do professor
+	 * @param data     A data de contratacao do professor
 	 */
 	public void cadastratEspecialidadeProfessor(String email, String formacao, String unidade, String data) {
 		validador.validar(email, "Campo email nao pode ser nulo ou vazio.");
@@ -204,7 +207,7 @@ public class PesquisadorController {
 		List<Pesquisador> pesquisadoresValues = new ArrayList<Pesquisador>();
 		pesquisadoresValues.addAll(pesquisadoresRepositorio.getPesquisadoresValues());
 		Collections.sort(pesquisadoresValues);
-
+		
 		for (Pesquisador p : pesquisadoresValues) {
 			if (p.getBiografia().toLowerCase().contains(termo.toLowerCase())) {
 				busca.adicionaBusca(p.getEmail() + ": " + p.getBiografia());

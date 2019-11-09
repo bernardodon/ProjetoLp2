@@ -345,7 +345,7 @@ public class PesquisaController {
 		for (Pesquisa p : pesquisasValues) {
 			if (p.getDescricao().toLowerCase().contains(termo.toLowerCase())) {
 				busca.adicionaBusca(p.getCodigo() + ": " + p.getDescricao());
-			} 
+			}
 			
 			if (p.getCampoInterese().toLowerCase().contains(termo.toLowerCase())) {
 				busca.adicionaBusca(p.getCodigo() + ": " + p.getCampoInterese());

@@ -23,11 +23,13 @@ public class Busca {
 
 	public String resultadoDaBusca() {
 		String str = "";
+		if (buscas.size() == 0) {
+			return "";
+		}
 		for (String s : buscas) {
 			str += s + " | ";
-		}
-
-		return str.substring(0, str.length() - 3);
+		}	
+			return str.substring(0, str.length() - 3);
 	}
 
 	public String busca(String termo, int numeroDoResultado) {
