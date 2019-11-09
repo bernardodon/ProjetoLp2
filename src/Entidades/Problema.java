@@ -26,7 +26,7 @@ public class Problema implements Comparable<Problema> {
 	
 	@Override
 	public int compareTo(Problema o) {
-		return o.getDescricao().compareTo(this.descricao) ;
+		return o.getCodigo().compareTo(this.codigo);
 	}
 	@Override
 	public int hashCode() {

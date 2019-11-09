@@ -38,7 +38,7 @@ public class Objetivo implements Comparable<Objetivo> {
 	
 	@Override
 	public int compareTo(Objetivo o) {
-		return o.getDescricao().compareTo(this.descricao);
+		return o.getCodigo().compareTo(this.codigo);
 	}
 	
 	@Override

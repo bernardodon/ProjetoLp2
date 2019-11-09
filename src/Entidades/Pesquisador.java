@@ -314,6 +314,6 @@ public class Pesquisador implements Comparable<Pesquisador> {
 	 */
 	@Override
 	public int compareTo(Pesquisador p) {
-		return p.getBiografia().compareTo(this.biografia);
+		return p.getEmail().compareTo(this.email);
 	}
 }

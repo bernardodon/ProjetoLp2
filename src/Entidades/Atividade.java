@@ -243,7 +243,7 @@ public class Atividade implements Comparable<Atividade> {
 
 	@Override
 	public int compareTo(Atividade atvd) {
-		return atvd.getDescricaoAtvd().compareTo(this.descricaoAtvd);
+		return atvd.getCodigo().compareTo(this.getCodigo());
 	}
 
 	/**

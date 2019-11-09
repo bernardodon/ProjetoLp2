@@ -94,9 +94,8 @@ public class ProblemaObjetivoController {
 		List<Problema> problemasValues = new ArrayList<Problema>();
 		
 		problemasValues.addAll(problemasRepositorio.getValues());		
-		
+
 		Collections.sort(problemasValues);
-		
 		for (Problema p : problemasValues) {
 			if (p.getDescricao().toLowerCase().contains(termo.toLowerCase())) {
 				busca.adicionaBusca(p.getCodigo() + ": " + p.getDescricao());
