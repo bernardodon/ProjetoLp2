@@ -30,6 +30,18 @@ class ObjetivoTeste {
 	}
 	
 	@Test
+	void testCriaObjetivoTipoVazioOuNulo() {
+		assertThrows(IllegalArgumentException.class, () -> new Objetivo("", "Diminuir a frequencia de mensagens homofobicas trocadas em chats online entre alunos de primeiro periodo de computacao.", 4, 2, "O1"));
+		assertThrows(NullPointerException.class, () -> new Objetivo(null, "Diminuir a frequencia de mensagens homofobicas trocadas em chats online entre alunos de primeiro periodo de computacao.", 4, 2, "O1"));
+	}
+	
+	@Test
+	void testCriaObjetivoDescricaoVaziaOuNula() {
+		assertThrows(IllegalArgumentException.class, () -> new Objetivo("GERAL", "", 4, 2, "O1"));
+		assertThrows(NullPointerException.class, () -> new Objetivo("GERAL", null, 4, 2, "O1"));
+	}
+	
+	@Test
 	void testObjetivoToString() {
 		assertEquals("O1 - GERAL - Diminuir a frequencia de mensagens homofobicas trocadas em chats online entre alunos de primeiro periodo de computacao. - 6", o1.toString());
 		assertEquals("O2 - ESPECIFICO - Realizar rodas de conversa entre alunos do curso, incluindo especialmente aqueles que emitem mensagens homofobicas e alunos ou pessoas homoafetivas. - 9", o2.toString());

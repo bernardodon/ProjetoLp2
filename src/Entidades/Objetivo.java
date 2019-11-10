@@ -1,5 +1,7 @@
 package Entidades;
 
+import utils.Validador;
+
 public class Objetivo implements Comparable<Objetivo> {
 	
 	private String tipo;
@@ -8,8 +10,12 @@ public class Objetivo implements Comparable<Objetivo> {
 	private int viabilidade;
 	private String codigo;
 	private boolean associado;
+	private Validador validador;
 
 	public Objetivo(String tipo, String descricao, int aderencia, int viabilidade, String codigo) {
+		this.validador = new Validador();
+		validador.validar(tipo, "Campo tipo nao pode ser nulo ou vazio.");
+		validador.validar(descricao, "Campo descricao nao pode ser nulo ou vazio.");
 		this.tipo = tipo;
 		this.descricao = descricao;
 		this.aderenciaProblema = aderencia;

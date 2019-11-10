@@ -1,12 +1,18 @@
 package Entidades;
 
+import utils.Validador;
+
 public class Problema implements Comparable<Problema> {
 
 	private String  descricao;
 	private int viabilidade;
 	private String codigo;
+	private Validador validador;
 	
 	public Problema(String descricao,int viabilidade, String codigo) {
+		this.validador = new Validador();
+		validador.validar(descricao, "Campo descricao nao pode ser nulo ou vazio.");
+		validador.validarPontuacao(viabilidade, "Valor invalido de viabilidade.");
 		this.descricao = descricao;
 		this.viabilidade = viabilidade;
 		this.codigo = codigo;

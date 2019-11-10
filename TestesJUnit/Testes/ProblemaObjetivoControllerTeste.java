@@ -11,7 +11,7 @@ import Repositorios.ObjetivosRepositorio;
 import Repositorios.ProblemasRepositorio;
 import utils.Busca;
 
-class ControllerProblemaObjetivoTeste {
+class ProblemaObjetivoControllerTeste {
 	ProblemasRepositorio problemasRepositorio;
 	ObjetivosRepositorio objetivosRepositorio;
 	Busca busca;
