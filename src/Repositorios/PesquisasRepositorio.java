@@ -44,7 +44,7 @@ public class PesquisasRepositorio {
 	 */
 	private void checaInexistenciaPesquisa(String idPesquisa) {
 		if(!pesquisas.containsKey(idPesquisa)) {
-			throw new IllegalArgumentException("Pesquisa nao encontrada.");
+
 		}
 	}
 	

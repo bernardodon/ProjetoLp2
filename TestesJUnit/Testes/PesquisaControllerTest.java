@@ -1,5 +1,6 @@
 package Testes;
 
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -9,7 +10,6 @@ import org.junit.jupiter.api.Test;
 import Controllers.PesquisaController;
 import Repositorios.PesquisasRepositorio;
 import utils.Busca;
-
 class PesquisaControllerTest {
 	
 	private PesquisasRepositorio pesquisasRepositorio = new PesquisasRepositorio();
