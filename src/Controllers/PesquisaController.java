@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.List;
 
 import Entidades.Pesquisa;
-import Repositorios.ObjetivosRepositorio;
 import Repositorios.PesquisasRepositorio;
 import utils.Busca;
 import utils.ObjetivosComparator;

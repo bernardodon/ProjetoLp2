@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import Entidades.Pesquisador;
-import utils.Validador;
 
 /**
  * Representacao de um Repositorio de Pesquisaores

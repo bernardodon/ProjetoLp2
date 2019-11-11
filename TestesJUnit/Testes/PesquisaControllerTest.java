@@ -12,8 +12,8 @@ import Repositorios.PesquisasRepositorio;
 import utils.Busca;
 class PesquisaControllerTest {
 	
-	private PesquisasRepositorio pesquisasRepositorio = new PesquisasRepositorio();
-	private Busca busca = new Busca();
+	PesquisasRepositorio pesquisasRepositorio = new PesquisasRepositorio();
+	Busca busca = new Busca();
 	PesquisaController controle = new PesquisaController(pesquisasRepositorio, busca);
 
 	@BeforeEach

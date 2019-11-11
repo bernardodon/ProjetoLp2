@@ -9,37 +9,35 @@ import Controllers.AtividadeController;
 import Repositorios.AtividadesRepositorio;
 import utils.Busca;
 
-
-class AtividadeControllerTest{
+class AtividadeControllerTest {
 	AtividadesRepositorio atividadesRepositorio;
 	Busca busca;
-	 AtividadeController controller;
+	AtividadeController controller;
 
-	 @BeforeEach
+	@BeforeEach
 	void testAtividadeController() {
+		atividadesRepositorio = new AtividadesRepositorio();
+		busca = new Busca();
 		controller = new AtividadeController(atividadesRepositorio, busca);
 
-	 }
+	}
 
-	 @Test
-	 void testCadastraAtividade() {
+	@Test
+	void testCadastraAtividade() {
 
-	 	controller.cadastraAtividade("Atividade mt doida", "ALTO", "Risco bem alto ne");
-	 	controller.cadastraAtividade("Atividade suave", "MEDIO", "Risco DE BOA");
+		controller.cadastraAtividade("Atividade mt doida", "ALTO", "Risco bem alto ne");
+		controller.cadastraAtividade("Atividade suave", "MEDIO", "Risco DE BOA");
 
-	 
 	}
 
 	@Test
 
-	void testCadastraItem(){
+	void testCadastraItem() {
 		testCadastraAtividade();
-		controller.cadastraItem("A1","pular corda");
-		controller.cadastraItem("A2","nadar");
+		controller.cadastraItem("A1", "pular corda");
+		controller.cadastraItem("A2", "nadar");
 
 	}
-
-
 
 	@Test
 	void testExibeAtividades() {
@@ -47,15 +45,6 @@ class AtividadeControllerTest{
 
 		assertEquals("Atividade mt doida (ALTO - Risco bem alto ne)", controller.exibeAtividade("A1"));
 
-
 	}
-
-
-
-
-
-
-
-
 
 }
