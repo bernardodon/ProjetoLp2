@@ -41,13 +41,13 @@ public class Facade {
 		this.objetivosRepositorio = new ObjetivosRepositorio();
 		this.problemasRepositorio = new ProblemasRepositorio();
 
-		this.busca = new Busca();
-		this.pesquisaController = new PesquisaController(pesquisasRepositorio, busca);
-		this.pesquisadorController = new PesquisadorController(pesquisadoresRepositorio, busca);
-		this.atividadeController = new AtividadeController(atividadeRepositorio, busca);
+		this.busca = new Busca(objetivosRepositorio, problemasRepositorio, pesquisadoresRepositorio, pesquisasRepositorio, atividadeRepositorio);
+		this.pesquisaController = new PesquisaController(pesquisasRepositorio);
+		this.pesquisadorController = new PesquisadorController(pesquisadoresRepositorio);
+		this.atividadeController = new AtividadeController(atividadeRepositorio);
 
-		this.problemaObjetivoController = new ProblemaObjetivoController(objetivosRepositorio, problemasRepositorio,
-				busca);
+		this.problemaObjetivoController = new ProblemaObjetivoController(objetivosRepositorio, problemasRepositorio
+				);
 		this.pesquisaObjetivoController = new PesquisaObjetivoController(pesquisasRepositorio, objetivosRepositorio);
 		this.pesquisaPesquisadorController = new PesquisaPesquisadorController(pesquisadoresRepositorio,
 				pesquisasRepositorio);
@@ -226,29 +226,19 @@ public class Facade {
 	}
 
 	public String busca(String termo) {
-		buscaControllers(termo);
-		return busca.resultadoDaBusca();
+		return busca.resultadoDaBusca(termo);
 	}
 
 
 	public String busca(String termo, int numeroDoResultado) {
-		buscaControllers(termo);
+		busca.resultadoDaBusca(termo);
 		return busca.busca(termo, numeroDoResultado);
 	}
 
 	public int contaResultadosBusca(String termo) {
-		buscaControllers(termo);
+		busca.resultadoDaBusca(termo);
 		return busca.contaResultadosBusca(termo);
 	}
 	
-	private void buscaControllers(String termo) {
-		busca.clearBuscas();
-		pesquisaController.buscaTermoPesquisa(termo);
-		pesquisadorController.buscaTermoPesquisadores(termo);
-		problemaObjetivoController.buscaTermoProblemas(termo);
-		problemaObjetivoController.buscaTermoObjetivos(termo);
-		atividadeController.buscaTermoAtividades(termo);
-	}
 	
-
 }

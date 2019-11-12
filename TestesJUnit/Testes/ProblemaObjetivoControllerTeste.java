@@ -9,20 +9,16 @@ import org.junit.jupiter.api.Test;
 import Controllers.ProblemaObjetivoController;
 import Repositorios.ObjetivosRepositorio;
 import Repositorios.ProblemasRepositorio;
-import utils.Busca;
-
 class ProblemaObjetivoControllerTeste {
 	ProblemasRepositorio problemasRepositorio;
 	ObjetivosRepositorio objetivosRepositorio;
-	Busca busca;
 	ProblemaObjetivoController cpo;
 	
 	@BeforeEach
 	void inicia() {
 		problemasRepositorio = new ProblemasRepositorio();
 		objetivosRepositorio = new ObjetivosRepositorio();
-		busca = new Busca();
-		cpo = new ProblemaObjetivoController(objetivosRepositorio, problemasRepositorio, busca);
+		cpo = new ProblemaObjetivoController(objetivosRepositorio, problemasRepositorio);
 	}
 	
 	@BeforeEach

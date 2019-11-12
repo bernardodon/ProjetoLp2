@@ -10,18 +10,16 @@ import Controllers.ProblemaObjetivoController;
 import Repositorios.ObjetivosRepositorio;
 import Repositorios.PesquisasRepositorio;
 import Repositorios.ProblemasRepositorio;
-import utils.Busca;
-
 class PesquisaObjetivoControllerTest {
 
 	private PesquisasRepositorio pesquisasRepositorio = new PesquisasRepositorio();
 	private ObjetivosRepositorio objetivosRepositorio = new ObjetivosRepositorio();
 	private ProblemasRepositorio problemasRepositorio = new ProblemasRepositorio();
 
-	Busca busca = new Busca();
-	private PesquisaController pesquisaController = new PesquisaController(pesquisasRepositorio, busca);
+	
+	private PesquisaController pesquisaController = new PesquisaController(pesquisasRepositorio);
 	private ProblemaObjetivoController problemaObjetivoController = new ProblemaObjetivoController(objetivosRepositorio,
-			problemasRepositorio, busca);
+			problemasRepositorio);
 	private PesquisaObjetivoController pesquisaObjetivoController = new PesquisaObjetivoController(pesquisasRepositorio,
 			objetivosRepositorio);
 

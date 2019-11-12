@@ -25,12 +25,13 @@ class BuscaTest {
 	private ObjetivosRepositorio objetivosRepositorio = new ObjetivosRepositorio();
 	private ProblemasRepositorio problemasRepositorio = new ProblemasRepositorio();
 
-	private Busca busca = new Busca();
-	private PesquisaController pesquisaController = new PesquisaController(pesquisasRepositorio, busca);
-	private PesquisadorController pesquisadorController = new PesquisadorController(pesquisadoresRepositorio, busca);
-	private AtividadeController atividadeController = new AtividadeController(atividadeRepositorio, busca);
+	private Busca busca = new Busca(objetivosRepositorio, problemasRepositorio, pesquisadoresRepositorio,
+			pesquisasRepositorio, atividadeRepositorio);
+	private PesquisaController pesquisaController = new PesquisaController(pesquisasRepositorio);
+	private PesquisadorController pesquisadorController = new PesquisadorController(pesquisadoresRepositorio);
+	private AtividadeController atividadeController = new AtividadeController(atividadeRepositorio);
 	private ProblemaObjetivoController problemaObjetivoController = new ProblemaObjetivoController(objetivosRepositorio,
-			problemasRepositorio, busca);
+			problemasRepositorio);
 
 	@BeforeEach
 	void cadastraAtividades() {
@@ -78,22 +79,20 @@ class BuscaTest {
 
 	@Test
 	void buscaTudo() {
-		buscaTermo("men");
 		assertEquals("FER1: Aspectos da fermentacao do mosto cervejeiro por leveduras nao-Saccharomyces. "
 				+ "| FER1: fermentacao, cerveja | COM1: Homofobia em mensagens online de alunos de computacao do primeiro periodo.",
-				busca.resultadoDaBusca());
+				busca.resultadoDaBusca("men"));
 		assertThrows(IllegalArgumentException.class, () -> {
-			buscaTermo("");
+			busca.resultadoDaBusca("");
 		});
 	}
 
 	@Test
 	void contabilizarResultados() {
-		buscaTermo("men");
+		busca.resultadoDaBusca("men");
 		assertEquals(3, busca.contaResultadosBusca("men"));
 
-		buscaTermo("afsenkfneklgnklrngklnaerklg");
-
+		busca.resultadoDaBusca("afsenkfneklgnklrngklnaerklg");
 		assertThrows(IllegalArgumentException.class, () -> {
 			busca.contaResultadosBusca("afsenkfneklgnklrngklnaerklg");
 		});
@@ -102,7 +101,7 @@ class BuscaTest {
 	@Test
 	void buscarResultadoEspecifico() {
 
-		buscaTermo("men");
+		busca.resultadoDaBusca("men");
 		assertEquals("COM1: Homofobia em mensagens online de alunos de computacao do primeiro periodo.",
 				busca.busca("men", 3));
 
@@ -112,15 +111,5 @@ class BuscaTest {
 		assertThrows(IllegalArgumentException.class, () -> {
 			busca.busca("men", 36);
 		});
-	}
-
-	private void buscaTermo(String termo) {
-		busca.clearBuscas();
-		pesquisaController.buscaTermoPesquisa(termo);
-		pesquisadorController.buscaTermoPesquisadores(termo);
-		problemaObjetivoController.buscaTermoProblemas(termo);
-		problemaObjetivoController.buscaTermoObjetivos(termo.toLowerCase());
-		atividadeController.buscaTermoAtividades(termo.toUpperCase());
-
 	}
 }

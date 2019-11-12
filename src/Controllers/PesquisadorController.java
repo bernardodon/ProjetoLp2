@@ -1,12 +1,8 @@
 package Controllers;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 import Entidades.Pesquisador;
 import Repositorios.PesquisadoresRepositorio;
-import utils.Busca;
 import utils.Validador;
 
 /**
@@ -26,16 +22,16 @@ public class PesquisadorController {
 	 */
 	private Validador validador;
 
-	private Busca busca;
+	
 
 	/**
 	 * Constroi um controlador de pesquisador.
 	 */
 
-	public PesquisadorController(PesquisadoresRepositorio pesquisadoresRepositorio, Busca busca) {
+	public PesquisadorController(PesquisadoresRepositorio pesquisadoresRepositorio) {
 		validador = new Validador();
 		this.pesquisadoresRepositorio = pesquisadoresRepositorio;
-		this.busca = busca;
+	
 	}
 
 	/**
@@ -203,17 +199,5 @@ public class PesquisadorController {
 		pesquisadoresRepositorio.put(novoValor, novoPesquisador);
 	}
 
-	public void buscaTermoPesquisadores(String termo) {
-		validador.validar(termo, "Campo termo nao pode ser nulo ou vazio.");
-		List<Pesquisador> pesquisadoresValues = new ArrayList<Pesquisador>();
-		pesquisadoresValues.addAll(pesquisadoresRepositorio.getPesquisadoresValues());
-		Collections.sort(pesquisadoresValues);
-		
-		for (Pesquisador p : pesquisadoresValues) {
-			if (p.getBiografia().toLowerCase().contains(termo.toLowerCase())) {
-				busca.adicionaBusca(p.getEmail() + ": " + p.getBiografia());
-			}
-		}
-
-	}
+	
 }

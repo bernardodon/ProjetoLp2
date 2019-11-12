@@ -8,19 +8,17 @@ import org.junit.jupiter.api.Test;
 
 import Controllers.PesquisadorController;
 import Repositorios.PesquisadoresRepositorio;
-import utils.Busca;
 
 class PesquisadorControllerTeste {
 
-	private Busca busca;
+
 	PesquisadorController controller;
 	private PesquisadoresRepositorio pesquisadoresRepositorio;
 
 	@BeforeEach
 	void testPesquisadorController() {
 		pesquisadoresRepositorio = new PesquisadoresRepositorio();
-		busca = new Busca();
-		controller = new PesquisadorController(pesquisadoresRepositorio, busca);
+		controller = new PesquisadorController(pesquisadoresRepositorio);
 	}
 
 	@Test

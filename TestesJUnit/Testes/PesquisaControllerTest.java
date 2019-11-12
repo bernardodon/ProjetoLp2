@@ -2,6 +2,7 @@ package Testes;
 
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -9,12 +10,11 @@ import org.junit.jupiter.api.Test;
 
 import Controllers.PesquisaController;
 import Repositorios.PesquisasRepositorio;
-import utils.Busca;
 class PesquisaControllerTest {
 	
 	PesquisasRepositorio pesquisasRepositorio = new PesquisasRepositorio();
-	Busca busca = new Busca();
-	PesquisaController controle = new PesquisaController(pesquisasRepositorio, busca);
+	
+	PesquisaController controle = new PesquisaController(pesquisasRepositorio);
 
 	@BeforeEach
 	void testCadastraPesquisa() {

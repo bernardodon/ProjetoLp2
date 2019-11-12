@@ -1,13 +1,8 @@
 package Controllers;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 import Entidades.Atividade;
 import Entidades.Item;
 import Repositorios.AtividadesRepositorio;
-import utils.Busca;
 import utils.Validador;
 
 /**
@@ -34,16 +29,14 @@ public class AtividadeController {
 	 */
 	private Validador validador;
 
-	private Busca busca;
 
 	/**
 	 * Constrói um controller de Atividades.
 	 */
-	public AtividadeController(AtividadesRepositorio atividadeRepositorio, Busca busca) {
+	public AtividadeController(AtividadesRepositorio atividadeRepositorio) {
 		this.atividadeRepositorio = atividadeRepositorio;
 		this.unidade = 1;
 		this.validador = new Validador();
-		this.busca = busca;
 	}
 
 	/**
@@ -142,22 +135,6 @@ public class AtividadeController {
 
 	}
 
-	public void buscaTermoAtividades(String termo) {
-		validador.validar(termo, "Campo termo nao pode ser nulo ou vazio.");
-		List<Atividade> atividadesValues = new ArrayList<Atividade>();
-		atividadesValues.addAll(atividadeRepositorio.getValues());
-		Collections.sort(atividadesValues);
-
-		for (Atividade atvd : atividadesValues) {
-			if (atvd.getDescricaoAtvd().toLowerCase().contains(termo.toLowerCase())) {
-				busca.adicionaBusca(atvd.getCodigo() + ": " + atvd.getDescricaoAtvd());
-			} 
-			
-			if (atvd.getDescricaoRisco().toLowerCase().contains(termo.toLowerCase())) {
-				busca.adicionaBusca(atvd.getCodigo() + ": " + atvd.getDescricaoRisco());
-			}
-		}
-	}
 
 	public boolean existeAtividade(String codigo) {
 		Atividade atvd = atividadeRepositorio.getAtividade(codigo);

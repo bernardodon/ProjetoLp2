@@ -7,18 +7,14 @@ import org.junit.jupiter.api.Test;
 
 import Controllers.AtividadeController;
 import Repositorios.AtividadesRepositorio;
-import utils.Busca;
-
 class AtividadeControllerTest {
 	AtividadesRepositorio atividadesRepositorio;
-	Busca busca;
 	AtividadeController controller;
 
 	@BeforeEach
 	void testAtividadeController() {
 		atividadesRepositorio = new AtividadesRepositorio();
-		busca = new Busca();
-		controller = new AtividadeController(atividadesRepositorio, busca);
+		controller = new AtividadeController(atividadesRepositorio);
 
 	}
 
