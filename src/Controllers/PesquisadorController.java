@@ -143,8 +143,8 @@ public class PesquisadorController {
 		validador.validaSemestreAluno(semestre);
 		validador.validaIeaAluno(iEA);
 
-		Pesquisador pesquisador = pesquisadoresRepositorio.getPesquisador(email);
-
+		Pesquisador pesquisador = pesquisadoresRepositorio.getPesquisador(email, "Pesquisadora nao encontrada.");
+		
 		if (!pesquisador.getFuncao().equals("estudante")) {
 			throw new IllegalArgumentException("Pesquisador nao compativel com a especialidade.");
 		} else {
@@ -167,8 +167,9 @@ public class PesquisadorController {
 		validador.validar(data, "Campo data nao pode ser nulo ou vazio.");
 		validador.validarDataProfessor(data);
 
-		Pesquisador pesquisador = pesquisadoresRepositorio.getPesquisador(email);
-
+		Pesquisador pesquisador = pesquisadoresRepositorio.getPesquisador(email, "Pesquisadora nao encontrada.");
+		
+		
 		if (!pesquisador.getFuncao().equals("professor")) {
 			throw new IllegalArgumentException("Pesquisador nao compativel com a especialidade.");
 		} else {

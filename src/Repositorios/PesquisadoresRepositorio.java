@@ -44,6 +44,20 @@ public class PesquisadoresRepositorio {
 			throw new IllegalArgumentException("Pesquisador nao encontrado");
 		}
 	}
+	
+	/**
+	 * Pega um pesquisador do Map de pesquisadores
+	 * @param email O email do pesquisador
+	 * @param mensagem A mensaegm que sera laçada na excessao caso o pesquisador nao exista
+	 * @return Retorna um pesquisador
+	 */
+	public Pesquisador getPesquisador(String email, String mensagem) {
+		if (pesquisadores.containsKey(email)) {
+			return pesquisadores.get(email);
+		} else {
+			throw new IllegalArgumentException(mensagem);
+		}
+	}
 
 	/**
 	 * Pega os valores do HashMap de pesquisadores
