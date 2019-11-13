@@ -48,7 +48,7 @@ public class Atividade implements Comparable<Atividade> {
 	private int duracao;
 
 	private Atividade proxAtividade;
-	
+
 	private List<String> resultados;
 
 	/**
@@ -257,27 +257,30 @@ public class Atividade implements Comparable<Atividade> {
 	}
 
 	public void defineProximaAtividade(String idPrecedente, String idSubsquente) {
-		if(idPrecedente.equals("A1")) {
-			 Atividade atvd =  this.proxAtividade;  
-		}
-		if(idSubsquente == null) {
-			throw new IllegalArgumentException();
-		}else {
-			idPrecedente.split("A");
-			System.out.println(idPrecedente);
-			//novoIdPrecendente = idPrecedente.substring(0, 1); 
-			//novoIdSubsquente = 		
-			//defineProximaAtividade(String novoIdPrecedente, String novoIdSubsquente);
+
+		String[] precedentes = idPrecedente.split("A");
+		String[] subsequentes = idSubsquente.split("A");
+		int numPre = Integer.parseInt(precedentes[1]);
+		int numSub = Integer.parseInt(subsequentes[1]);
+		String novoIdPrecedente = "A" + (numPre + 1);
+		String novoIdSubsquente = "A" + (numSub + 1);
+
+		if (this.proxAtividade == null) {
+			Atividade atvd = this.proxAtividade;
+			this.proxAtividade = atvd;
+		} else {
+			this.proxAtividade.defineProximaAtividade(novoIdPrecedente, novoIdSubsquente);
 		}
 	}
 
 	public void tiraProximaAtividade(String idPrecedente) {
-		// sem efeito em uma atividade sem próxima atividade
+		if (idPrecedente.equals("A1")) {
+
+		}
 	}
 
 	public int contaProximos(String idPrecedente) {
-		// 0 quando não tiver próximo
-		
+
 	}
 
 	public String pegaProximo(String idAtividade, int enesimaAtividade) {
