@@ -144,5 +144,25 @@ public class AtividadeController {
 			return true;
 		}
 	}
-
+	
+    public void defineProximaAtividade(String idPrecedente, String idSubsquente) {
+    	Atividade atvd = atividadeRepositorio.getAtividade(idPrecedente);
+    	atvd.defineProximaAtividade(idPrecedente, idPrecedente);
+    }
+    
+    public void tiraProximaAtividade(String idPrecedente) {
+    	// sem efeito em uma atividade sem próxima atividade
+    }
+    
+    public int contaProximos(String idPrecedente) {
+    	// 0 quando não tiver próximo
+    }
+    
+    public String pegaProximo(String idAtividade, int enesimaAtividade) {
+    	
+    }
+    
+    public String pegaMaiorRiscoAtividades(String idAtividade) {
+    	
+    }
 }

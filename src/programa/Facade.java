@@ -8,6 +8,7 @@ import Controllers.PesquisaPesquisadorController;
 import Controllers.PesquisaProblemaController;
 import Controllers.PesquisadorController;
 import Controllers.ProblemaObjetivoController;
+import Entidades.Atividade;
 import Repositorios.AtividadesRepositorio;
 import Repositorios.ObjetivosRepositorio;
 import Repositorios.PesquisadoresRepositorio;
@@ -240,5 +241,24 @@ public class Facade {
 		return busca.contaResultadosBusca(termo);
 	}
 	
+	public void defineProximaAtividade(String idPrecedente, String idSubsquente) {
+		atividadeController.defineProximaAtividade(idPrecedente, idSubsquente);
+	}
+
+	public void tiraProximaAtividade(String idPrecedente) {
 	
+	}
+
+	public int contaProximos(String idPrecedente) {
+		
+		
+	}
+
+	public String pegaProximo(String idAtividade, int enesimaAtividade) {
+
+	}
+
+	public String pegaMaiorRiscoAtividades(String idAtividade) {
+
+	}
 }

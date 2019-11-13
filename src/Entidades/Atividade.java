@@ -47,6 +47,8 @@ public class Atividade implements Comparable<Atividade> {
 
 	private int duracao;
 
+	private Atividade proxAtividade;
+	
 	private List<String> resultados;
 
 	/**
@@ -74,14 +76,14 @@ public class Atividade implements Comparable<Atividade> {
 		validador.validar(descricaoRisco, "Campo descricaoRisco nao pode ser nulo ou vazio.");
 		validador.validar(codigo, "Valor invalido do nivel do risco.");
 	}
-	
+
 	public int getDuracao() {
 		return this.duracao;
 	}
-	
+
 	public String listarResultados() {
 		String texto = "";
-		for (int i = 0; i <= resultados.size()-1; i++) {
+		for (int i = 0; i <= resultados.size() - 1; i++) {
 			texto += resultados.get(i) + " | ";
 
 		}
@@ -89,19 +91,18 @@ public class Atividade implements Comparable<Atividade> {
 
 		return texto;
 	}
-	
+
 	public void temItem(int numero) {
-		if(itens.size() < numero) {
+		if (itens.size() < numero) {
 			throw new IllegalArgumentException("Item nao encontrado.");
 		}
 	}
-	
+
 	public void jaExecutado(int numero) {
-		if(itens.get(numero - 1).getStatus().equals("REALIZADO")) {
+		if (itens.get(numero - 1).getStatus().equals("REALIZADO")) {
 			throw new IllegalArgumentException("Item ja executado.");
 		}
-		
-		
+
 	}
 
 	public int tamanhoDeResultados() {
@@ -253,5 +254,37 @@ public class Atividade implements Comparable<Atividade> {
 	@Override
 	public String toString() {
 		return this.descricaoAtvd + " (" + this.risco + " - " + this.descricaoRisco + ")";
+	}
+
+	public void defineProximaAtividade(String idPrecedente, String idSubsquente) {
+		if(idPrecedente.equals("A1")) {
+			 Atividade atvd =  this.proxAtividade;  
+		}
+		if(idSubsquente == null) {
+			throw new IllegalArgumentException();
+		}else {
+			idPrecedente.split("A");
+			System.out.println(idPrecedente);
+			//novoIdPrecendente = idPrecedente.substring(0, 1); 
+			//novoIdSubsquente = 		
+			//defineProximaAtividade(String novoIdPrecedente, String novoIdSubsquente);
+		}
+	}
+
+	public void tiraProximaAtividade(String idPrecedente) {
+		// sem efeito em uma atividade sem próxima atividade
+	}
+
+	public int contaProximos(String idPrecedente) {
+		// 0 quando não tiver próximo
+		
+	}
+
+	public String pegaProximo(String idAtividade, int enesimaAtividade) {
+
+	}
+
+	public String pegaMaiorRiscoAtividades(String idAtividade) {
+
 	}
 }
