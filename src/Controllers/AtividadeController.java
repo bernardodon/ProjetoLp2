@@ -29,7 +29,6 @@ public class AtividadeController {
 	 */
 	private Validador validador;
 
-
 	/**
 	 * Constrói um controller de Atividades.
 	 */
@@ -135,7 +134,6 @@ public class AtividadeController {
 
 	}
 
-
 	public boolean existeAtividade(String codigo) {
 		Atividade atvd = atividadesRepositorio.getAtividade(codigo);
 		if (atvd == null) {
@@ -144,33 +142,64 @@ public class AtividadeController {
 			return true;
 		}
 	}
-	
-    public void defineProximaAtividade(String idPrecedente, String idSubsquente) {
-    	Atividade atividadePrecedente = atividadesRepositorio.getAtividade(idPrecedente);
-    	Atividade atividadeSubsquente = atividadesRepositorio.getAtividade(idSubsquente);
-    	atividadePrecedente.defineProximaAtividade(atividadeSubsquente);
-    }
-    
-    public void tiraProximaAtividade(String idPrecedente) {
-    	Atividade atvd = atividadesRepositorio.getAtividade(idPrecedente);
-    	atvd.tiraProximaAtividade();
-    }
-    
-    public int contaProximos(String idPrecedente) {
-    	Atividade atvd = atividadesRepositorio.getAtividade(idPrecedente);
-    	return atvd.contaProximos();
-    }
-    
-    public String pegaProximo(String idAtividade, int enesimaAtividade) {
-    	Atividade atvd = atividadesRepositorio.getAtividade(idAtividade);
-    	return atvd.pegaProximo(enesimaAtividade).getCodigo();
-    }
-    
-    public String pegaMaiorRiscoAtividades(String idAtividade) {
-    	Atividade atvd = atividadesRepositorio.getAtividade(idAtividade);
-    	return atvd.pegaMaiorRiscoAtividades().getCodigo();
-    }
-    
+
+	public void defineProximaAtividade(String idPrecedente, String idSubsquente) {
+		validador.validar(idPrecedente, "Atividade nao pode ser nulo ou vazio.");
+		validador.validar(idSubsquente, "Atividade nao pode ser nulo ou vazio.");
+		if (atividadesRepositorio.getAtividades().containsKey(idPrecedente)
+				&& atividadesRepositorio.getAtividades().containsKey(idSubsquente)) {
+			Atividade atividadePrecedente = atividadesRepositorio.getAtividade(idPrecedente);
+			Atividade atividadeSubsquente = atividadesRepositorio.getAtividade(idSubsquente);
+			atividadePrecedente.defineProximaAtividade(atividadeSubsquente);
+		} else {
+			throw new IllegalArgumentException("Atividade nao encontrada.");
+		}
+	}
+
+	public void tiraProximaAtividade(String idPrecedente) {
+		validador.validar(idPrecedente, "Atividade nao pode ser nulo ou vazio.");
+
+		if (atividadesRepositorio.getAtividades().containsKey(idPrecedente)) {
+			Atividade atvd = atividadesRepositorio.getAtividade(idPrecedente);
+			atvd.tiraProximaAtividade();
+		} else {
+			throw new IllegalArgumentException("Atividade nao encontrada.");
+		}
+	}
+
+	public int contaProximos(String idPrecedente) {
+		validador.validar(idPrecedente, "Atividade nao pode ser nulo ou vazio.");
+
+		if(atividadesRepositorio.getAtividades().containsKey(idPrecedente)) {
+			Atividade atvd = atividadesRepositorio.getAtividade(idPrecedente);
+			return atvd.contaProximos();	
+		} else {
+			throw new IllegalArgumentException();
+		}
+
+
+	}
+
+	public String pegaProximo(String idAtividade, int enesimaAtividade) {
+		if (enesimaAtividade <= 0) {
+			throw new IllegalArgumentException("EnesimaAtividade nao pode ser negativa ou zero.");
+		}
+		validador.validar(idAtividade, "Atividade nao pode ser nulo ou vazio.");
+
+		Atividade atvd = atividadesRepositorio.getAtividade(idAtividade);
+		return atvd.pegaProximo(enesimaAtividade).getCodigo();
+
+	}
+
+	public String pegaMaiorRiscoAtividades(String idAtividade) {
+		validador.validar(idAtividade, "Atividade nao pode ser nulo ou vazio.");
+		if (atividadesRepositorio.getAtividades().containsKey(idAtividade)) {
+			Atividade atvd = atividadesRepositorio.getAtividade(idAtividade);
+			return atvd.pegaMaiorRiscoAtividades().getCodigo();
+		} else {
+			throw new IllegalArgumentException("Atividade nao encontrada.");
+		}
+	}
 
 	public void executaAtividade(String codigoAtividade, int item, int duracao) {
 		validador.validar(codigoAtividade, "Campo codigoAtividade nao pode ser nulo ou vazio.");
@@ -182,7 +211,6 @@ public class AtividadeController {
 		atividade.executarItem(item, duracao); // executaAtividade codigoAtividade="A2" item=3 duracao=8
 												// mesma atividade itens diferentes
 	}
-	
 
 	public int cadastraResultado(String codigoAtividade, String resultado) {
 		validador.validar(codigoAtividade, "Campo codigoAtividade nao pode ser nulo ou vazio.");
