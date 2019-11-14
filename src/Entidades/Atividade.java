@@ -242,6 +242,9 @@ public class Atividade implements Comparable<Atividade> {
 		return msg;
 	}
 
+	/**
+	 * Compara duas atividades a partir do seu codigo.
+	 */
 	@Override
 	public int compareTo(Atividade atvd) {
 		return atvd.getCodigo().compareTo(this.getCodigo());
@@ -256,22 +259,36 @@ public class Atividade implements Comparable<Atividade> {
 		return this.descricaoAtvd + " (" + this.risco + " - " + this.descricaoRisco + ")";
 	}
 
+	/**
+	 * Impede que ocorram loops na funçao de definir a proxima atividade.
+	 * 
+	 * @param atividade uma atividade. 
+	 * @param valor o valor que representa a distancia entre a atividade atual e atividade que deseja-se pegar.
+	 */
 	private void impedirLoop(Atividade atividade, int valor) {
 
-		if(atividade.pegaProximo(valor).equals(this)) {
-			throw new IllegalArgumentException();
+		if (atividade.pegaProximo(valor).equals(this)) {
+			throw new IllegalArgumentException("Criacao de loops negada.");
 		} else {
 			impedirLoop(atividade, valor + 1);
 		}
 	}
-	
+
+	/**
+	 * Definira a proxima atividade na ordem.
+	 * 
+	 * @param atividade Uma atividade.
+	 */
 	public void defineProximaAtividade(Atividade atividade) {
 		if (proxAtividade != null) {
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("Atividade ja possui uma subsequente.");
+		}
+		if(atividade.proxAtividade == this && this.proxAtividade == atividade) {
+			throw new IllegalArgumentException("Criacao de loops negada.");
+		} else{
+			this.proxAtividade = atividade;
 		}
 		
-		//impedirLoop(atividade, 1);
-		this.proxAtividade = atividade;  
 	}
 
 	public void tiraProximaAtividade() {
@@ -279,48 +296,49 @@ public class Atividade implements Comparable<Atividade> {
 	}
 
 	public int contaProximos() {
-		if(this.proxAtividade == null) {
+		if (this.proxAtividade == null) {
 			return 0;
 		} else {
 			return 1 + this.proxAtividade.contaProximos();
 		}
 	}
 
-	public Atividade pegaProximo(int enesimaAtividade) {	
-		if ( enesimaAtividade == -1) {
-			return null;
-		}
+	public Atividade pegaProximo(int enesimaAtividade) {
 		if (enesimaAtividade == 0) {
 			return this;
 		}
-		return this.proxAtividade.pegaProximo(enesimaAtividade-1);
+		if (this.proxAtividade == null) {
+			throw new IllegalArgumentException("Atividade inexistente.");
+		}
+		return this.proxAtividade.pegaProximo(enesimaAtividade - 1);
 	}
-	
 
 	public String getRisco() {
 		return risco;
 	}
-	
+
 	public Atividade pegaMaiorRiscoAtividades() {
 		if (this.proxAtividade == null) {
-			return this;
-		}else { 
-			if (this.proxAtividade.risco.equals("ALTO") && this.risco.equals("MEDIO")) {
+			throw new IllegalArgumentException("Nao existe proxima atividade.");
+		} else {
+			if (this.proxAtividade.risco.equals("ALTO") && this.risco.equals("MEDIO") || this.risco.equals("BAIXO")) {
 				return this.proxAtividade;
-			} else if () {
-				
+			} else if (this.proxAtividade.risco.equals("MEDIO")
+					|| this.risco.equals("BAIXO") && this.risco.equals("ALTO")) {
+				return this;
+			} else if (this.proxAtividade.risco.equals("ALTO") && this.risco.equals("ALTO")) {
+				return this.proxAtividade;
 			}
-			return this;
+			return this.proxAtividade.pegaMaiorRiscoAtividades();
 		}
 	}
-	
 
 	public String gravarResumo() {
 		String str = this.descricaoAtvd + " (" + this.descricaoRisco + " - " + risco + ")" + System.lineSeparator();
 		for (Item item : itens) {
 			str += "			" + item.toString() + System.lineSeparator();
 		}
-		
+
 		return str;
 	}
 }

@@ -45,7 +45,11 @@ public class AtividadesRepositorio {
 	public Atividade getAtividade(String chave) {
 		checaExistenciaAtividade(chave); 
 			return atividades.get(chave);
-		
+	
+	}
+	
+	public Map<String, Atividade> getAtividades() {
+		return atividades;
 	}
 
 	/**
