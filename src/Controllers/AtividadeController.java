@@ -15,7 +15,7 @@ public class AtividadeController {
 	/**
 	 * Um mapa de atividades.
 	 */
-	private AtividadesRepositorio atividadeRepositorio;
+	private AtividadesRepositorio atividadesRepositorio;
 
 	/**
 	 * A unidade que será acrescida a medida que as atividades são cadastradas a fim
@@ -34,7 +34,7 @@ public class AtividadeController {
 	 * Constrói um controller de Atividades.
 	 */
 	public AtividadeController(AtividadesRepositorio atividadeRepositorio) {
-		this.atividadeRepositorio = atividadeRepositorio;
+		this.atividadesRepositorio = atividadeRepositorio;
 		this.unidade = 1;
 		this.validador = new Validador();
 	}
@@ -59,7 +59,7 @@ public class AtividadeController {
 
 		String cod = "A" + Integer.toString(unidade);
 		Atividade atvd = new Atividade(descricaoAtvd, nivelRisco, descricaoRisco, cod);
-		atividadeRepositorio.put(cod, atvd);
+		atividadesRepositorio.put(cod, atvd);
 
 		unidade++;
 	}
@@ -72,7 +72,7 @@ public class AtividadeController {
 	 */
 	public void apagaAtividade(String codigo) {
 		validador.validar(codigo, "Campo codigo nao pode ser nulo ou vazio.");
-		atividadeRepositorio.remove(codigo);
+		atividadesRepositorio.remove(codigo);
 	}
 
 	/**
@@ -85,7 +85,7 @@ public class AtividadeController {
 	public void cadastraItem(String codigo, String item) {
 		validador.validar(codigo, "Campo codigo nao pode ser nulo ou vazio.");
 		validador.validar(item, "Item nao pode ser nulo ou vazio.");
-		Atividade atividade = atividadeRepositorio.getAtividade(codigo);
+		Atividade atividade = atividadesRepositorio.getAtividade(codigo);
 		Item i = new Item(item);
 		atividade.adicionaItem(i);
 
@@ -100,7 +100,7 @@ public class AtividadeController {
 	 *         um erro será lançado explicando o que ocorreu.
 	 */
 	public String exibeAtividade(String codigo) {
-		Atividade atividade = atividadeRepositorio.getAtividade(codigo);
+		Atividade atividade = atividadesRepositorio.getAtividade(codigo);
 		return atividade.toString() + atividade.exibeItens();
 
 	}
@@ -115,7 +115,7 @@ public class AtividadeController {
 	 */
 	public int contaItensPendentes(String codigo) {
 		validador.validar(codigo, "Campo codigo nao pode ser nulo ou vazio.");
-		Atividade atvd = atividadeRepositorio.getAtividade(codigo);
+		Atividade atvd = atividadesRepositorio.getAtividade(codigo);
 		return atvd.quantPendentes();
 	}
 
@@ -129,7 +129,7 @@ public class AtividadeController {
 	 */
 	public int contaItensRealizados(String codigo) {
 		validador.validar(codigo, "Campo codigo nao pode ser nulo ou vazio.");
-		Atividade atvd = atividadeRepositorio.getAtividade(codigo);
+		Atividade atvd = atividadesRepositorio.getAtividade(codigo);
 
 		return atvd.quantRealizados();
 
@@ -137,7 +137,7 @@ public class AtividadeController {
 
 
 	public boolean existeAtividade(String codigo) {
-		Atividade atvd = atividadeRepositorio.getAtividade(codigo);
+		Atividade atvd = atividadesRepositorio.getAtividade(codigo);
 		if (atvd == null) {
 			return false;
 		} else {
@@ -146,7 +146,7 @@ public class AtividadeController {
 	}
 	
     public void defineProximaAtividade(String idPrecedente, String idSubsquente) {
-    	Atividade atvd = atividadeRepositorio.getAtividade(idPrecedente);
+    	Atividade atvd = atividadesRepositorio.getAtividade(idPrecedente);
     	atvd.defineProximaAtividade(idPrecedente, idPrecedente);
     }
     
@@ -165,4 +165,47 @@ public class AtividadeController {
     public String pegaMaiorRiscoAtividades(String idAtividade) {
     	
     }
+    
+
+	public void executaAtividade(String codigoAtividade, int item, int duracao) {
+		validador.validar(codigoAtividade, "Campo codigoAtividade nao pode ser nulo ou vazio.");
+		validador.validarDuracao(duracao);
+		validador.validarItem(item);
+		Atividade atividade = atividadesRepositorio.getAtividade(codigoAtividade);
+		atividade.temItem(item);
+		atividade.jaExecutado(item);
+		atividade.executarItem(item, duracao); // executaAtividade codigoAtividade="A2" item=3 duracao=8
+												// mesma atividade itens diferentes
+	}
+	
+
+	public int cadastraResultado(String codigoAtividade, String resultado) {
+		validador.validar(codigoAtividade, "Campo codigoAtividade nao pode ser nulo ou vazio.");
+		validador.validar(resultado, "Resultado nao pode ser nulo ou vazio.");
+		Atividade atividade = atividadesRepositorio.getAtividade(codigoAtividade);
+		atividade.adicionarResultado(resultado);
+		return atividade.tamanhoDeResultados();
+	}
+
+	public boolean removeResultado(String codigoAtividade, int numeroResultado) {
+		validador.validar(codigoAtividade, "Campo codigoAtividade nao pode ser nulo ou vazio.");
+		validador.validarNumeroResultado(numeroResultado, "numeroResultado nao pode ser nulo ou negativo.");
+		Atividade atividade = atividadesRepositorio.getAtividade(codigoAtividade);
+		return atividade.removerResultado(numeroResultado);
+
+	}
+
+	public String listaResultados(String codigoAtividade) {
+		validador.validar(codigoAtividade, "Campo codigoAtividade nao pode ser nulo ou vazio.");
+		Atividade atividade = atividadesRepositorio.getAtividade(codigoAtividade);
+		return atividade.listarResultados();
+
+	}
+
+	public int getDuracao(String codigoAtividade) {
+		validador.validar(codigoAtividade, "Campo codigoAtividade nao pode ser nulo ou vazio.");
+		Atividade atividade = atividadesRepositorio.getAtividade(codigoAtividade);
+		return atividade.getDuracao();
+
+	}
 }

@@ -287,8 +287,39 @@ public class Pesquisa implements Comparable<Pesquisa>{
 			return false;
 		}
 	}
-		
-		
+	
+
+	public String gravarPesquisadores() {
+		String toStringPesquisadores = "		";
+		for (Pesquisador pesquisador : pesquisadores) {
+			 toStringPesquisadores += pesquisador.toString() + System.lineSeparator();
+		}
+		return toStringPesquisadores ;
 	}
+	
+	
+	public String gravarProblema() {
+		return "		"  + problema.toString();
+	}
+	
+	public String gravarObjetivos() {
+		String str = "";
+		for (Objetivo objetivo : objetivos) {
+			str += "		" + objetivo + System.lineSeparator();
+		}
+		
+		return str;
+	}
+	
+	public String gravarAtividades() {
+		String str = "		";
+		for (Atividade atividade : atividades) {
+			str += atividade.gravarResumo();
+		}
+		
+		return str;
+	}
+		
+}
 	
 

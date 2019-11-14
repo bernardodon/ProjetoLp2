@@ -290,4 +290,14 @@ public class Atividade implements Comparable<Atividade> {
 	public String pegaMaiorRiscoAtividades(String idAtividade) {
 
 	}
+	
+
+	public String gravarResumo() {
+		String str = this.descricaoAtvd + " (" + this.descricaoRisco + " - " + risco + ")" + System.lineSeparator();
+		for (Item item : itens) {
+			str += "			" + item.toString() + System.lineSeparator();
+		}
+		
+		return str;
+	}
 }

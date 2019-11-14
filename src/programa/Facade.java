@@ -206,24 +206,24 @@ public class Facade {
 	}
 
 	public void executaAtividade(String codigoAtividade, int item, int duracao) {
-		pesquisaAtividadeController.executaAtividade(codigoAtividade, item, duracao);
+		atividadeController.executaAtividade(codigoAtividade, item, duracao);
 	}
 
 	public int cadastraResultado(String codigoAtividade, String resultado) {
-		return pesquisaAtividadeController.cadastraResultado(codigoAtividade, resultado);
+		return atividadeController.cadastraResultado(codigoAtividade, resultado);
 	}
 
 	public boolean removeResultado(String codigoAtividade, int numeroResultado) {
-		return pesquisaAtividadeController.removeResultado(codigoAtividade, numeroResultado);
+		return atividadeController.removeResultado(codigoAtividade, numeroResultado);
 	}
 
 	public String listaResultados(String codigoAtividade) {
 
-		return pesquisaAtividadeController.listaResultados(codigoAtividade);
+		return atividadeController.listaResultados(codigoAtividade);
 	}
 
 	public int getDuracao(String codigoAtividade) {
-		return pesquisaAtividadeController.getDuracao(codigoAtividade);
+		return atividadeController.getDuracao(codigoAtividade);
 	}
 
 	public String busca(String termo) {
