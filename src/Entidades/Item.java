@@ -6,17 +6,17 @@ package Entidades;
  * @author Ítalo Miguel Castor Diniz Pinheiro.
  */
 public class Item {
-	
+
 	/**
-	 * Status de um item, podendo ele ser "PENDENTE" ou "REALIZADO". 
+	 * Status de um item, podendo ele ser "PENDENTE" ou "REALIZADO".
 	 */
 	private String status;
-	
+
 	/**
 	 * A descrição de um item.
 	 */
 	private String descricao;
-	
+
 	/**
 	 * Constrói um item a partir da descrição de um determinado item.
 	 * 
@@ -28,7 +28,8 @@ public class Item {
 	}
 
 	/**
-	 * Retorna a String que representa o status de um item.		
+	 * Retorna a String que representa o status de um item.
+	 * 
 	 * @return a representação em String do status de um item.
 	 */
 	public String getStatus() {
@@ -36,21 +37,22 @@ public class Item {
 	}
 
 	/**
-	 * Retorna a String que representa um item. A String segue o formato "Status - Descrição".
+	 * Retorna a String que representa um item. A String segue o formato "Status -
+	 * Descrição".
 	 */
 	@Override
 	public String toString() {
-		return this.status + " - "+ this.descricao;
+		return this.status + " - " + this.descricao;
 	}
-	
+
 	public void executarItem() {
-		if(this.status.equals("REALIZADO")) {
+		if (this.status.equals("REALIZADO")) {
 			throw new IllegalArgumentException("Item ja executado.");
-		}else {
-		this.status = "REALIZADO";}
+		} else {
+			this.status = "REALIZADO";
+		}
 	}
-	
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -81,6 +83,9 @@ public class Item {
 			return false;
 		return true;
 	}
-	
-	
+
+	public String getDescricao() {
+		return descricao;
+	}
+
 }

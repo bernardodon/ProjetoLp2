@@ -1,14 +1,12 @@
 package programa;
 
+import java.io.IOException;
+
 import Controllers.AtividadeController;
 import Controllers.PesquisaAtividadeController;
 import Controllers.PesquisaController;
-import Controllers.PesquisaObjetivoController;
-import Controllers.PesquisaPesquisadorController;
-import Controllers.PesquisaProblemaController;
 import Controllers.PesquisadorController;
 import Controllers.ProblemaObjetivoController;
-import Entidades.Atividade;
 import Repositorios.AtividadesRepositorio;
 import Repositorios.ObjetivosRepositorio;
 import Repositorios.PesquisadoresRepositorio;
@@ -30,11 +28,7 @@ public class Facade {
 	private AtividadeController atividadeController;
 
 	private ProblemaObjetivoController problemaObjetivoController;
-	private PesquisaPesquisadorController pesquisaPesquisadorController;
-	private PesquisaProblemaController pesquisaProblemaController;
-	private PesquisaAtividadeController pesquisaAtividadeController;
-	private PesquisaObjetivoController pesquisaObjetivoController;
-	
+
 	public Facade() {
 		this.pesquisasRepositorio = new PesquisasRepositorio();
 		this.pesquisadoresRepositorio = new PesquisadoresRepositorio();
@@ -42,18 +36,13 @@ public class Facade {
 		this.objetivosRepositorio = new ObjetivosRepositorio();
 		this.problemasRepositorio = new ProblemasRepositorio();
 
-		this.busca = new Busca(objetivosRepositorio, problemasRepositorio, pesquisadoresRepositorio, pesquisasRepositorio, atividadeRepositorio);
+		this.busca = new Busca(objetivosRepositorio, problemasRepositorio, pesquisadoresRepositorio,
+				pesquisasRepositorio, atividadeRepositorio);
 		this.pesquisaController = new PesquisaController(pesquisasRepositorio);
 		this.pesquisadorController = new PesquisadorController(pesquisadoresRepositorio);
 		this.atividadeController = new AtividadeController(atividadeRepositorio);
 
-		this.problemaObjetivoController = new ProblemaObjetivoController(objetivosRepositorio, problemasRepositorio
-				);
-		this.pesquisaObjetivoController = new PesquisaObjetivoController(pesquisasRepositorio, objetivosRepositorio);
-		this.pesquisaPesquisadorController = new PesquisaPesquisadorController(pesquisadoresRepositorio,
-				pesquisasRepositorio);
-		this.pesquisaProblemaController = new PesquisaProblemaController(pesquisasRepositorio, problemasRepositorio);
-		this.pesquisaAtividadeController = new PesquisaAtividadeController(atividadeRepositorio, pesquisasRepositorio);
+		this.problemaObjetivoController = new ProblemaObjetivoController(objetivosRepositorio, problemasRepositorio);
 	}
 
 	public String cadastraPesquisa(String descricao, String campoDeInteresse) {
@@ -166,11 +155,11 @@ public class Facade {
 	}
 
 	public boolean associaPesquisador(String idPesquisa, String emailPesquisador) {
-		return pesquisaPesquisadorController.associaPesquisador(idPesquisa, emailPesquisador);
+		return pesquisaController.associaPesquisador(idPesquisa, emailPesquisador, pesquisadoresRepositorio);
 	}
 
 	public boolean desassociaPesquisador(String idPesquisa, String emailPesquisador) {
-		return pesquisaPesquisadorController.desassociaPesquisador(idPesquisa, emailPesquisador);
+		return pesquisaController.desassociaPesquisador(idPesquisa, emailPesquisador, pesquisadoresRepositorio);
 	}
 
 	public String listaPesquisadores(String tipo) {
@@ -178,19 +167,19 @@ public class Facade {
 	}
 
 	public boolean associaProblema(String idPesquisa, String idProblema) {
-		return pesquisaProblemaController.associaProblema(idPesquisa, idProblema);
+		return pesquisaController.associaProblema(idPesquisa, idProblema, problemasRepositorio);
 	}
 
 	public boolean desassociaProblema(String idPesquisa, String idProblema) {
-		return pesquisaProblemaController.desassociaProblema(idPesquisa, idProblema);
+		return pesquisaController.desassociaProblema(idPesquisa, idProblema, problemasRepositorio);
 	}
 
 	public boolean associaObjetivo(String idPesquisa, String idObjetivo) {
-		return pesquisaObjetivoController.associaObjetivo(idPesquisa, idObjetivo);
+		return pesquisaController.associaObjetivo(idPesquisa, idObjetivo, objetivosRepositorio);
 	}
 
 	public boolean desassociaObjetivo(String idPesquisa, String idObjetivo) {
-		return pesquisaObjetivoController.desassociaObjetivo(idPesquisa, idObjetivo);
+		return pesquisaController.desassociaObjetivo(idPesquisa, idObjetivo, objetivosRepositorio);
 	}
 
 	public String listaPesquisas(String ordem) {
@@ -198,11 +187,11 @@ public class Facade {
 	}
 
 	public boolean associaAtividade(String codigoPesquisa, String codigoAtividade) {
-		return pesquisaAtividadeController.associaAtividade(codigoPesquisa, codigoAtividade);
+		return pesquisaController.associaAtividade(codigoPesquisa, codigoAtividade, atividadeRepositorio);
 	}
 
 	public boolean desassociaAtividade(String codigoPesquisa, String codigoAtividade) {
-		return pesquisaAtividadeController.desassociaAtividade(codigoPesquisa, codigoAtividade);
+		return pesquisaController.desassociaAtividade(codigoPesquisa, codigoAtividade, atividadeRepositorio);
 	}
 
 	public void executaAtividade(String codigoAtividade, int item, int duracao) {
@@ -226,10 +215,9 @@ public class Facade {
 		return atividadeController.getDuracao(codigoAtividade);
 	}
 
-	public String busca(String termo) {
+	public String busca(String termo) throws IOException {
 		return busca.resultadoDaBusca(termo);
 	}
-
 
 	public String busca(String termo, int numeroDoResultado) {
 		busca.resultadoDaBusca(termo);
@@ -240,19 +228,19 @@ public class Facade {
 		busca.resultadoDaBusca(termo);
 		return busca.contaResultadosBusca(termo);
 	}
-	
+
 	public void defineProximaAtividade(String idPrecedente, String idSubsquente) {
 		atividadeController.defineProximaAtividade(idPrecedente, idSubsquente);
 	}
 
 	public void tiraProximaAtividade(String idPrecedente) {
 		atividadeController.tiraProximaAtividade(idPrecedente);
-		
+
 	}
 
 	public int contaProximos(String idPrecedente) {
 		return atividadeController.contaProximos(idPrecedente);
-		
+
 	}
 
 	public String pegaProximo(String idAtividade, int enesimaAtividade) {
@@ -262,4 +250,13 @@ public class Facade {
 	public String pegaMaiorRiscoAtividades(String idAtividade) {
 		return atividadeController.pegaMaiorRiscoAtividades(idAtividade);
 	}
+
+	public void configuraEstrategia(String estrategia) {
+		pesquisaController.configuraEstrategia(estrategia);
+	}
+
+	public String proximaAtividade(String codigoPesquisa) {
+		return pesquisaController.proximaAtividade(codigoPesquisa);
+	}
+
 }
