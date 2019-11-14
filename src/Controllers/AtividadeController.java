@@ -146,33 +146,29 @@ public class AtividadeController {
 	}
 	
     public void defineProximaAtividade(String idPrecedente, String idSubsquente) {
-<<<<<<< HEAD
-    	Atividade atvd = atividadeRepositorio.getAtividade(idPrecedente);
-    	atvd.defineProximaAtividade(idPrecedente, idSubsquente);
-=======
-    	Atividade atvd = atividadesRepositorio.getAtividade(idPrecedente);
-    	atvd.defineProximaAtividade(idPrecedente, idPrecedente);
->>>>>>> b70ae41a8679b29ff6b51845a444cb7ed38e6f13
+    	Atividade atividadePrecedente = atividadesRepositorio.getAtividade(idPrecedente);
+    	Atividade atividadeSubsquente = atividadesRepositorio.getAtividade(idSubsquente);
+    	atividadePrecedente.defineProximaAtividade(atividadeSubsquente);
     }
     
     public void tiraProximaAtividade(String idPrecedente) {
-    	Atividade atvd = atividadeRepositorio.getAtividade(idPrecedente);
-    	atvd.tiraProximaAtividade(idPrecedente);
+    	Atividade atvd = atividadesRepositorio.getAtividade(idPrecedente);
+    	atvd.tiraProximaAtividade();
     }
     
     public int contaProximos(String idPrecedente) {
-    	Atividade atvd = atividadeRepositorio.getAtividade(idPrecedente);
-    	return atvd.contaProximos(idPrecedente);
+    	Atividade atvd = atividadesRepositorio.getAtividade(idPrecedente);
+    	return atvd.contaProximos();
     }
     
     public String pegaProximo(String idAtividade, int enesimaAtividade) {
-    	Atividade atvd = atividadeRepositorio.getAtividade(idAtividade);
-    	return atvd.pegaProximo(idAtividade, enesimaAtividade);
+    	Atividade atvd = atividadesRepositorio.getAtividade(idAtividade);
+    	return atvd.pegaProximo(enesimaAtividade).getCodigo();
     }
     
     public String pegaMaiorRiscoAtividades(String idAtividade) {
-    	Atividade atvd = atividadeRepositorio.getAtividade(idAtividade);
-    	return atvd.pegaMaiorRiscoAtividades(idAtividade);
+    	Atividade atvd = atividadesRepositorio.getAtividade(idAtividade);
+    	return atvd.pegaMaiorRiscoAtividades().getCodigo();
     }
     
 
