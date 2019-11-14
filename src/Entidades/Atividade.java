@@ -256,75 +256,61 @@ public class Atividade implements Comparable<Atividade> {
 		return this.descricaoAtvd + " (" + this.risco + " - " + this.descricaoRisco + ")";
 	}
 
-	public void defineProximaAtividade(String idPrecedente, String idSubsquente) {
+	private void impedirLoop(Atividade atividade, int valor) {
 
-		String[] precedentes = idPrecedente.split("A");
-		String[] subsequentes = idSubsquente.split("A");
-		int numPre = Integer.parseInt(precedentes[1]);
-		int numSub = Integer.parseInt(subsequentes[1]);
-		String novoIdPrecedente = "A" + (numPre + 1);
-		String novoIdSubsquente = "A" + (numSub + 1);
-
-		if (this.proxAtividade == null) {
-			Atividade atvd = this.proxAtividade;
-			this.proxAtividade = atvd;
+		if(atividade.pegaProximo(valor).equals(this)) {
+			throw new IllegalArgumentException();
 		} else {
-			this.proxAtividade.defineProximaAtividade(novoIdPrecedente, novoIdSubsquente);
+			impedirLoop(atividade, valor + 1);
 		}
 	}
-
-	public void tiraProximaAtividade(String idPrecedente) {
-		String[] precedentes = idPrecedente.split("A");
-		int numPre = Integer.parseInt(precedentes[1]);
-		String novoIdPrecedente = "A" + (numPre - 1);
+	
+	public void defineProximaAtividade(Atividade atividade) {
+		if (proxAtividade != null) {
+			throw new IllegalArgumentException();
+		}
 		
-		if (idPrecedente.equals("A1")) {
-			if(this.proxAtividade == null) {
-				throw new RuntimeException();
-			}
-			this.proxAtividade = this.proxAtividade.proxAtividade;
-		}
-		this.proxAtividade.tiraProximaAtividade(novoIdPrecedente);
+		//impedirLoop(atividade, 1);
+		this.proxAtividade = atividade;  
 	}
 
-	public int contaProximos(String idPrecedente) {
-		String[] precedentes = idPrecedente.split("A");
-		int numPre = Integer.parseInt(precedentes[1]);
-		String novoIdPrecedente = "A" + (numPre + 1);
-		
-		if (this.proxAtividade == null) {
-			return 1;
-		}
-		return 1 + this.proxAtividade.contaProximos(novoIdPrecedente);
+	public void tiraProximaAtividade() {
+		this.proxAtividade = null;
 	}
 
-	public String pegaProximo(String idAtividade, int enesimaAtividade) {	
+	public int contaProximos() {
+		if(this.proxAtividade == null) {
+			return 0;
+		} else {
+			return 1 + this.proxAtividade.contaProximos();
+		}
+	}
+
+	public Atividade pegaProximo(int enesimaAtividade) {	
 		if ( enesimaAtividade == -1) {
 			return null;
 		}
-		
 		if (enesimaAtividade == 0) {
-			return this.getCodigo();
+			return this;
 		}
-		
-		if (this.proxAtividade ==null) {
-			return null;
-		}
-		return this.proxAtividade.pegaProximo(idAtividade, enesimaAtividade -1);
+		return this.proxAtividade.pegaProximo(enesimaAtividade-1);
 	}
+	
 
 	public String getRisco() {
 		return risco;
 	}
 	
-	public String pegaMaiorRiscoAtividades(String idAtividade) {
+	public Atividade pegaMaiorRiscoAtividades() {
 		if (this.proxAtividade == null) {
-			return idAtividade;
+			return this;
 		}else { 
-			if (this.proxAtividade.risco.length() >this.risco.length()) {
-				return this.proxAtividade.getCodigo();
+			if (this.proxAtividade.risco.equals("ALTO") && this.risco.equals("MEDIO")) {
+				return this.proxAtividade;
+			} else if () {
+				
 			}
-			return idAtividade;
+			return this;
 		}
 	}
 	
