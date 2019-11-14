@@ -252,7 +252,81 @@ public class Pesquisa implements Comparable<Pesquisa>{
 	public void desassociaObjetivo(Objetivo objetivo) {
 		objetivos.remove(objetivo);
 	}
+	public void validadorDePendencia() {
+		int contador = 0;
+		for (Atividade atividades : atividades) {
+			if (atividades.temPendentes()) {
+				contador += 1;
+			}
+		}
+		
+		if (contador == 0) {
+			throw new IllegalArgumentException("Pesquisa sem atividades com pendencias.");
+		}
+		
+	}
+	
+	public String getMaisAntigo() {
+		
+		return atividades.get(0).getCodigo();
+	}
+	public String getMenosPendentes() {
+		
+		Atividade menosPendente = null;
+		int menorQuantPendentes = 1000;
+		
 
+		for(int i=0; i < atividades.size();i++) {
+			int numero = atividades.get(i).quantPendentes() ;
+			if(numero<menorQuantPendentes) {
+				menosPendente = atividades.get(i);
+			}
+		}
+	return menosPendente.getCodigo();
+	}	
+
+		
+	
+	
+	public String getMaiorRisco() {
+		
+		
+		for(int i=0; i < atividades.size();i++) {
+			if(atividades.get(i).getRisco().equals("ALTO")) {
+				return atividades.get(i).getCodigo();
+			}
+		}
+		
+		for(int i=0; i < atividades.size();i++) {
+			if(atividades.get(i).getRisco().equals("MEDIO")) {
+				return atividades.get(i).getCodigo();
+			}
+		}
+		
+		for(int i=0; i < atividades.size();i++) {
+			if(atividades.get(i).getRisco().equals("BAIXO")) {
+				return atividades.get(i).getCodigo();
+			}
+		}
+		
+		return "";
+		
+	}
+	
+	public String getAtividadeMaiorDuracao() {
+		Atividade maiorDuracao = null;
+		int numeroMaiorDuracao = 0;
+		for(int i=0; i < atividades.size();i++) {
+			int numero = atividades.get(i).getDuracao() ;
+			if(numero>numeroMaiorDuracao) {
+				maiorDuracao = atividades.get(i);
+			}
+		}
+	return maiorDuracao.getCodigo();
+		
+	}
+	
+	
 	@Override
 	public int compareTo(Pesquisa o) {
 		return o.getCodigo().compareTo(this.codigo);

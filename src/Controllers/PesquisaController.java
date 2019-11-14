@@ -19,6 +19,8 @@ import utils.Validador;
  *
  */
 public class PesquisaController {
+	
+	private String algoritmo;
 
 	private PesquisasRepositorio pesquisasRepositorio;
 
@@ -33,10 +35,53 @@ public class PesquisaController {
 	 */
 	public PesquisaController(PesquisasRepositorio pesquisasRepositorio) {
 		this.pesquisasRepositorio = pesquisasRepositorio;
-
 		this.validador = new Validador();
+		this.algoritmo = "MAIS_ANTIGA";
 	}
-
+	public void configuraEstrategia(String estrategia) {
+		validador.validar(estrategia, "Estrategia nao pode ser nula ou vazia.");
+		if(!estrategia.equals("MAIS_ANTIGA") && !estrategia.equals("MENOS_PENDENCIAS") && !estrategia.equals("MAIOR_RISCO") && !estrategia.equals("MAIOR_DURACAO")) {
+			throw new IllegalArgumentException("Valor invalido da estrategia");
+		}
+		this.algoritmo = estrategia;
+	}
+	
+	public String proximaAtividade(String codigoPesquisa) {
+		String texto = "";
+		validador.validar(codigoPesquisa, "Pesquisa nao pode ser nula ou vazia.");
+		Pesquisa pesquisa = pesquisasRepositorio.getPesquisa(codigoPesquisa);
+		if(!pesquisa.ehAtiva()) {
+			throw new IllegalArgumentException("Pesquisa desativada.");
+		}
+		pesquisa.validadorDePendencia();
+		
+		
+		
+		if(this.algoritmo.equals("MAIS_ANTIGA")) {
+			texto = pesquisa.getMaisAntigo();
+		}else {
+			if(this.algoritmo.equals("MENOS_PENDENCIAS")) {
+				
+				texto = pesquisa.getMenosPendentes();
+			}else {
+				if(this.algoritmo.equals("MAIOR_RISCO")){
+					texto = pesquisa.getMaiorRisco();
+				}else {
+					if(this.algoritmo.equals("MAIOR_DURACAO")) {
+						texto = pesquisa.getAtividadeMaiorDuracao();
+					}
+					
+				}
+				
+			}
+			
+		}
+		return texto;
+		
+	}
+	
+	
+	
 	/**
 	 * Cadastra uma pesquisa no HashMap de pesquisas.
 	 * 

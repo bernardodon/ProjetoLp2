@@ -262,4 +262,11 @@ public class Facade {
 	public String pegaMaiorRiscoAtividades(String idAtividade) {
 		return atividadeController.pegaMaiorRiscoAtividades(idAtividade);
 	}
+	public void configuraEstrategia(String estrategia) {
+		pesquisaController.configuraEstrategia(estrategia);
+	}
+	public String proximaAtividade(String codigoPesquisa) {
+		return pesquisaController.proximaAtividade(codigoPesquisa);
+	}
+
 }

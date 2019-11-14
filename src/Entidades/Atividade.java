@@ -157,6 +157,16 @@ public class Atividade implements Comparable<Atividade> {
 		return codigo;
 	}
 
+	
+	public Boolean temPendentes() {
+		for (Item item : itens) {
+			if (item.getStatus().equals("PENDENTE")) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
 	/**
 	 * Adiciona um item na lista de itens.
 	 * 
@@ -178,6 +188,7 @@ public class Atividade implements Comparable<Atividade> {
 				cont++;
 			}
 		}
+		
 		return cont;
 	}
 
