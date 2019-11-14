@@ -279,24 +279,21 @@ public class Atividade implements Comparable<Atividade> {
 	private void impedirLoop(Atividade atividade, int valor) {
 
 		if (atividade.pegaProximo(valor).equals(this)) {
-<<<<<<< HEAD
+
 			throw new IllegalArgumentException("Criacao de loops negada.");
-=======
-			throw new IllegalArgumentException();
->>>>>>> 16f06f5e0c76d89cb43af1c0e8eae3a6a7c4a419
 		} else {
 			impedirLoop(atividade, valor + 1);
 		}
 	}
 
-<<<<<<< HEAD
+
 	/**
 	 * Definira a proxima atividade na ordem.
 	 * 
 	 * @param atividade Uma atividade.
 	 */
-=======
->>>>>>> 16f06f5e0c76d89cb43af1c0e8eae3a6a7c4a419
+
+
 	public void defineProximaAtividade(Atividade atividade) {
 		if (proxAtividade != null) {
 			throw new IllegalArgumentException("Atividade ja possui uma subsequente.");
@@ -306,13 +303,10 @@ public class Atividade implements Comparable<Atividade> {
 		} else{
 			this.proxAtividade = atividade;
 		}
-<<<<<<< HEAD
-		
-=======
 
 		// impedirLoop(atividade, 1);
 		this.proxAtividade = atividade;
->>>>>>> 16f06f5e0c76d89cb43af1c0e8eae3a6a7c4a419
+
 	}
 
 	public void tiraProximaAtividade() {
@@ -328,21 +322,19 @@ public class Atividade implements Comparable<Atividade> {
 	}
 
 	public Atividade pegaProximo(int enesimaAtividade) {
-<<<<<<< HEAD
+
 		if (enesimaAtividade == 0) {
 			return this;
 		}
 		if (this.proxAtividade == null) {
 			throw new IllegalArgumentException("Atividade inexistente.");
 		}
-=======
+
 		if (enesimaAtividade == -1) {
 			return null;
 		}
-		if (enesimaAtividade == 0) {
-			return this;
-		}
->>>>>>> 16f06f5e0c76d89cb43af1c0e8eae3a6a7c4a419
+		
+
 		return this.proxAtividade.pegaProximo(enesimaAtividade - 1);
 	}
 
@@ -372,9 +364,6 @@ public class Atividade implements Comparable<Atividade> {
 		for (Item item : itens) {
 			str += "			" + item.toString() + System.lineSeparator();
 		}
-
-<<<<<<< HEAD
-=======
 		return str;
 	}
 
@@ -390,7 +379,6 @@ public class Atividade implements Comparable<Atividade> {
 			str += "		-" + string + System.lineSeparator();
 		}
 
->>>>>>> 16f06f5e0c76d89cb43af1c0e8eae3a6a7c4a419
 		return str;
 	}
 }
