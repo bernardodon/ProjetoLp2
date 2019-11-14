@@ -157,16 +157,16 @@ public class Atividade implements Comparable<Atividade> {
 		return codigo;
 	}
 
-	
 	public Boolean temPendentes() {
 		for (Item item : itens) {
 			if (item.getStatus().equals("PENDENTE")) {
 				return true;
 			}
 		}
-		
+
 		return false;
 	}
+
 	/**
 	 * Adiciona um item na lista de itens.
 	 * 
@@ -188,7 +188,7 @@ public class Atividade implements Comparable<Atividade> {
 				cont++;
 			}
 		}
-		
+
 		return cont;
 	}
 
@@ -269,20 +269,20 @@ public class Atividade implements Comparable<Atividade> {
 
 	private void impedirLoop(Atividade atividade, int valor) {
 
-		if(atividade.pegaProximo(valor).equals(this)) {
+		if (atividade.pegaProximo(valor).equals(this)) {
 			throw new IllegalArgumentException();
 		} else {
 			impedirLoop(atividade, valor + 1);
 		}
 	}
-	
+
 	public void defineProximaAtividade(Atividade atividade) {
 		if (proxAtividade != null) {
 			throw new IllegalArgumentException();
 		}
-		
-		//impedirLoop(atividade, 1);
-		this.proxAtividade = atividade;  
+
+		// impedirLoop(atividade, 1);
+		this.proxAtividade = atividade;
 	}
 
 	public void tiraProximaAtividade() {
@@ -290,28 +290,27 @@ public class Atividade implements Comparable<Atividade> {
 	}
 
 	public int contaProximos() {
-		if(this.proxAtividade == null) {
+		if (this.proxAtividade == null) {
 			return 0;
 		} else {
 			return 1 + this.proxAtividade.contaProximos();
 		}
 	}
 
-	public Atividade pegaProximo(int enesimaAtividade) {	
-		if ( enesimaAtividade == -1) {
+	public Atividade pegaProximo(int enesimaAtividade) {
+		if (enesimaAtividade == -1) {
 			return null;
 		}
 		if (enesimaAtividade == 0) {
 			return this;
 		}
-		return this.proxAtividade.pegaProximo(enesimaAtividade-1);
+		return this.proxAtividade.pegaProximo(enesimaAtividade - 1);
 	}
-	
 
 	public String getRisco() {
 		return risco;
 	}
-	
+
 	public Atividade pegaMaiorRiscoAtividades() {
 		if (this.proxAtividade == null) {
 			return this;
@@ -324,14 +323,29 @@ public class Atividade implements Comparable<Atividade> {
 			return this;
 		}
 	}
-	
 
 	public String gravarResumo() {
+		int contador = 1;
 		String str = this.descricaoAtvd + " (" + this.descricaoRisco + " - " + risco + ")" + System.lineSeparator();
 		for (Item item : itens) {
 			str += "			" + item.toString() + System.lineSeparator();
 		}
-		
+
+		return str;
+	}
+
+	public String gravarResultado() {
+		String str = "		-" + descricaoAtvd + System.lineSeparator();
+		for (Item item : itens) {
+			if (item.getStatus() == "REALIZADO") {
+				str += "			-" + item.getDescricao() + " " + duracao + System.lineSeparator();
+			}
+		}
+
+		for (String string : resultados) {
+			str += "		-" + string + System.lineSeparator();
+		}
+
 		return str;
 	}
 }

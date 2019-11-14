@@ -11,8 +11,8 @@ import utils.Validador;
  * @author Hiarly Fernandes de Souto
  *
  */
-public class Pesquisa implements Comparable<Pesquisa>{
-	
+public class Pesquisa implements Comparable<Pesquisa> {
+
 	/**
 	 * Problema associado a uma pesquisa.
 	 */
@@ -22,7 +22,8 @@ public class Pesquisa implements Comparable<Pesquisa>{
 	 */
 	private List<Objetivo> objetivos;
 	/**
-	 * Lista responsavel por armazenar os pesquisadores que fazem parte de uma pesquisa.
+	 * Lista responsavel por armazenar os pesquisadores que fazem parte de uma
+	 * pesquisa.
 	 */
 	private ArrayList<Pesquisador> pesquisadores;
 	/**
@@ -47,7 +48,7 @@ public class Pesquisa implements Comparable<Pesquisa>{
 	 * Armaza se a pesquisa esta ativa ou nao
 	 */
 	private boolean ativa;
-	
+
 	private List<Atividade> atividades;
 
 	/**
@@ -90,7 +91,7 @@ public class Pesquisa implements Comparable<Pesquisa>{
 	public String getCampoInterese() {
 		return campoInterese;
 	}
-	
+
 	/**
 	 * Gera o hashCode da pesquisa
 	 */
@@ -179,19 +180,25 @@ public class Pesquisa implements Comparable<Pesquisa>{
 			throw new IllegalArgumentException("Nao e possivel alterar esse valor de pesquisa.");
 		}
 	}
+
 	/**
 	 * Adiciona um pesquisador a lista de pesquisadores dessa pesquisa.
+	 * 
 	 * @param pesquisador Pesquisador a ser adicionado.
 	 */
 	public boolean adicionarPesquisador(Pesquisador pesquisador) {
 		if (pesquisadores.contains(pesquisador)) {
 			return false;
+		} else {
+			pesquisadores.add(pesquisador);
+			return true;
 		}
-		pesquisadores.add(pesquisador);
-		return true;
+
 	}
+
 	/**
 	 * Remove um pesquisador da lista de pesquisadores dessa pesquisa.
+	 * 
 	 * @param pesquisador Pesquisador a ser removido.
 	 */
 	public boolean removerPesquisador(Pesquisador pesquisador) {
@@ -204,39 +211,43 @@ public class Pesquisa implements Comparable<Pesquisa>{
 
 	/**
 	 * Associa um Problema a pesquisa.
+	 * 
 	 * @param problema Problema a ser associado.
 	 * @return Retorna sucesso caso tenha sucesso e false caso contrario.
 	 */
 	public boolean associaProblema(Problema problema) {
-		if(this.problema == null) {
+		if (this.problema == null) {
 			this.problema = problema;
 			return true;
 		}
-		if(this.problema.equals(problema)) {
+		if (this.problema.equals(problema)) {
 			return false;
 		}
 		throw new IllegalArgumentException("Pesquisa ja associada a um problema.");
 	}
+
 	/**
 	 * Desassocia um Problema a pesquisa.
+	 * 
 	 * @param problema Problema a ser associado.
 	 * @return Retorna sucesso caso tenha sucesso e false caso contrario.
 	 */
 	public boolean desassociaProblema(Problema problema) {
-		if(this.problema == null || !this.problema.equals(problema)) {
+		if (this.problema == null || !this.problema.equals(problema)) {
 			return false;
 		}
 		this.problema = null;
 		return true;
 	}
-	
+
 	/**
 	 * Associa um objetivo a pesquisa adicionando o objetivo ao array de objetivos.
+	 * 
 	 * @param objetivo Objetivo a ser associado.
 	 * @return Retorna sucesso caso seja associado e false caso contrario.
 	 */
 	public boolean associaObjetivo(Objetivo objetivo) {
-		for(Objetivo objetivoAtual : objetivos) {
+		for (Objetivo objetivoAtual : objetivos) {
 			if (objetivo.equals(objetivoAtual)) {
 				return false;
 			}
@@ -244,14 +255,16 @@ public class Pesquisa implements Comparable<Pesquisa>{
 		objetivos.add(objetivo);
 		return true;
 	}
-	
+
 	/**
 	 * Desassocia um objetivo da pesquisa.
+	 * 
 	 * @param objetivo Objetivo a ser desassiciado.
 	 */
 	public void desassociaObjetivo(Objetivo objetivo) {
 		objetivos.remove(objetivo);
 	}
+
 	public void validadorDePendencia() {
 		int contador = 0;
 		for (Atividade atividades : atividades) {
@@ -259,74 +272,69 @@ public class Pesquisa implements Comparable<Pesquisa>{
 				contador += 1;
 			}
 		}
-		
+
 		if (contador == 0) {
 			throw new IllegalArgumentException("Pesquisa sem atividades com pendencias.");
 		}
-		
+
 	}
-	
+
 	public String getMaisAntigo() {
-		
+
 		return atividades.get(0).getCodigo();
 	}
+
 	public String getMenosPendentes() {
-		
+
 		Atividade menosPendente = null;
 		int menorQuantPendentes = 1000;
-		
 
-		for(int i=0; i < atividades.size();i++) {
-			int numero = atividades.get(i).quantPendentes() ;
-			if(numero<menorQuantPendentes) {
+		for (int i = 0; i < atividades.size(); i++) {
+			int numero = atividades.get(i).quantPendentes();
+			if (numero < menorQuantPendentes) {
 				menosPendente = atividades.get(i);
 			}
 		}
-	return menosPendente.getCodigo();
-	}	
-
-		
-	
-	
-	public String getMaiorRisco() {
-		
-		
-		for(int i=0; i < atividades.size();i++) {
-			if(atividades.get(i).getRisco().equals("ALTO")) {
-				return atividades.get(i).getCodigo();
-			}
-		}
-		
-		for(int i=0; i < atividades.size();i++) {
-			if(atividades.get(i).getRisco().equals("MEDIO")) {
-				return atividades.get(i).getCodigo();
-			}
-		}
-		
-		for(int i=0; i < atividades.size();i++) {
-			if(atividades.get(i).getRisco().equals("BAIXO")) {
-				return atividades.get(i).getCodigo();
-			}
-		}
-		
-		return "";
-		
+		return menosPendente.getCodigo();
 	}
-	
+
+	public String getMaiorRisco() {
+
+		for (int i = 0; i < atividades.size(); i++) {
+			if (atividades.get(i).getRisco().equals("ALTO")) {
+				return atividades.get(i).getCodigo();
+			}
+		}
+
+		for (int i = 0; i < atividades.size(); i++) {
+			if (atividades.get(i).getRisco().equals("MEDIO")) {
+				return atividades.get(i).getCodigo();
+			}
+		}
+
+		for (int i = 0; i < atividades.size(); i++) {
+			if (atividades.get(i).getRisco().equals("BAIXO")) {
+				return atividades.get(i).getCodigo();
+			}
+		}
+
+		return "";
+
+	}
+
 	public String getAtividadeMaiorDuracao() {
 		Atividade maiorDuracao = null;
 		int numeroMaiorDuracao = 0;
-		for(int i=0; i < atividades.size();i++) {
-			int numero = atividades.get(i).getDuracao() ;
-			if(numero>numeroMaiorDuracao) {
+		for (int i = 0; i < atividades.size(); i++) {
+			int numero = atividades.get(i).getDuracao();
+			if (numero > numeroMaiorDuracao) {
 				maiorDuracao = atividades.get(i);
 			}
 		}
-	return maiorDuracao.getCodigo();
-		
+		return maiorDuracao.getCodigo();
+
 	}
-	
-	
+
 	@Override
 	public int compareTo(Pesquisa o) {
 		return o.getCodigo().compareTo(this.codigo);
@@ -335,65 +343,69 @@ public class Pesquisa implements Comparable<Pesquisa>{
 	public String getCodigo() {
 		return codigo;
 	}
-	
+
 	public String getDescricao() {
 		return descricao;
 	}
 
 	public List<Objetivo> getObjetivos() {
 		return objetivos;
-	}	
-	
+	}
+
 	public boolean adicionaAtividade(Atividade atividade) {
-		if(atividades.contains(atividade)) {
+		if (atividades.contains(atividade)) {
 			return false;
-		}else {
+		} else {
 			atividades.add(atividade);
 			return true;
 		}
 	}
-		
+
 	public boolean tiraAtividade(Atividade atividade) {
-		if(atividades.contains(atividade)) {
+		if (atividades.contains(atividade)) {
 			atividades.remove(atividade);
 			return true;
-		}else {
+		} else {
 			return false;
 		}
 	}
-	
 
 	public String gravarPesquisadores() {
 		String toStringPesquisadores = "		";
 		for (Pesquisador pesquisador : pesquisadores) {
-			 toStringPesquisadores += pesquisador.toString() + System.lineSeparator();
+			toStringPesquisadores += pesquisador.toString() + System.lineSeparator();
 		}
-		return toStringPesquisadores ;
+		return toStringPesquisadores;
 	}
-	
-	
+
 	public String gravarProblema() {
-		return "		"  + problema.toString();
+		return "		" + problema.toString();
 	}
-	
+
 	public String gravarObjetivos() {
 		String str = "";
 		for (Objetivo objetivo : objetivos) {
 			str += "		" + objetivo + System.lineSeparator();
 		}
-		
+
 		return str;
 	}
-	
+
 	public String gravarAtividades() {
 		String str = "		";
 		for (Atividade atividade : atividades) {
 			str += atividade.gravarResumo();
 		}
-		
+
 		return str;
 	}
-		
-}
-	
 
+	public String gravarResultado() {
+		String str = "	-Resultados:" + System.lineSeparator();
+		for (Atividade atv : atividades) {
+			str += atv.gravarResultado();
+		}
+
+		return str;
+	}
+}

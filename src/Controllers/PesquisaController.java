@@ -7,8 +7,16 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import Entidades.Atividade;
+import Entidades.Objetivo;
 import Entidades.Pesquisa;
+import Entidades.Pesquisador;
+import Entidades.Problema;
+import Repositorios.AtividadesRepositorio;
+import Repositorios.ObjetivosRepositorio;
+import Repositorios.PesquisadoresRepositorio;
 import Repositorios.PesquisasRepositorio;
+import Repositorios.ProblemasRepositorio;
 import utils.ObjetivosComparator;
 import utils.Validador;
 
@@ -314,7 +322,7 @@ public class PesquisaController {
 
 	public void gravarResumo(String codigoPesquisa) throws IOException {
 		Pesquisa pesquisa = pesquisasRepositorio.getPesquisa(codigoPesquisa);
-		String str = pesquisa.toString() + System.lineSeparator();
+		String str = "- Pesquisa: " + pesquisa.toString() + System.lineSeparator();
 		str += "	-Pesquisadores:" + System.lineSeparator();
 		str += pesquisa.gravarPesquisadores();
 		str += "	-Problemas:" + System.lineSeparator();
@@ -326,12 +334,191 @@ public class PesquisaController {
 		salvarEmArquivo(codigoPesquisa, str);
 	}
 	
+	public void gravarResultado(String codigoPesquisa) throws IOException {
+		Pesquisa pesquisa = pesquisasRepositorio.getPesquisa(codigoPesquisa);
+		String str = "- Pesquisa: " + pesquisa.toString() + System.lineSeparator();
+		str += pesquisa.gravarResultado();
+		salvarEmArquivo(codigoPesquisa+"-Resultado.txt", str);
+	}
+	
 	private void salvarEmArquivo(String path, String texto) throws IOException {
 		File file = new File(path);
 		BufferedWriter bf = new BufferedWriter(new FileWriter(path));
 		bf.append(texto);
 		bf.flush();
 	}
+	
+	/**
+	 * Associa um Pesquisador a um Pesquisa, ou seja, adiciona uma Pesquisador dentro de uma Pesquisa
+	 * @param idPesquisa O Identificador da pesquisa que será carregada com um pesquisador
+	 * @param emailPesquisador O email do pesquisador que será colocado dentro da Pesquisa
+	 * @return Retorna um boolean sobre a operacao. True caso a operação tenha sido bem sucessida, 
+	 * ou false caso a operacao nao tenha sido realizada com sucesso.
+	 */
+	public boolean associaPesquisador(String idPesquisa, String emailPesquisador, PesquisadoresRepositorio 
+			pesquisadoresRepositorio) {
+		validador.validar(idPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
+		validador.validar(emailPesquisador, "Campo emailPesquisador nao pode ser nulo ou vazio.");
+
+		Pesquisador pesquisador = pesquisadoresRepositorio.getPesquisador(emailPesquisador);
+		Pesquisa pesquisa = pesquisasRepositorio.getPesquisa(idPesquisa);
+		checaDesativacaoPesquisa(pesquisa);
+		return pesquisa.adicionarPesquisador(pesquisador);
+
+	}
+
+
+	/**
+	 * Dessaassocia um Pesquisador a um Pesquisa, ou seja, remove uma Pesquisador dentro de uma Pesquisa
+	 * @param idPesquisa O Identificador da pesquisa que tera um Pesquisador removido
+	 * @param emailPesquisador O email do pesquisador que sra removido de dentro da Pesquisa
+	 * @return Retorna um boolean sobre a operacao. True caso a operação tenha sido bem sucessida, 
+	 * ou false caso a operacao nao tenha sido realizada com sucesso.
+	 */
+	public boolean desassociaPesquisador(String idPesquisa, String emailPesquisador, PesquisadoresRepositorio
+			pesquisadoresRepositorio) {
+		validador.validar(idPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
+		validador.validar(emailPesquisador, "Campo emailPesquisador nao pode ser nulo ou vazio.");
+
+		Pesquisador pesquisador = pesquisadoresRepositorio.getPesquisador(emailPesquisador);
+		Pesquisa pesquisa = pesquisasRepositorio.getPesquisa(idPesquisa);
+		checaDesativacaoPesquisa(pesquisa);
+		return pesquisa.removerPesquisador(pesquisador);
+
+	}
+	
+
+	/**
+	 * Associa um Problema a uma Pesquisa a partir do id do problema e da pesquisa.
+	 * @param idPesquisa Id da pesquisa.
+	 * @param idProblema Id do problema.
+	 * @return Retorna sucesso caso tenha associado com sucesso e false caso contrario.
+	 */
+	public boolean associaProblema(String idPesquisa, String idProblema, ProblemasRepositorio
+			problemasRepositorio) {
+		validador.validar(idPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
+		validador.validar(idProblema, "Campo idProblema nao pode ser nulo ou vazio.");
+		Pesquisa pesquisa = pesquisasRepositorio.getPesquisa(idPesquisa);
+		checaDesativacaoPesquisa(pesquisa);
+		Problema problema = problemasRepositorio.getProblema(idProblema);
+		return pesquisa.associaProblema(problema);
+	}
+	
+	/**
+	 * Desassocia um Problema a uma Pesquisa a partir do id do problema e da pesquisa.
+	 * @param idPesquisa Id da pesquisa.
+	 * @param idProblema Id do problema.
+	 * @return Retorna sucesso caso tenha associado com sucesso e false caso contrario.
+	 */
+	public boolean desassociaProblema(String idPesquisa, String idProblema, ProblemasRepositorio
+			problemasRepositorio) {
+		validador.validar(idPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
+		validador.validar(idProblema, "Campo idProblema nao pode ser nulo ou vazio.");
+		Pesquisa pesquisa = pesquisasRepositorio.getPesquisa(idPesquisa);
+		checaDesativacaoPesquisa(pesquisa);
+		Problema problema = problemasRepositorio.getProblema(idProblema);
+		return pesquisa.desassociaProblema(problema);
+	}	
+
+	
+	/**
+	 * Associa um objetivo a uma pesquisa, a partir do id da pesquisa e do objetivo.
+	 * 
+	 * @param idPesquisa Id da pesquisa.
+	 * @param idObjetivo Id do objetivo.
+	 * @return Retorna false caso a associacao seja mal sucedida e sucesso caso
+	 *         contrario.
+	 */
+	public boolean associaObjetivo(String idPesquisa, String idObjetivo, ObjetivosRepositorio
+			objetivosRepositorio) {
+		validador.validar(idPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
+		validador.validar(idObjetivo, "Campo idObjetivo nao pode ser nulo ou vazio.");
+		Pesquisa pesquisa = pesquisasRepositorio.getPesquisa(idPesquisa);
+		checaDesativacaoPesquisa(pesquisa);
+		Objetivo objetivo = objetivosRepositorio.getObjetivo(idObjetivo);
+
+		boolean retorno = pesquisa.associaObjetivo(objetivo);
+
+		if (retorno == false && objetivo.isAssociado()) {
+			return retorno;
+		} else if (objetivo.isAssociado()) {
+			throw new IllegalArgumentException("Objetivo ja associado a uma pesquisa.");
+		}
+		objetivo.setAssociado(true);
+		return retorno;
+	}
+
+	/**
+	 * Dessocia um objetivo a uma pesquisa, a partir do id da pesquisa e do
+	 * objetivo.
+	 * 
+	 * @param idPesquisa Id da pesquisa.
+	 * @param idObjetivo Id do objetivo.
+	 * @return Retorna false caso a desassociacao seja mal sucedida e sucesso caso
+	 *         contrario.
+	 */
+	public boolean desassociaObjetivo(String idPesquisa, String idObjetivo, ObjetivosRepositorio
+			objetivosRepositorio) {
+		validador.validar(idPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
+		validador.validar(idObjetivo, "Campo idObjetivo nao pode ser nulo ou vazio.");
+		Pesquisa pesquisa = pesquisasRepositorio.getPesquisa(idPesquisa);
+
+		checaDesativacaoPesquisa(pesquisa);
+		Objetivo objetivo = objetivosRepositorio.getObjetivo(idObjetivo);
+
+		if (!objetivo.isAssociado()) {
+			return false;
+		}
+
+		pesquisa.desassociaObjetivo(objetivo);
+		objetivo.setAssociado(false);
+		return true;
+	}
+
+	public boolean associaAtividade(String codigoPesquisa, String codigoAtividade, AtividadesRepositorio
+			atividadesRepositorio) {
+		validador.validar(codigoPesquisa, "Campo codigoPesquisa nao pode ser nulo ou vazio.");
+		validador.validar(codigoAtividade, "Campo codigoAtividade nao pode ser nulo ou vazio.");
+		Pesquisa pesquisa = pesquisasRepositorio.getPesquisa(codigoPesquisa);
+		Atividade atividade = atividadesRepositorio.getAtividade(codigoAtividade);
+		if (!pesquisa.ehAtiva()) {
+			throw new IllegalArgumentException("Pesquisa desativada.");
+		}
+		atividade.associar();
+		return pesquisa.adicionaAtividade(atividade);
+	}
+
+	public boolean desassociaAtividade(String codigoPesquisa, String codigoAtividade, AtividadesRepositorio
+			atividadesRepositorio) {
+		validador.validar(codigoPesquisa, "Campo codigoPesquisa nao pode ser nulo ou vazio.");
+		validador.validar(codigoAtividade, "Campo codigoAtividade nao pode ser nulo ou vazio.");
+		Pesquisa pesquisa = pesquisasRepositorio.getPesquisa(codigoPesquisa);
+		Atividade atividade = atividadesRepositorio.getAtividade(codigoAtividade);
+		if (!pesquisa.ehAtiva()) {
+			throw new IllegalArgumentException("Pesquisa desativada.");
+		}
+		atividade.desassociar();
+		return pesquisa.tiraAtividade(atividade);
+
+	}
+
+
+	
+
+	/**
+	 * Confere, a partir de uma pesquisa, se uma pesquisa esta desativada ou nao, lancando uma
+	 * excecao caso esteja.
+	 * 
+	 * @param pesquisa A pesquisa que sera feita a validadcao.
+	 */
+
+	private void checaDesativacaoPesquisa(Pesquisa pesquisa) {
+		if (!pesquisa.ehAtiva()) {
+			throw new IllegalArgumentException("Pesquisa desativada.");
+		}
+	}
+
+
 
 
 }
