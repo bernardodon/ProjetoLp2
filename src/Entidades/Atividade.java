@@ -274,20 +274,57 @@ public class Atividade implements Comparable<Atividade> {
 	}
 
 	public void tiraProximaAtividade(String idPrecedente) {
+		String[] precedentes = idPrecedente.split("A");
+		int numPre = Integer.parseInt(precedentes[1]);
+		String novoIdPrecedente = "A" + (numPre - 1);
+		
 		if (idPrecedente.equals("A1")) {
-
+			if(this.proxAtividade == null) {
+				throw new RuntimeException();
+			}
+			this.proxAtividade = this.proxAtividade.proxAtividade;
 		}
+		this.proxAtividade.tiraProximaAtividade(novoIdPrecedente);
 	}
 
 	public int contaProximos(String idPrecedente) {
-
+		String[] precedentes = idPrecedente.split("A");
+		int numPre = Integer.parseInt(precedentes[1]);
+		String novoIdPrecedente = "A" + (numPre + 1);
+		
+		if (this.proxAtividade == null) {
+			return 1;
+		}
+		return 1 + this.proxAtividade.contaProximos(novoIdPrecedente);
 	}
 
-	public String pegaProximo(String idAtividade, int enesimaAtividade) {
-
+	public String pegaProximo(String idAtividade, int enesimaAtividade) {	
+		if ( enesimaAtividade == -1) {
+			return null;
+		}
+		
+		if (enesimaAtividade == 0) {
+			return this.getCodigo();
+		}
+		
+		if (this.proxAtividade ==null) {
+			return null;
+		}
+		return this.proxAtividade.pegaProximo(idAtividade, enesimaAtividade -1);
 	}
 
+	public String getRisco() {
+		return risco;
+	}
+	
 	public String pegaMaiorRiscoAtividades(String idAtividade) {
-
+		if (this.proxAtividade == null) {
+			return idAtividade;
+		}else { 
+			if (this.proxAtividade.risco.length() >this.risco.length()) {
+				return this.proxAtividade.getCodigo();
+			}
+			return idAtividade;
+		}
 	}
 }
