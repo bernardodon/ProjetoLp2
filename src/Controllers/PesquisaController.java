@@ -1,8 +1,11 @@
 package Controllers;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-
 
 import Entidades.Pesquisa;
 import Repositorios.PesquisasRepositorio;
@@ -263,6 +266,27 @@ public class PesquisaController {
 		return listaPesquisas;
 	}
 
+
+	public void gravarResumo(String codigoPesquisa) throws IOException {
+		Pesquisa pesquisa = pesquisasRepositorio.getPesquisa(codigoPesquisa);
+		String str = pesquisa.toString() + System.lineSeparator();
+		str += "	-Pesquisadores:" + System.lineSeparator();
+		str += pesquisa.gravarPesquisadores();
+		str += "	-Problemas:" + System.lineSeparator();
+		str += pesquisa.gravarProblema() + System.lineSeparator();
+		str += "	-Objetivos:" + System.lineSeparator();
+		str += pesquisa.gravarObjetivos();
+		str += "	-Atividades:" + System.lineSeparator();
+		str += pesquisa.gravarAtividades();
+		salvarEmArquivo(codigoPesquisa, str);
+	}
 	
+	private void salvarEmArquivo(String path, String texto) throws IOException {
+		File file = new File(path);
+		BufferedWriter bf = new BufferedWriter(new FileWriter(path));
+		bf.append(texto);
+		bf.flush();
+	}
+
 
 }
