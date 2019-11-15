@@ -273,19 +273,18 @@ public class Atividade implements Comparable<Atividade> {
 	/**
 	 * Impede que ocorram loops na funçao de definir a proxima atividade.
 	 * 
-	 * @param atividade uma atividade. 
-	 * @param valor o valor que representa a distancia entre a atividade atual e atividade que deseja-se pegar.
+	 * @param atividade uma atividade.
+	 * @param valor     o valor que representa a distancia entre a atividade atual e
+	 *                  atividade que deseja-se pegar.
 	 */
-	private void impedirLoop(Atividade atividade, int valor) {
-
-		if (atividade.pegaProximo(valor).equals(this)) {
-
+	private void impedirLoop(Atividade compara, Atividade atividade) {
+		if (atividade.equals(compara)) {
 			throw new IllegalArgumentException("Criacao de loops negada.");
-		} else {
-			impedirLoop(atividade, valor + 1);
+		} else if (atividade.proxAtividade != null) {
+			impedirLoop(compara, atividade.proxAtividade);
 		}
-	}
 
+	}
 
 	/**
 	 * Definira a proxima atividade na ordem.
@@ -293,19 +292,16 @@ public class Atividade implements Comparable<Atividade> {
 	 * @param atividade Uma atividade.
 	 */
 
-
 	public void defineProximaAtividade(Atividade atividade) {
 		if (proxAtividade != null) {
 			throw new IllegalArgumentException("Atividade ja possui uma subsequente.");
 		}
-		if(atividade.proxAtividade == this && this.proxAtividade == atividade) {
+		if (atividade.proxAtividade == this && this.proxAtividade == atividade) {
 			throw new IllegalArgumentException("Criacao de loops negada.");
-		} else{
+		} else {
+			impedirLoop(this, atividade);
 			this.proxAtividade = atividade;
 		}
-
-		// impedirLoop(atividade, 1);
-		this.proxAtividade = atividade;
 
 	}
 
@@ -333,7 +329,6 @@ public class Atividade implements Comparable<Atividade> {
 		if (enesimaAtividade == -1) {
 			return null;
 		}
-		
 
 		return this.proxAtividade.pegaProximo(enesimaAtividade - 1);
 	}
