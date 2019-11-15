@@ -4,8 +4,6 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
 
 import Entidades.Atividade;
 import Entidades.Objetivo;
@@ -17,7 +15,6 @@ import Repositorios.ObjetivosRepositorio;
 import Repositorios.PesquisadoresRepositorio;
 import Repositorios.PesquisasRepositorio;
 import Repositorios.ProblemasRepositorio;
-import utils.ObjetivosComparator;
 import utils.Validador;
 
 /**
@@ -250,73 +247,30 @@ public class PesquisaController {
 	}
 
 	/**
-	 * Coloca todas pesquisas em uma String ordenadas a partir dos codigos dos
-	 * objetivos.
+	 * Retorna uma String com as pesquisas ordenadas a partir objetivos.
 	 * 
 	 * @return Retorna a lista de pesquisas ordenadas pelos objetivos.
 	 */
 	private String listaPesquisasPorCodigoObjetivos() {
-		String listaPesquisas = "";
-		ArrayList<Pesquisa> listaOrdenada = new ArrayList<>();
-		listaOrdenada.addAll(pesquisasRepositorio.getValues());
-		Collections.sort(listaOrdenada, new ObjetivosComparator());
-		for (Pesquisa pesquisa : listaOrdenada) {
-			if (pesquisa.getObjetivos().size() > 0) {
-				listaPesquisas += pesquisa.toString() + " | ";
-			}
-		}
-		Collections.sort(listaOrdenada);
-		for (Pesquisa pesquisa : listaOrdenada) {
-			if (!listaPesquisas.contains(pesquisa.toString())) {
-				listaPesquisas += pesquisa.toString() + " | ";
-			}
-		}
-		listaPesquisas = listaPesquisas.substring(0, listaPesquisas.length() - 3);
-		return listaPesquisas;
+		return pesquisasRepositorio.listaPesquisasPorCodigoObjetivos();
 	}
 
 	/**
-	 * Coloca todas pesquisas em uma String ordenadas a partir do codigo dos
-	 * problemas.
+	 * Retorna uma String com as pesquisas ordenadas a partir problemas.
 	 * 
 	 * @return Retorna a lista de pesquisas ordenadas pelos problemas.
 	 */
 	private String listaPesquisasPorCodigoProblema() {
-		String listaPesquisas = "";
-		ArrayList<Pesquisa> listaOrdenada = new ArrayList<>();
-		listaOrdenada.addAll(pesquisasRepositorio.getValues());
-		Collections.sort(listaOrdenada);
-		for (Pesquisa pesquisa : listaOrdenada) {
-			if (pesquisa.getProblema() != null) {
-				listaPesquisas += pesquisa.toString() + " | ";
-			}
-		}
-		for (Pesquisa pesquisa : listaOrdenada) {
-			if (pesquisa.getProblema() == null) {
-				listaPesquisas += pesquisa.toString() + " | ";
-			}
-		}
-		listaPesquisas = listaPesquisas.substring(0, listaPesquisas.length() - 3);
-		return listaPesquisas;
+		return pesquisasRepositorio.listaPesquisasPorCodigoProblema();
 	}
 
 	/**
-	 * Coloca todas pesquisas em uma String ordenadas a partir do codigo das
-	 * proprias pesquisas.
+	 * Retorna uma String com as pesquisas ordenadas a partir objetivos.
 	 * 
 	 * @return Retorna a lista de pesquisas ordenadas pelo codigo das pesquisas.
 	 */
 	private String listaPesquisasPorCodigoPesquisa() {
-		String listaPesquisas = "";
-		ArrayList<Pesquisa> listaOrdenada = new ArrayList<>();
-		listaOrdenada.addAll(pesquisasRepositorio.getValues());
-		Collections.sort(listaOrdenada);
-		for (Pesquisa pesquisa : listaOrdenada) {
-			listaPesquisas += pesquisa.toString() + " | ";
-		}
-
-		listaPesquisas = listaPesquisas.substring(0, listaPesquisas.length() - 3);
-		return listaPesquisas;
+		return pesquisasRepositorio.listaPesquisasPorCodigoPesquisa();
 	}
 
 
@@ -502,9 +456,6 @@ public class PesquisaController {
 
 	}
 
-
-	
-
 	/**
 	 * Confere, a partir de uma pesquisa, se uma pesquisa esta desativada ou nao, lancando uma
 	 * excecao caso esteja.
@@ -517,8 +468,5 @@ public class PesquisaController {
 			throw new IllegalArgumentException("Pesquisa desativada.");
 		}
 	}
-
-
-
 
 }

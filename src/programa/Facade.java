@@ -3,7 +3,6 @@ package programa;
 import java.io.IOException;
 
 import Controllers.AtividadeController;
-import Controllers.PesquisaAtividadeController;
 import Controllers.PesquisaController;
 import Controllers.PesquisadorController;
 import Controllers.ProblemaObjetivoController;
