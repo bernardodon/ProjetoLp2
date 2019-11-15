@@ -15,16 +15,59 @@ import Repositorios.PesquisadoresRepositorio;
 import Repositorios.PesquisasRepositorio;
 import Repositorios.ProblemasRepositorio;
 
+/**
+ * Representação de uma entidade resposável por realizar a busca de um
+ * determinado termo nos repositorios do sistema.
+ * 
+ * @author Ítalo Miguel Castor Diniz Pinheiro
+ */
 public class Busca {
 
+	/**
+	 * Um lista que contem as Strings das entidades do sistema em que foram
+	 * encontrado um determinado termo.
+	 */
 	private List<String> buscas;
+
+	/**
+	 * Um validador.
+	 */
 	private Validador validador;
+
+	/**
+	 * O repositorio de objetivos.
+	 */
 	private ObjetivosRepositorio objetivosRepositorio;
+
+	/**
+	 * O repositorio de problemas.
+	 */
 	private ProblemasRepositorio problemasRepositorio;
+
+	/**
+	 * O repositorio de pesquisadores.
+	 */
 	private PesquisadoresRepositorio pesquisadoresRepositorio;
+
+	/**
+	 * O repositorio de pesquisas.
+	 */
 	private PesquisasRepositorio pesquisasRepositorio;
+
+	/**
+	 * O repositorio de atividades.
+	 */
 	private AtividadesRepositorio atividadeRepositorio;
 
+	/**
+	 * Constrói uma busca a partir dos repositorios do sistema.
+	 * 
+	 * @param objetivosRepositorio     o repositorio de objetivos.
+	 * @param problemasRepositorio     o repositorio de problemas.
+	 * @param pesquisadoresRepositorio o repositorio de pesquisadores.
+	 * @param pesquisasRepositorio     o repositorio de pesquisas.
+	 * @param atividadeRepositorio     o repositorio de atividades.
+	 */
 	public Busca(ObjetivosRepositorio objetivosRepositorio, ProblemasRepositorio problemasRepositorio,
 			PesquisadoresRepositorio pesquisadoresRepositorio, PesquisasRepositorio pesquisasRepositorio,
 			AtividadesRepositorio atividadeRepositorio) {
@@ -37,10 +80,20 @@ public class Busca {
 		this.atividadeRepositorio = atividadeRepositorio;
 	}
 
+	/**
+	 * Adiciona a String da entidade a qual foi encontrado o termo da busca.
+	 * 
+	 * @param msg A string em que foi encontrado o termo da busca.
+	 */
 	public void adicionaBusca(String msg) {
 		buscas.add(msg);
 	}
 
+	/**
+	 * Busca um determinado termo no repositorio de problemas.
+	 * 
+	 * @param termo que será buscado nos problemas cadastrados no sistema.
+	 */
 	private void buscaTermoProblemas(String termo) {
 		List<Problema> problemasValues = new ArrayList<Problema>();
 
@@ -55,6 +108,11 @@ public class Busca {
 
 	}
 
+	/**
+	 * Busca um determinado termo no repositorio de objetivos.
+	 * 
+	 * @param termo que será buscado nos objetivos cadastrados no sistema.
+	 */
 	private void buscaTermoObjetivos(String termo) {
 		List<Objetivo> objetivosValues = new ArrayList<Objetivo>();
 		objetivosValues.addAll(objetivosRepositorio.getValues());
@@ -68,6 +126,11 @@ public class Busca {
 		}
 	}
 
+	/**
+	 * Busca um determinado termo no repositorio de pesquisadores.
+	 * 
+	 * @param termo que será buscado nos pesquisadores cadastrados no sistema.
+	 */
 	private void buscaTermoPesquisadores(String termo) {
 		List<Pesquisador> pesquisadoresValues = new ArrayList<Pesquisador>();
 		pesquisadoresValues.addAll(pesquisadoresRepositorio.getPesquisadoresValues());
@@ -81,6 +144,11 @@ public class Busca {
 
 	}
 
+	/**
+	 * Busca um determinado termo no repositorio de pesquisas.
+	 * 
+	 * @param termo que será buscado nas pesquisas cadastradas no sistema.
+	 */
 	private void buscaTermoPesquisa(String termo) {
 		List<Pesquisa> pesquisasValues = new ArrayList<Pesquisa>();
 		pesquisasValues.addAll(pesquisasRepositorio.getValues());
@@ -97,6 +165,11 @@ public class Busca {
 
 	}
 
+	/**
+	 * Busca um determinado termo no repositorio de atividades.
+	 * 
+	 * @param termo que será buscado nas atividades cadastradas no sistema.
+	 */
 	private void buscaTermoAtividades(String termo) {
 		List<Atividade> atividadesValues = new ArrayList<Atividade>();
 		atividadesValues.addAll(atividadeRepositorio.getValues());
@@ -113,16 +186,24 @@ public class Busca {
 		}
 	}
 
+	/**
+	 * Retorna a String que representa aonde foi encontrado nas entidades do sistema
+	 * o termo de busca.
+	 * 
+	 * @param termo o termo que deseja-se buscas nas entidades do sistema.
+	 * @return a representação em String da lista que contem as entidades as quais
+	 *         foram encontrado o termo da busca
+	 */
 	public String resultadoDaBusca(String termo) {
 		validador.validar(termo, "Campo termo nao pode ser nulo ou vazio.");
 		buscas.clear();
-	
+
 		buscaTermoPesquisa(termo);
 		buscaTermoPesquisadores(termo);
 		buscaTermoProblemas(termo);
 		buscaTermoObjetivos(termo);
 		buscaTermoAtividades(termo);
-		
+
 		String str = "";
 		if (buscas.size() == 0) {
 			return "";
@@ -134,6 +215,13 @@ public class Busca {
 		return str.substring(0, str.length() - 3);
 	}
 
+	/**
+	 * Retorna a String que representa um resultado específico.
+	 * 
+	 * @param termo o termo que deseja-se buscas nas entidades do sistema.
+	 * @param numeroDoResultado o numero que especifica o resultado que deseja-se analisar.
+	 * @return um resultado específico da busca feita no sistema.
+	 */
 	public String busca(String termo, int numeroDoResultado) {
 		validador.validar(termo, "Campo termo nao pode ser nulo ou vazio.");
 
@@ -148,6 +236,12 @@ public class Busca {
 		}
 	}
 
+	/**
+	 * Retorna quantas vezes o termo buscado foi encontrado nas entidades do sistema.
+	 * 
+	 * @param termo o termo buscado.
+	 * @return o inteiro que representa o número de vezes em que o termo buscado foi encontrado no sistema.
+	 */
 	public int contaResultadosBusca(String termo) {
 		validador.validar(termo, "Campo termo nao pode ser nulo ou vazio.");
 		int cont = buscas.size();

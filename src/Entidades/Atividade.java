@@ -145,18 +145,42 @@ public class Atividade implements Comparable<Atividade> {
 		return itens;
 	}
 
+	/**
+	 * Retorna a String que representa a descrição da ativdidade.
+	 * 
+	 * @return a descrição da atividade.
+	 */
 	public String getDescricaoAtvd() {
 		return descricaoAtvd;
 	}
 
+	/**
+	 * Retorna a representação em String da descrição do risco de uma atividade.
+	 * 
+	 * @return a descrição do risco da atividade.
+	 */
 	public String getDescricaoRisco() {
 		return descricaoRisco;
 	}
 
+	/**
+	 * Retorna a representação em String do codigo da atividade.
+	 * 
+	 * @return o codigo da atividade.
+	 */
 	public String getCodigo() {
 		return codigo;
 	}
 
+	/**
+	 * Retorna a representação em String do risco de uma atividade.
+	 * 
+	 * @return o risco de uma atividade.
+	 */
+	public String getRisco() {
+		return risco;
+	}
+	
 	public Boolean temPendentes() {
 		for (Item item : itens) {
 			if (item.getStatus().equals("PENDENTE")) {
@@ -305,10 +329,18 @@ public class Atividade implements Comparable<Atividade> {
 
 	}
 
+	/**
+	 * Remove a proxima atividade da atividade atual.
+	 */
 	public void tiraProximaAtividade() {
 		this.proxAtividade = null;
 	}
 
+	/**
+	 * Retorna a representação em inteiro da quantidade de atividades proximas existentes depois da atividade atual.
+	 * 
+	 * @return o inteiro que representa a quantidade de atividades proximas depois da atividade atual.
+	 */
 	public int contaProximos() {
 		if (this.proxAtividade == null) {
 			return 0;
@@ -317,6 +349,12 @@ public class Atividade implements Comparable<Atividade> {
 		}
 	}
 
+	/**
+	 * Pega a enesima atividade depois da atividade atual. Caso não, um erro será lançado explicando o que ocorreu. 
+	 * 
+	 * @param enesimaAtividade
+	 * @return a enesima atividade depois da atividade atual.
+	 */
 	public Atividade pegaProximo(int enesimaAtividade) {
 
 		if (enesimaAtividade == 0) {
@@ -333,21 +371,22 @@ public class Atividade implements Comparable<Atividade> {
 		return this.proxAtividade.pegaProximo(enesimaAtividade - 1);
 	}
 
-	public String getRisco() {
-		return risco;
-	}
-
+	
+	/**
+	 * Retorna a atividade proxima da atual com o maior risco.
+	 * 
+	 * @return a atividade que vem em seguida da atual com maior risco.
+	 */
 	public Atividade pegaMaiorRiscoAtividades() {
 		if (this.proxAtividade == null) {
 			throw new IllegalArgumentException("Nao existe proxima atividade.");
 		} else {
-			if (this.proxAtividade.risco.equals("ALTO") && this.risco.equals("MEDIO") || this.risco.equals("BAIXO")) {
+			if(this.proxAtividade.risco.equals("ALTO") && this.proxAtividade.proxAtividade.risco.equals("MEDIO") ||this.proxAtividade.proxAtividade.risco.equals("BAIXO")) {
 				return this.proxAtividade;
-			} else if (this.proxAtividade.risco.equals("MEDIO")
-					|| this.risco.equals("BAIXO") && this.risco.equals("ALTO")) {
-				return this;
-			} else if (this.proxAtividade.risco.equals("ALTO") && this.risco.equals("ALTO")) {
-				return this.proxAtividade;
+			} else if (this.proxAtividade.risco.equals("ALTO") && this.proxAtividade.proxAtividade.risco.equals("ALTO")) {
+				return this.proxAtividade.proxAtividade;
+			} else if (this.proxAtividade.risco.equals("MEDIO") || this.proxAtividade.risco.equals("BAIXO") ||this.proxAtividade.proxAtividade.risco.equals("ALTO")) {
+				return this.proxAtividade.proxAtividade;
 			}
 			return this.proxAtividade.pegaMaiorRiscoAtividades();
 		}
