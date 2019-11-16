@@ -273,7 +273,13 @@ public class PesquisaController {
 		return pesquisasRepositorio.listaPesquisasPorCodigoPesquisa();
 	}
 
-
+	/**
+	 * Grava um Resumo de uma Pesquisa - Contem informacoes sobre a Pesquisa, 
+	 * os Pesquisadores da Pesquisa, o Problema da Pesquisa, Os Objetivos da Pesquisa
+	 * A atividade da Pesquisa
+	 * @param codigoPesquisa O codigo da Pesquisa que sera feito o resumo
+	 * @throws IOException
+	 */
 	public void gravarResumo(String codigoPesquisa) throws IOException {
 		Pesquisa pesquisa = pesquisasRepositorio.getPesquisa(codigoPesquisa);
 		String str = "- Pesquisa: " + pesquisa.toString() + System.lineSeparator();
@@ -288,6 +294,12 @@ public class PesquisaController {
 		salvarEmArquivo(codigoPesquisa, str);
 	}
 	
+	/**
+	 * Grava O resultado de uma pesquisa - grava informacoes sobre os resultados da pesquisa,
+	 * as atividades
+	 * @param codigoPesquisa O codigo da pesquisa que sera feita o resultado
+	 * @throws IOException
+	 */
 	public void gravarResultado(String codigoPesquisa) throws IOException {
 		Pesquisa pesquisa = pesquisasRepositorio.getPesquisa(codigoPesquisa);
 		String str = "- Pesquisa: " + pesquisa.toString() + System.lineSeparator();
@@ -295,6 +307,12 @@ public class PesquisaController {
 		salvarEmArquivo(codigoPesquisa+"-Resultado.txt", str);
 	}
 	
+	/**
+	 * Salva um texto em um arquivo
+	 * @param path O caminho do arquivo, caso nao exitsa sera criado, caso exista, sera sobrescrito
+	 * @param texto O texto que sera colocado no arquivo
+	 * @throws IOException
+	 */
 	private void salvarEmArquivo(String path, String texto) throws IOException {
 		File file = new File(path);
 		BufferedWriter bf = new BufferedWriter(new FileWriter(path));
