@@ -6,11 +6,11 @@ import java.util.List;
 import utils.Validador;
 
 /**
- * Representação de uma atividade referentes a uma pesquisa científica. Toda
- * atividade deve ter uma descricao, uma duração, um nível de risco e uma
- * descrição do risco.
+ * RepresentaÃ§Ã£o de uma atividade referentes a uma pesquisa cientÃ­fica. Toda
+ * atividade deve ter uma descricao, uma duraÃ§Ã£o, um nÃ­vel de risco e uma
+ * descriÃ§Ã£o do risco.
  * 
- * @author Ítalo Miguel Castor Diniz Pinheiro.
+ * @author Ã�talo Miguel Castor Diniz Pinheiro.
  */
 public class Atividade implements Comparable<Atividade> {
 
@@ -24,17 +24,17 @@ public class Atividade implements Comparable<Atividade> {
 	private String codigo;
 
 	/*
-	 * Descrição da atividade.
+	 * DescriÃ§Ã£o da atividade.
 	 */
 	private String descricaoAtvd;
 
 	/**
-	 * O nível de risco de uma atividade.
+	 * O nÃ­vel de risco de uma atividade.
 	 */
 	private String risco;
 
 	/**
-	 * A descrição do risco.
+	 * A descriÃ§Ã£o do risco.
 	 */
 	private String descricaoRisco;
 
@@ -52,12 +52,12 @@ public class Atividade implements Comparable<Atividade> {
 	private List<String> resultados;
 
 	/**
-	 * Constrói uma atividade a partir de sua descrição, do nível do risco dela e da
-	 * descrição do risco.
+	 * ConstrÃ³i uma atividade a partir de sua descriÃ§Ã£o, do nÃ­vel do risco dela e da
+	 * descriÃ§Ã£o do risco.
 	 * 
-	 * @param descricaoAtvd  a descrição da atividade.
-	 * @param risco          o nível de risco da atividade.cc
-	 * @param descricaoRisco a descrição do risco da atividade.
+	 * @param descricaoAtvd  a descriÃ§Ã£o da atividade.
+	 * @param risco          o nÃ­vel de risco da atividade.cc
+	 * @param descricaoRisco a descriÃ§Ã£o do risco da atividade.
 	 * @param codigo         o codigo da atividade.
 	 */
 	public Atividade(String descricaoAtvd, String risco, String descricaoRisco, String codigo) {
@@ -92,13 +92,13 @@ public class Atividade implements Comparable<Atividade> {
 		return texto;
 	}
 
-	public void temItem(int numero) {
+	public void checaInexistenciaItem(int numero) {
 		if (itens.size() < numero) {
 			throw new IllegalArgumentException("Item nao encontrado.");
 		}
 	}
 
-	public void jaExecutado(int numero) {
+	public void checaExecucaoItem(int numero) {
 		if (itens.get(numero - 1).getStatus().equals("REALIZADO")) {
 			throw new IllegalArgumentException("Item ja executado.");
 		}
@@ -146,25 +146,25 @@ public class Atividade implements Comparable<Atividade> {
 	}
 
 	/**
-	 * Retorna a String que representa a descrição da ativdidade.
+	 * Retorna a String que representa a descriÃ§Ã£o da ativdidade.
 	 * 
-	 * @return a descrição da atividade.
+	 * @return a descriÃ§Ã£o da atividade.
 	 */
 	public String getDescricaoAtvd() {
 		return descricaoAtvd;
 	}
 
 	/**
-	 * Retorna a representação em String da descrição do risco de uma atividade.
+	 * Retorna a representaÃ§Ã£o em String da descriÃ§Ã£o do risco de uma atividade.
 	 * 
-	 * @return a descrição do risco da atividade.
+	 * @return a descriÃ§Ã£o do risco da atividade.
 	 */
 	public String getDescricaoRisco() {
 		return descricaoRisco;
 	}
 
 	/**
-	 * Retorna a representação em String do codigo da atividade.
+	 * Retorna a representaÃ§Ã£o em String do codigo da atividade.
 	 * 
 	 * @return o codigo da atividade.
 	 */
@@ -173,7 +173,7 @@ public class Atividade implements Comparable<Atividade> {
 	}
 
 	/**
-	 * Retorna a representação em String do risco de uma atividade.
+	 * Retorna a representaÃ§Ã£o em String do risco de uma atividade.
 	 * 
 	 * @return o risco de uma atividade.
 	 */
@@ -265,7 +265,7 @@ public class Atividade implements Comparable<Atividade> {
 	/**
 	 * Retorna a String que representa os itens de uma atividade.
 	 * 
-	 * @return a representação em String que representa todos os itens de uma
+	 * @return a representaÃ§Ã£o em String que representa todos os itens de uma
 	 *         atividade.
 	 */
 	public String exibeItens() {
@@ -286,8 +286,8 @@ public class Atividade implements Comparable<Atividade> {
 	}
 
 	/**
-	 * Retorna a String que representa uma atividade. A representação segue o
-	 * formato "DescriçãoAtvd (Risco - DescriçãoRisco)
+	 * Retorna a String que representa uma atividade. A representaÃ§Ã£o segue o
+	 * formato "DescriÃ§Ã£oAtvd (Risco - DescriÃ§Ã£oRisco)
 	 */
 	@Override
 	public String toString() {
@@ -295,7 +295,7 @@ public class Atividade implements Comparable<Atividade> {
 	}
 
 	/**
-	 * Impede que ocorram loops na funçao de definir a proxima atividade.
+	 * Impede que ocorram loops na funÃ§ao de definir a proxima atividade.
 	 * 
 	 * @param atividade uma atividade.
 	 * @param valor     o valor que representa a distancia entre a atividade atual e
@@ -337,7 +337,7 @@ public class Atividade implements Comparable<Atividade> {
 	}
 
 	/**
-	 * Retorna a representação em inteiro da quantidade de atividades proximas existentes depois da atividade atual.
+	 * Retorna a representaÃ§Ã£o em inteiro da quantidade de atividades proximas existentes depois da atividade atual.
 	 * 
 	 * @return o inteiro que representa a quantidade de atividades proximas depois da atividade atual.
 	 */
@@ -350,7 +350,7 @@ public class Atividade implements Comparable<Atividade> {
 	}
 
 	/**
-	 * Pega a enesima atividade depois da atividade atual. Caso não, um erro será lançado explicando o que ocorreu. 
+	 * Pega a enesima atividade depois da atividade atual. Caso nÃ£o, um erro serÃ¡ lanÃ§ado explicando o que ocorreu. 
 	 * 
 	 * @param enesimaAtividade
 	 * @return a enesima atividade depois da atividade atual.
@@ -393,7 +393,6 @@ public class Atividade implements Comparable<Atividade> {
 	}
 
 	public String gravarResumo() {
-		int contador = 1;
 		String str = this.descricaoAtvd + " (" + this.descricaoRisco + " - " + risco + ")" + System.lineSeparator();
 		for (Item item : itens) {
 			str += "			" + item.toString() + System.lineSeparator();

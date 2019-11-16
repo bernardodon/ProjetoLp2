@@ -6,9 +6,9 @@ import Repositorios.AtividadesRepositorio;
 import utils.Validador;
 
 /**
- * Repreesentação de um controller de atividades.
+ * RepreesentaÃ§Ã£o de um controller de atividades.
  * 
- * @author Ítalo Miguel Castor Diniz Pinheiro.
+ * @author Ã�talo Miguel Castor Diniz Pinheiro.
  */
 public class AtividadeController {
 
@@ -18,8 +18,8 @@ public class AtividadeController {
 	private AtividadesRepositorio atividadesRepositorio;
 
 	/**
-	 * A unidade que será acrescida a medida que as atividades são cadastradas a fim
-	 * de formar o codigo de uma atividade. O codigo por sua vez seguira o padrão
+	 * A unidade que serÃ¡ acrescida a medida que as atividades sÃ£o cadastradas a fim
+	 * de formar o codigo de uma atividade. O codigo por sua vez seguira o padrÃ£o
 	 * "A" + unidade.
 	 */
 	private int unidade;
@@ -30,7 +30,7 @@ public class AtividadeController {
 	private Validador validador;
 
 	/**
-	 * Constrói um controller de Atividades.
+	 * ConstrÃ³i um controller de Atividades.
 	 */
 	public AtividadeController(AtividadesRepositorio atividadeRepositorio) {
 		this.atividadesRepositorio = atividadeRepositorio;
@@ -39,12 +39,12 @@ public class AtividadeController {
 	}
 
 	/**
-	 * Cadastra uma atividade no sistema. Caso não cadastre, um erro será lançado
+	 * Cadastra uma atividade no sistema. Caso nÃ£o cadastre, um erro serÃ¡ lanÃ§ado
 	 * explicando o que ocorreu.
 	 * 
-	 * @param descricaoAtvd  descrição da atividade.
+	 * @param descricaoAtvd  descriÃ§Ã£o da atividade.
 	 * @param nivelRisco     o nivel de risco da atividade.
-	 * @param descricaoRisco a descrição do risco da atividade.
+	 * @param descricaoRisco a descriÃ§Ã£o do risco da atividade.
 	 */
 	public void cadastraAtividade(String descricaoAtvd, String nivelRisco, String descricaoRisco) {
 
@@ -64,7 +64,7 @@ public class AtividadeController {
 	}
 
 	/**
-	 * Apaga uma atividade do sistema. Caso não apague, um erro será lançado
+	 * Apaga uma atividade do sistema. Caso nÃ£o apague, um erro serÃ¡ lanÃ§ado
 	 * explicando o que ocorreu.
 	 * 
 	 * @param codigo o codigo de uma atividade.
@@ -75,11 +75,11 @@ public class AtividadeController {
 	}
 
 	/**
-	 * Cadastra um item para uma determinada atividade. Caso não cadastre, um erro
-	 * será lançado explicando o que ocorreu.
+	 * Cadastra um item para uma determinada atividade. Caso nÃ£o cadastre, um erro
+	 * serÃ¡ lanÃ§ado explicando o que ocorreu.
 	 * 
 	 * @param codigo o codigo da atividade.
-	 * @param item   a descrição do item que será cadastrado.
+	 * @param item   a descriÃ§Ã£o do item que serÃ¡ cadastrado.
 	 */
 	public void cadastraItem(String codigo, String item) {
 		validador.validar(codigo, "Campo codigo nao pode ser nulo ou vazio.");
@@ -91,12 +91,12 @@ public class AtividadeController {
 	}
 
 	/**
-	 * Retorna a representação em String de uma atividade. Caso não retorne, um erro
-	 * será lançado explicando o que ocorreu.
+	 * Retorna a representaÃ§Ã£o em String de uma atividade. Caso nÃ£o retorne, um erro
+	 * serÃ¡ lanÃ§ado explicando o que ocorreu.
 	 * 
 	 * @param codigo o codigo da atividade.
-	 * @return a representação em String de uma atividade.Caso não retorne a String,
-	 *         um erro será lançado explicando o que ocorreu.
+	 * @return a representaÃ§Ã£o em String de uma atividade.Caso nÃ£o retorne a String,
+	 *         um erro serÃ¡ lanÃ§ado explicando o que ocorreu.
 	 */
 	public String exibeAtividade(String codigo) {
 		Atividade atividade = atividadesRepositorio.getAtividade(codigo);
@@ -105,11 +105,11 @@ public class AtividadeController {
 	}
 
 	/**
-	 * Retorna a quantidade de itens pendentes de uma atividade. Caso não, um erro
-	 * será lançado explicando o que ocorreu.
+	 * Retorna a quantidade de itens pendentes de uma atividade. Caso nÃ£o, um erro
+	 * serÃ¡ lanÃ§ado explicando o que ocorreu.
 	 * 
 	 * @param codigo o codigo de uma atividade.
-	 * @return a representação em inteiro da quantidade de itens pendentes de uma
+	 * @return a representaÃ§Ã£o em inteiro da quantidade de itens pendentes de uma
 	 *         atividade.
 	 */
 	public int contaItensPendentes(String codigo) {
@@ -119,11 +119,11 @@ public class AtividadeController {
 	}
 
 	/**
-	 * Retorna a quantidade de itens realizados de uma atividade. Caso não, um erro
-	 * será lançado explicando o que ocorreu.
+	 * Retorna a quantidade de itens realizados de uma atividade. Caso nÃ£o, um erro
+	 * serÃ¡ lanÃ§ado explicando o que ocorreu.
 	 * 
 	 * @param codigo o codigo de uma atividade.
-	 * @return a representação em inteiro da quantidade de itens realizados de uma
+	 * @return a representaÃ§Ã£o em inteiro da quantidade de itens realizados de uma
 	 *         atividade.
 	 */
 	public int contaItensRealizados(String codigo) {
@@ -206,8 +206,8 @@ public class AtividadeController {
 		validador.validarDuracao(duracao);
 		validador.validarItem(item);
 		Atividade atividade = atividadesRepositorio.getAtividade(codigoAtividade);
-		atividade.temItem(item);
-		atividade.jaExecutado(item);
+		atividade.checaInexistenciaItem(item);
+		atividade.checaExecucaoItem(item);
 		atividade.executarItem(item, duracao); // executaAtividade codigoAtividade="A2" item=3 duracao=8
 												// mesma atividade itens diferentes
 	}
