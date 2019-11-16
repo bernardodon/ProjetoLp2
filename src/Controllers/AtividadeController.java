@@ -232,13 +232,11 @@ public class AtividadeController {
 		validador.validar(codigoAtividade, "Campo codigoAtividade nao pode ser nulo ou vazio.");
 		Atividade atividade = atividadesRepositorio.getAtividade(codigoAtividade);
 		return atividade.listarResultados();
-
 	}
 
 	public int getDuracao(String codigoAtividade) {
 		validador.validar(codigoAtividade, "Campo codigoAtividade nao pode ser nulo ou vazio.");
 		Atividade atividade = atividadesRepositorio.getAtividade(codigoAtividade);
 		return atividade.getDuracao();
-
 	}
 }

@@ -166,4 +166,99 @@ class AtividadeControllerTest {
 			controller.contaItensRealizados(null);
 		});
 	}
+	
+	@Test
+	void testExecutaAtividade() {
+		testCadastraItem();
+		controller.executaAtividade("A1", 1, 25);
+		controller.executaAtividade("A1", 2, 15);
+		controller.executaAtividade("A2", 1, 10);
+	}
+	
+	@Test
+	void testExecutaAtividadeCodigoVazioOuNulo() {
+		assertThrows(IllegalArgumentException.class, () -> controller.executaAtividade("", 1, 25));
+		assertThrows(NullPointerException.class, () -> controller.executaAtividade(null, 1, 25));
+	}
+	
+	@Test
+	void testExecutaAtividadeItemInvalido() {
+		assertThrows(IllegalArgumentException.class, () -> controller.executaAtividade("A1", -5, 25));
+		assertThrows(IllegalArgumentException.class, () -> controller.executaAtividade("A1", 0, 25));
+	}
+	
+	@Test
+	void testExecutaAtividadeDuracaoInvalida() {
+		assertThrows(IllegalArgumentException.class, () -> controller.executaAtividade("A1", 1, -10));
+		assertThrows(IllegalArgumentException.class, () -> controller.executaAtividade("A1", 1, 0));
+	}
+	
+	@Test
+	void testCadastraResultado() {
+		testExecutaAtividade();
+		assertEquals(1, controller.cadastraResultado("A1", "resultado 1"));
+		assertEquals(2, controller.cadastraResultado("A1", "resultado 2"));
+		assertEquals(3, controller.cadastraResultado("A1", "resultado 3"));
+		assertEquals(1, controller.cadastraResultado("A2", "resultado 1"));
+		assertEquals(2, controller.cadastraResultado("A2", "resultado 2"));
+		assertEquals(3, controller.cadastraResultado("A2", "resultado 3"));
+		assertEquals(4, controller.cadastraResultado("A2", "resultado 4"));
+	}
+	
+	@Test
+	void testCadastraResultadoCodigoAtividadeVazioOuNulo() {
+		assertThrows(IllegalArgumentException.class, () -> controller.cadastraResultado("", "resultado 1"));
+		assertThrows(NullPointerException.class, () -> controller.cadastraResultado(null, "resultado 1"));
+	}
+	
+	@Test
+	void testCadastraResultadoVazioOuNulo() {
+		assertThrows(IllegalArgumentException.class, () -> controller.cadastraResultado("A1", ""));
+		assertThrows(NullPointerException.class, () -> controller.cadastraResultado("A1", null));
+	}
+	
+	@Test
+	void testRemoveResultado() {
+		testCadastraResultado();
+		assertEquals(true, controller.removeResultado("A1", 3));
+		assertEquals(true, controller.removeResultado("A2", 1));
+	}
+	
+	@Test
+	void testRemoveResultadoCodigoAtividadeVazioOuNulo() {
+		assertThrows(IllegalArgumentException.class, () -> controller.removeResultado("", 2));
+		assertThrows(NullPointerException.class, () -> controller.removeResultado(null, 1));
+	}
+	
+	@Test
+	void testRemoveResultadoInvalido() {
+		assertThrows(IllegalArgumentException.class, () -> controller.removeResultado("A1", -5));
+		assertThrows(IllegalArgumentException.class, () -> controller.removeResultado("A1", 0));
+	}
+	
+	@Test
+	void testListaResultados() {
+		testRemoveResultado();
+		assertEquals("resultado 1 | resultado 2",controller.listaResultados("A1"));
+		assertEquals("resultado 2 | resultado 3 | resultado 4", controller.listaResultados("A2"));
+	}
+	
+	@Test
+	void testListaResultadosCodigoAtividadeVazioOuNulo() {
+		assertThrows(IllegalArgumentException.class, () -> controller.listaResultados(""));
+		assertThrows(NullPointerException.class, () -> controller.listaResultados(null));
+	}
+	
+	@Test
+	void testGetDuracao() {
+		testListaResultados();
+		assertEquals(40, controller.getDuracao("A1"));
+		assertEquals(10, controller.getDuracao("A2"));
+	}
+	
+	@Test
+	void testGetDuracaoCodigoAtividadeVazioOuNulo() {
+		assertThrows(IllegalArgumentException.class, () -> controller.getDuracao(""));
+		assertThrows(NullPointerException.class, () -> controller.getDuracao(null));
+	}
 }
