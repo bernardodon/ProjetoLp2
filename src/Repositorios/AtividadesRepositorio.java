@@ -17,12 +17,15 @@ public class AtividadesRepositorio {
 	 * Um Mapa com as atividade
 	 */
 	private Map<String, Atividade> atividades;
+	
+	private int unidade;
 
 	/**
 	 * Constroi um Repositorio de Atividades
 	 */
 	public AtividadesRepositorio() {
 		this.atividades = new HashMap<String, Atividade>();
+		this.unidade = 1;
 	}
 
 	/**
@@ -80,4 +83,13 @@ public class AtividadesRepositorio {
 			throw new IllegalArgumentException("Atividade nao encontrada");
 		}
 	}
+	
+	public void incrementaUnidade() {
+		this.unidade++;
+	}
+
+	public int getUnidade() {
+		return unidade;
+	}
+	
 }

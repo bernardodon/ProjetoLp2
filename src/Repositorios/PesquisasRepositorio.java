@@ -19,12 +19,15 @@ public class PesquisasRepositorio {
 	 * Um Map de pesquisas
 	 */
 	private Map<String, Pesquisa> pesquisas;
+	
+	public String algoritmo;
 
 	/**
 	 * Constro um repositorio de Pesquisas
 	 */
 	public PesquisasRepositorio() {
 		this.pesquisas = new HashMap<String, Pesquisa>();
+		this.algoritmo = "MAIS_ANTIGA";
 	}
 	
 	/**
@@ -135,6 +138,14 @@ public class PesquisasRepositorio {
 		}
 		listaPesquisas = listaPesquisas.substring(0, listaPesquisas.length() - 3);		
 		return listaPesquisas;
+	}
+
+	public void setAlgoritmo(String algoritmo) {
+		this.algoritmo = algoritmo;
+	}
+
+	public String getAlgoritmo() {
+		return algoritmo;
 	}
 	
 }

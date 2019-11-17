@@ -24,8 +24,6 @@ import utils.Validador;
  *
  */
 public class PesquisaController {
-	
-	private String algoritmo;
 
 	private PesquisasRepositorio pesquisasRepositorio;
 
@@ -41,14 +39,13 @@ public class PesquisaController {
 	public PesquisaController(PesquisasRepositorio pesquisasRepositorio) {
 		this.pesquisasRepositorio = pesquisasRepositorio;
 		this.validador = new Validador();
-		this.algoritmo = "MAIS_ANTIGA";
 	}
 	public void configuraEstrategia(String estrategia) {
 		validador.validar(estrategia, "Estrategia nao pode ser nula ou vazia.");
 		if(!estrategia.equals("MAIS_ANTIGA") && !estrategia.equals("MENOS_PENDENCIAS") && !estrategia.equals("MAIOR_RISCO") && !estrategia.equals("MAIOR_DURACAO")) {
 			throw new IllegalArgumentException("Valor invalido da estrategia");
 		}
-		this.algoritmo = estrategia;
+		pesquisasRepositorio.setAlgoritmo(estrategia);
 	}
 	
 	public String proximaAtividade(String codigoPesquisa) {
@@ -62,17 +59,17 @@ public class PesquisaController {
 		
 		
 		
-		if(this.algoritmo.equals("MAIS_ANTIGA")) {
+		if(pesquisasRepositorio.getAlgoritmo().equals("MAIS_ANTIGA")) {
 			texto = pesquisa.getMaisAntigo();
 		}else {
-			if(this.algoritmo.equals("MENOS_PENDENCIAS")) {
+			if(pesquisasRepositorio.getAlgoritmo().equals("MENOS_PENDENCIAS")) {
 				
 				texto = pesquisa.getMenosPendentes();
 			}else {
-				if(this.algoritmo.equals("MAIOR_RISCO")){
+				if(pesquisasRepositorio.getAlgoritmo().equals("MAIOR_RISCO")){
 					texto = pesquisa.getMaiorRisco();
 				}else {
-					if(this.algoritmo.equals("MAIOR_DURACAO")) {
+					if(pesquisasRepositorio.getAlgoritmo().equals("MAIOR_DURACAO")) {
 						texto = pesquisa.getAtividadeMaiorDuracao();
 					}
 					
@@ -85,8 +82,7 @@ public class PesquisaController {
 		
 	}
 	
-	
-	
+
 	/**
 	 * Cadastra uma pesquisa no HashMap de pesquisas.
 	 * 

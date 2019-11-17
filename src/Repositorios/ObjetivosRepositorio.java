@@ -17,12 +17,14 @@ public class ObjetivosRepositorio {
 	 * Um map com os objetivos do repositorio
 	 */
 	private Map<String, Objetivo> objetivos;
+	private int contadorObjetivos;
 	
 	/**
 	 * Constori um repositorio de Objetivos
 	 */
 	public ObjetivosRepositorio() {
 		this.objetivos = new HashMap<String, Objetivo>();
+		this.contadorObjetivos = 1;
 	}
 
 	/**
@@ -72,4 +74,13 @@ public class ObjetivosRepositorio {
 			throw new IllegalArgumentException("Objetivo nao encontrado");
 		}
 	}
+	
+	public void incrementaContador() {
+		this.contadorObjetivos++;
+	}
+
+	public int getContadorObjetivos() {
+		return contadorObjetivos;
+	}
+	
 }

@@ -8,6 +8,7 @@ public class Problema implements Comparable<Problema> {
 	private int viabilidade;
 	private String codigo;
 	private Validador validador;
+	private int contador;
 	
 	public Problema(String descricao,int viabilidade, String codigo) {
 		this.validador = new Validador();
@@ -16,6 +17,7 @@ public class Problema implements Comparable<Problema> {
 		this.descricao = descricao;
 		this.viabilidade = viabilidade;
 		this.codigo = codigo;
+		this.contador = 1;
 	}
 
 	public String toString() {
@@ -34,6 +36,15 @@ public class Problema implements Comparable<Problema> {
 	public int compareTo(Problema o) {
 		return o.getCodigo().compareTo(this.codigo);
 	}
+	
+	public void incrementaContador() {
+		this.contador = contador++;
+	}
+	
+	public int getContador() {
+		return contador;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

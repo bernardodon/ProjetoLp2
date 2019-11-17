@@ -18,13 +18,6 @@ public class AtividadeController {
 	private AtividadesRepositorio atividadesRepositorio;
 
 	/**
-	 * A unidade que serÃ¡ acrescida a medida que as atividades sÃ£o cadastradas a fim
-	 * de formar o codigo de uma atividade. O codigo por sua vez seguira o padrÃ£o
-	 * "A" + unidade.
-	 */
-	private int unidade;
-
-	/**
 	 * Um validador.
 	 */
 	private Validador validador;
@@ -34,7 +27,6 @@ public class AtividadeController {
 	 */
 	public AtividadeController(AtividadesRepositorio atividadeRepositorio) {
 		this.atividadesRepositorio = atividadeRepositorio;
-		this.unidade = 1;
 		this.validador = new Validador();
 	}
 
@@ -56,11 +48,11 @@ public class AtividadeController {
 			throw new IllegalArgumentException("Valor invalido do nivel do risco.");
 		}
 
-		String cod = "A" + Integer.toString(unidade);
+		String cod = "A" + Integer.toString(atividadesRepositorio.getUnidade());
 		Atividade atvd = new Atividade(descricaoAtvd, nivelRisco, descricaoRisco, cod);
 		atividadesRepositorio.put(cod, atvd);
 
-		unidade++;
+		atividadesRepositorio.incrementaUnidade();
 	}
 
 	/**

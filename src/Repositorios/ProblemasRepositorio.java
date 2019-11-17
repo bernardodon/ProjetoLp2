@@ -17,12 +17,14 @@ public class ProblemasRepositorio {
 	 * O Map com os problemas
 	 */
 	private Map<String, Problema> problemas;
+	private int contadorProblemas;
 	
 	/**
 	 * Constroi um Repositorio de Problemas
 	 */
 	public ProblemasRepositorio() {
 		this.problemas = new HashMap<String, Problema>();
+		this.contadorProblemas = 1;
 	}
 
 	/**
@@ -71,5 +73,13 @@ public class ProblemasRepositorio {
 		if (!problemas.containsKey(chave)) {
 			throw new IllegalArgumentException("Problema nao encontrado");
 		}
+	}
+	
+	public void incrementaContador() {
+		this.contadorProblemas++;
+	}
+
+	public int getContadorProblemas() {
+		return contadorProblemas;
 	}
 }

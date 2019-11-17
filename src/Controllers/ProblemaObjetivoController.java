@@ -10,16 +10,12 @@ import utils.Validador;
 public class ProblemaObjetivoController {
 	private ObjetivosRepositorio objetivosRepositorio;
 	private ProblemasRepositorio problemasRepositorio;
-	private int contadorProblemas;
-	private int contadorObjetivos;
 	private Validador validador;
 
 	public ProblemaObjetivoController(ObjetivosRepositorio objetivosRepositorio,
 			ProblemasRepositorio problemasRepositorio) {
 		this.problemasRepositorio = problemasRepositorio;
 		this.objetivosRepositorio = objetivosRepositorio;
-		this.contadorProblemas = 1;
-		this.contadorObjetivos = 1;
 		this.validador = new Validador();
 	}
 
@@ -28,10 +24,10 @@ public class ProblemaObjetivoController {
 		validador.validar(descricao, "Campo descricao nao pode ser nulo ou vazio.");
 		validador.validarPontuacao(viabilidade, "Valor invalido de viabilidade.");
 
-		String codigo = "P" + String.valueOf(contadorProblemas);
+		String codigo = "P" + String.valueOf(problemasRepositorio.getContadorProblemas());
 		Problema problema = new Problema(descricao, viabilidade, codigo);
 		problemasRepositorio.put(codigo, problema);
-		this.contadorProblemas++;
+		problemasRepositorio.incrementaContador();
 		return codigo;
 	}
 
@@ -47,10 +43,10 @@ public class ProblemaObjetivoController {
 
 		validador.validarPontuacao(viabilidade, "Valor invalido de viabilidade.");
 
-		String codigo = "O" + contadorObjetivos;
+		String codigo = "O" + objetivosRepositorio.getContadorObjetivos();
 		Objetivo objetivo = new Objetivo(tipo, descricao, aderencia, viabilidade, codigo);
-		objetivosRepositorio.put("O" + contadorObjetivos, objetivo);
-		this.contadorObjetivos++;
+		objetivosRepositorio.put("O" + objetivosRepositorio.getContadorObjetivos(), objetivo);
+		objetivosRepositorio.incrementaContador();
 		return codigo;
 	}
 
