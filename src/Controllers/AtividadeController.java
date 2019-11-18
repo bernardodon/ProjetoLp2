@@ -1,5 +1,12 @@
 package Controllers;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInput;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
 import Entidades.Atividade;
 import Entidades.Item;
 import Repositorios.AtividadesRepositorio;
@@ -230,5 +237,20 @@ public class AtividadeController {
 		validador.validar(codigoAtividade, "Campo codigoAtividade nao pode ser nulo ou vazio.");
 		Atividade atividade = atividadesRepositorio.getAtividade(codigoAtividade);
 		return atividade.getDuracao();
+	}
+	
+	public void salvar() throws Exception {
+		FileOutputStream fos = new FileOutputStream("AtividadesRepositorio.txt");
+		ObjectOutputStream oos = new ObjectOutputStream(fos);
+		oos.writeObject(atividadesRepositorio);
+		oos.close();
+	}
+	
+	public void carregar() throws Exception{
+		FileInputStream fis = new FileInputStream("AtividadesRepositorio.txt");
+		ObjectInputStream ois = new ObjectInputStream(fis);
+		AtividadesRepositorio atividadesRepositorio = (AtividadesRepositorio) ois.readObject();
+		this.atividadesRepositorio = atividadesRepositorio; 
+		ois.close();
 	}
 }

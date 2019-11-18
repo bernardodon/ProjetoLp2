@@ -1,6 +1,14 @@
 package utils;
 
-public class Validador {
+import java.io.Serializable;
+
+public class Validador implements Serializable{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7141658018307118121L;
+
 	private void verificarVazioString(String nome, String mensagem) {
 		if (nome.trim().equals("")) {
 			throw new IllegalArgumentException(mensagem);

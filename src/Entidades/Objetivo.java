@@ -1,9 +1,15 @@
 package Entidades;
 
+import java.io.Serializable;
+
 import utils.Validador;
 
-public class Objetivo implements Comparable<Objetivo> {
+public class Objetivo implements Comparable<Objetivo>, Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3009522878777682723L;
 	private String tipo;
 	private String descricao;
 	private int aderenciaProblema;

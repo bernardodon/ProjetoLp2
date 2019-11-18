@@ -1,11 +1,13 @@
 package Entidades;
 
+import java.io.Serializable;
+
 /**
  * Representacao da interface Especializacao
  * @author Hiarly Fernandes de Souto
  *
  */
-public interface Especializacao {
+public interface Especializacao extends Serializable{
 	/*
 	 * Altera um atributo de uma classe que implementar essa interface
 	 * @ atributo O nome do atributo que sera alterado

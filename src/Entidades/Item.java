@@ -1,11 +1,18 @@
 package Entidades;
 
+import java.io.Serializable;
+
 /**
- * Representação de um item. Todo item deve ter um status e uma descrição.
+ * RepresentaÃ§Ã£o de um item. Todo item deve ter um status e uma descriÃ§Ã£o.
  * 
- * @author Ítalo Miguel Castor Diniz Pinheiro.
+ * @author Ã�talo Miguel Castor Diniz Pinheiro.
  */
-public class Item {
+public class Item implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8737329226836568942L;
 
 	/**
 	 * Status de um item, podendo ele ser "PENDENTE" ou "REALIZADO".
@@ -13,14 +20,14 @@ public class Item {
 	private String status;
 
 	/**
-	 * A descrição de um item.
+	 * A descriÃ§Ã£o de um item.
 	 */
 	private String descricao;
 
 	/**
-	 * Constrói um item a partir da descrição de um determinado item.
+	 * ConstrÃ³i um item a partir da descriÃ§Ã£o de um determinado item.
 	 * 
-	 * @param descricao a descrição do item.
+	 * @param descricao a descriÃ§Ã£o do item.
 	 */
 	public Item(String descricao) {
 		this.status = "PENDENTE";
@@ -30,7 +37,7 @@ public class Item {
 	/**
 	 * Retorna a String que representa o status de um item.
 	 * 
-	 * @return a representação em String do status de um item.
+	 * @return a representaÃ§Ã£o em String do status de um item.
 	 */
 	public String getStatus() {
 		return status;
@@ -38,7 +45,7 @@ public class Item {
 
 	/**
 	 * Retorna a String que representa um item. A String segue o formato "Status -
-	 * Descrição".
+	 * DescriÃ§Ã£o".
 	 */
 	@Override
 	public String toString() {

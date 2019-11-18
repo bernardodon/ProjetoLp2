@@ -1,5 +1,6 @@
 package Repositorios;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -11,7 +12,12 @@ import Entidades.Atividade;
  * @author Hiarly Fernandes de Souto
  *
  */
-public class AtividadesRepositorio {
+public class AtividadesRepositorio implements Serializable	{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1998329525757164478L;
 
 	/**
 	 * Um Mapa com as atividade
@@ -91,5 +97,4 @@ public class AtividadesRepositorio {
 	public int getUnidade() {
 		return unidade;
 	}
-	
 }

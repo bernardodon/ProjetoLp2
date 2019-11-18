@@ -2,6 +2,12 @@ package Controllers;
 
 
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
 import Entidades.Objetivo;
 import Entidades.Problema;
 import Repositorios.ObjetivosRepositorio;
@@ -78,4 +84,34 @@ public class ProblemaObjetivoController {
 
 	}
 
+	public void salvarProblemas() throws Exception {
+		File file = new File("ProblemasRepositorio.txt");
+		FileOutputStream fos = new FileOutputStream(file);
+		ObjectOutputStream oos = new ObjectOutputStream(fos);
+		oos.writeObject(problemasRepositorio);
+		oos.close();
+	}
+	
+	public void carregarProblemas() throws Exception{
+		FileInputStream fis = new FileInputStream("ProblemasRepositorio.txt");
+		ObjectInputStream ois = new ObjectInputStream(fis);
+		ProblemasRepositorio problemasRepositorio= (ProblemasRepositorio) ois.readObject();
+		this.problemasRepositorio = problemasRepositorio;
+		ois.close();
+	}
+	
+	public void salvarobjetivos() throws Exception {
+		FileOutputStream fos = new FileOutputStream("ObjetivosRepositorio.txt");
+		ObjectOutputStream oos = new ObjectOutputStream(fos);
+		oos.writeObject(objetivosRepositorio);
+		oos.close();
+	}
+	
+	public void carregarobjetivos() throws Exception{
+		FileInputStream fis = new FileInputStream("ObjetivosRepositorio.txt");
+		ObjectInputStream ois = new ObjectInputStream(fis);
+		ObjetivosRepositorio objetivosRepositorio= (ObjetivosRepositorio) ois.readObject();
+		this.objetivosRepositorio = objetivosRepositorio;
+		ois.close();
+	}
 }

@@ -1,5 +1,6 @@
 	package Entidades;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,8 +12,12 @@ import utils.Validador;
  * @author Hiarly Fernandes de Souto
  *
  */
-public class Pesquisa implements Comparable<Pesquisa> {
+public class Pesquisa implements Comparable<Pesquisa>, Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4239769601138046989L;
 	/**
 	 * Problema associado a uma pesquisa.
 	 */

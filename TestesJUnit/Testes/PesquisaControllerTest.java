@@ -90,18 +90,18 @@ class PesquisaControllerTest {
 
 	@BeforeEach
 	void testEncerraPesquisa() {
-		controle.enceraPesquisa("COM2", "Pesquisa concluida");
-		controle.enceraPesquisa("FER1");
+		controle.encerraPesquisa("COM2", "Pesquisa concluida");
+		controle.encerraPesquisa("FER1");
 	}
 
 	@Test
 	void testEncerraPesquisaErro() {
 		assertThrows(IllegalArgumentException.class, () -> {
-			controle.enceraPesquisa("ENE1");
+			controle.encerraPesquisa("ENE1");
 		});
 
 		assertThrows(IllegalArgumentException.class, () -> {
-			controle.enceraPesquisa("FER1");
+			controle.encerraPesquisa("FER1");
 		});
 	}
 

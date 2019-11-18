@@ -1,6 +1,11 @@
 package Controllers;
 
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
 import Entidades.Pesquisador;
 import Repositorios.PesquisadoresRepositorio;
 import utils.Validador;
@@ -199,5 +204,18 @@ public class PesquisadorController {
 		pesquisadoresRepositorio.put(novoValor, novoPesquisador);
 	}
 
+	public void salvar() throws Exception {
+		FileOutputStream fos = new FileOutputStream("PesquisadoresRepositorio.txt");
+		ObjectOutputStream oos = new ObjectOutputStream(fos);
+		oos.writeObject(pesquisadoresRepositorio);
+		oos.close();
+	}
 	
+	public void carregar() throws Exception{
+		FileInputStream fis = new FileInputStream("PesquisadoresRepositorio.txt");
+		ObjectInputStream ois = new ObjectInputStream(fis);
+		PesquisadoresRepositorio pesquisadoresRepositorio= (PesquisadoresRepositorio) ois.readObject();
+		this.pesquisadoresRepositorio = pesquisadoresRepositorio;
+		ois.close();
+	}
 }
