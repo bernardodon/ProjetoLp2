@@ -53,11 +53,11 @@ public class Facade {
 	}
 
 	public void encerraPesquisa(String codigo, String motivo) {
-		pesquisaController.enceraPesquisa(codigo, motivo);
+		pesquisaController.encerraPesquisa(codigo, motivo);
 	}
 
 	public void encerraPesquisa(String codigo) {
-		pesquisaController.enceraPesquisa(codigo);
+		pesquisaController.encerraPesquisa(codigo);
 	}
 
 	public void ativaPesquisa(String codigo) {
@@ -257,5 +257,20 @@ public class Facade {
 	public String proximaAtividade(String codigoPesquisa) {
 		return pesquisaController.proximaAtividade(codigoPesquisa);
 	}
-
+	
+	public void salvar() throws Exception {
+		pesquisaController.salvar();
+		pesquisadorController.salvar();
+		atividadeController.salvar();
+		problemaObjetivoController.salvarobjetivos();
+		problemaObjetivoController.salvarProblemas();
+	}
+	
+	public void carregar() throws Exception {
+		pesquisaController.carregar();
+		pesquisadorController.carregar();
+		atividadeController.carregar();
+		problemaObjetivoController.carregarobjetivos();
+		problemaObjetivoController.carregarProblemas();
+	}
 }

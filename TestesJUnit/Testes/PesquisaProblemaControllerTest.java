@@ -56,7 +56,7 @@ class PesquisaProblemaControllerTest {
 
 	@Test
 	void testAssociaPesquisaProblemaErro() {
-		pesquisaController.enceraPesquisa("FER1");
+		pesquisaController.encerraPesquisa("FER1");
 		pesquisaProblemaController.associaProblema("COM1", "P1");
 		
 		assertThrows(IllegalArgumentException.class, () -> {
@@ -87,7 +87,7 @@ class PesquisaProblemaControllerTest {
 
 	@Test
 	void testDesassociaProblemaPesquisaErro() {
-		pesquisaController.enceraPesquisa("FER1");
+		pesquisaController.encerraPesquisa("FER1");
 
 		assertThrows(IllegalArgumentException.class, () -> {
 			pesquisaProblemaController.desassociaProblema("COM1", "");

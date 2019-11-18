@@ -1,5 +1,6 @@
 package Repositorios;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -11,8 +12,12 @@ import Entidades.Problema;
  * @author HIarly Fernandes de Souto
  *
  */
-public class ProblemasRepositorio {
+public class ProblemasRepositorio implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8737588641808330885L;
 	/**
 	 * O Map com os problemas
 	 */

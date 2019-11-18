@@ -13,6 +13,10 @@ import utils.Validador;
 public class Aluno implements Especializacao {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6887144058808689998L;
+	/**
 	 * O semestre de ingresso do alnuo
 	 */
 	private int semestre;

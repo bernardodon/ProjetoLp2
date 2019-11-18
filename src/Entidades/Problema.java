@@ -1,9 +1,15 @@
 package Entidades;
 
+import java.io.Serializable;
+
 import utils.Validador;
 
-public class Problema implements Comparable<Problema> {
+public class Problema implements Comparable<Problema>, Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5945461472402258381L;
 	private String  descricao;
 	private int viabilidade;
 	private String codigo;

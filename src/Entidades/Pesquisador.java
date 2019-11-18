@@ -1,7 +1,6 @@
 package Entidades;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.Serializable;
 
 import utils.Validador;
 
@@ -11,8 +10,13 @@ import utils.Validador;
  * @author Bernard Dantas Odon
  * 
  */
-public class Pesquisador implements Comparable<Pesquisador> {
+public class Pesquisador implements Comparable<Pesquisador>, Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 525215553740261929L;
+	
 	private Validador validador;
 	/**
 	 * Nome do pesquisador.

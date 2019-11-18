@@ -1,5 +1,6 @@
 package Repositorios;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -11,8 +12,13 @@ import Entidades.Objetivo;
  * @author Hiarly Fernandes de Souto
  *
  */
-public class ObjetivosRepositorio {
+public class ObjetivosRepositorio implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -9114267690177717645L;
+	
 	/**
 	 * Um map com os objetivos do repositorio
 	 */

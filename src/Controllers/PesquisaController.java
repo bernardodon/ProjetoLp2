@@ -2,8 +2,13 @@ package Controllers;
 
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 
 import Entidades.Atividade;
 import Entidades.Objetivo;
@@ -23,7 +28,7 @@ import utils.Validador;
  * @author Hiarly Fernandes de Souto
  *
  */
-public class PesquisaController {
+public class PesquisaController{
 
 	private PesquisasRepositorio pesquisasRepositorio;
 
@@ -145,7 +150,8 @@ public class PesquisaController {
 	 * @param codigo O codigo da pesqusia
 	 * @param motivo O motivo do encerramento
 	 */
-	public void enceraPesquisa(String codigo, String motivo) {
+	public void encerraPesquisa(String codigo, String motivo) {
+		validador.validar(motivo, "Motivo nao pode ser nulo ou vazio.");
 		Pesquisa pesquisa = pesquisasRepositorio.getPesquisa(codigo);
 
 		pesquisa.encerrarPesquisa();
@@ -157,7 +163,7 @@ public class PesquisaController {
 	 * 
 	 * @param codigo O codigo da pesqusia
 	 */
-	public void enceraPesquisa(String codigo) {
+	public void encerraPesquisa(String codigo) {
 		Pesquisa pesquisa = pesquisasRepositorio.getPesquisa(codigo);
 
 		pesquisa.encerrarPesquisa();
@@ -483,4 +489,18 @@ public class PesquisaController {
 		}
 	}
 
+	public void salvar() throws Exception {
+		FileOutputStream fos = new FileOutputStream("PesquisasRepositorio.txt");
+		ObjectOutputStream oos = new ObjectOutputStream(fos);
+		oos.writeObject(pesquisasRepositorio);
+		oos.close();
+	}
+	
+	public void carregar() throws Exception{
+		FileInputStream fis = new FileInputStream("PesquisasRepositorio.txt");
+		ObjectInputStream ois = new ObjectInputStream(fis);
+		PesquisasRepositorio pesquisasRepositorio= (PesquisasRepositorio) ois.readObject();
+		this.pesquisasRepositorio = pesquisasRepositorio;
+		ois.close();
+	}
 }

@@ -11,6 +11,10 @@ import utils.Validador;
 public class Professor implements Especializacao {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4136676275212023371L;
+	/**
 	 * A formacao do Professor
 	 */
 	private String formacao;

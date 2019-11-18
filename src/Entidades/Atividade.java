@@ -1,5 +1,6 @@
 package Entidades;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,8 +13,12 @@ import utils.Validador;
  * 
  * @author Ã�talo Miguel Castor Diniz Pinheiro.
  */
-public class Atividade implements Comparable<Atividade> {
+public class Atividade implements Comparable<Atividade>, Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -169186575795418030L;
 	/**
 	 * Um validador.
 	 */

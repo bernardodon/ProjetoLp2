@@ -1,5 +1,6 @@
 package Repositorios;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -11,7 +12,11 @@ import Entidades.Pesquisador;
  * @author Hiarly Fernandes de Souto
  *
  */
-public class PesquisadoresRepositorio {
+public class PesquisadoresRepositorio implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6646108745654065138L;
 	/**
 	 * O Map de pesquisadores
 	 */

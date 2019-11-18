@@ -54,7 +54,7 @@ class PesquisaObjetivoControllerTest {
 
 	@Test
 	void testAssociaPesquisaProblemaErro() {
-		pesquisaController.enceraPesquisa("FER1");
+		pesquisaController.encerraPesquisa("FER1");
 		pesquisaObjetivoController.associaObjetivo("COM1", "O1");
 
 		assertThrows(IllegalArgumentException.class, () -> {
@@ -85,7 +85,7 @@ class PesquisaObjetivoControllerTest {
 
 	@Test
 	void testDesassociaObjetivosPesquisaErro() {
-		pesquisaController.enceraPesquisa("FER1");
+		pesquisaController.encerraPesquisa("FER1");
 
 		assertThrows(IllegalArgumentException.class, () -> {
 			pesquisaObjetivoController.desassociaObjetivo("COM2", "01");
