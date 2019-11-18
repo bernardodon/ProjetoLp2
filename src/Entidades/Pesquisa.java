@@ -376,37 +376,37 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
 	}
 
 	public String gravarPesquisadores() {
-		String toStringPesquisadores = "		";
+		String toStringPesquisadores = "";
 		for (Pesquisador pesquisador : pesquisadores) {
-			toStringPesquisadores += pesquisador.toString() + System.lineSeparator();
+			toStringPesquisadores += "		- " + pesquisador.toString() + System.lineSeparator();
 		}
 		return toStringPesquisadores;
 	}
 
 	public String gravarProblema() {
-		return "		" + problema.toString();
+		return "		- " + problema.toString();
 	}
 
 	public String gravarObjetivos() {
 		String str = "";
 		for (Objetivo objetivo : objetivos) {
-			str += "		" + objetivo + System.lineSeparator();
+			str += "		- " + objetivo + System.lineSeparator();
 		}
 
 		return str;
 	}
 
 	public String gravarAtividades() {
-		String str = "		";
+		String str = "";
 		for (Atividade atividade : atividades) {
-			str += atividade.gravarResumo();
+			str += "		" + atividade.gravarResumo();
 		}
 
 		return str;
 	}
 
 	public String gravarResultado() {
-		String str = "	-Resultados:" + System.lineSeparator();
+		String str = "	- Resultados:" + System.lineSeparator();
 		for (Atividade atv : atividades) {
 			str += atv.gravarResultado();
 		}

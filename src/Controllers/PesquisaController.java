@@ -282,17 +282,19 @@ public class PesquisaController{
 	 * @throws IOException
 	 */
 	public void gravarResumo(String codigoPesquisa) throws IOException {
+		validador.validar(codigoPesquisa, "Pesquisa nao pode ser nula ou vazia.");
+		
 		Pesquisa pesquisa = pesquisasRepositorio.getPesquisa(codigoPesquisa);
 		String str = "- Pesquisa: " + pesquisa.toString() + System.lineSeparator();
-		str += "	-Pesquisadores:" + System.lineSeparator();
+		str += "	- Pesquisadores:" + System.lineSeparator();
 		str += pesquisa.gravarPesquisadores();
-		str += "	-Problemas:" + System.lineSeparator();
+		str += "	- Problema:" + System.lineSeparator();
 		str += pesquisa.gravarProblema() + System.lineSeparator();
-		str += "	-Objetivos:" + System.lineSeparator();
+		str += "	- Objetivos:" + System.lineSeparator();
 		str += pesquisa.gravarObjetivos();
-		str += "	-Atividades:" + System.lineSeparator();
+		str += "	- Atividades:" + System.lineSeparator();
 		str += pesquisa.gravarAtividades();
-		salvarEmArquivo(codigoPesquisa, str);
+		salvarEmArquivo(codigoPesquisa+".txt", str);
 	}
 	
 	/**
@@ -302,10 +304,11 @@ public class PesquisaController{
 	 * @throws IOException
 	 */
 	public void gravarResultado(String codigoPesquisa) throws IOException {
+		validador.validar(codigoPesquisa, "Pesquisa nao pode ser nula ou vazia.");
 		Pesquisa pesquisa = pesquisasRepositorio.getPesquisa(codigoPesquisa);
 		String str = "- Pesquisa: " + pesquisa.toString() + System.lineSeparator();
 		str += pesquisa.gravarResultado();
-		salvarEmArquivo(codigoPesquisa+"-Resultado.txt", str);
+		salvarEmArquivo(codigoPesquisa+"-Resultados.txt", str);
 	}
 	
 	/**

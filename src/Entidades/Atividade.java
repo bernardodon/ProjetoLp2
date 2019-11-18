@@ -2,6 +2,7 @@ package Entidades;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import utils.Validador;
@@ -398,23 +399,33 @@ public class Atividade implements Comparable<Atividade>, Serializable {
 	}
 
 	public String gravarResumo() {
-		String str = this.descricaoAtvd + " (" + this.descricaoRisco + " - " + risco + ")" + System.lineSeparator();
-		for (Item item : itens) {
-			str += "			" + item.toString() + System.lineSeparator();
+		String str = "- " + this.descricaoAtvd + " (" + this.descricaoRisco + " - " + risco + ")" + System.lineSeparator();
+		for (int i = 0; i < itens.size(); i++) {
+			str += "			- " + itens.get(i).getStatus() + " - ITEM" + (i+1) + System.lineSeparator();			
 		}
+		
 		return str;
+		
 	}
 
 	public String gravarResultado() {
-		String str = "		-" + descricaoAtvd + System.lineSeparator();
+		String str = "		- " + descricaoAtvd + System.lineSeparator();
+		int qtdItem = 0;
 		for (Item item : itens) {
-			if (item.getStatus() == "REALIZADO") {
-				str += "			-" + item.getDescricao() + " " + duracao + System.lineSeparator();
+			if (item.getStatus().equals("REALIZADO")) {
+				qtdItem += 1;
 			}
 		}
+		for (int i = 0; i < itens.size() ; i++) {
+			
+			if (itens.get(i).getStatus().equals("REALIZADO")) {
+				str += "			- ITEM" + (i+1) + " - " + (duracao / qtdItem) + System.lineSeparator();				
+			}
+		}
+		
 
 		for (String string : resultados) {
-			str += "		-" + string + System.lineSeparator();
+			str += "			- " + string + System.lineSeparator();
 		}
 
 		return str;

@@ -273,4 +273,12 @@ public class Facade {
 		problemaObjetivoController.carregarobjetivos();
 		problemaObjetivoController.carregarProblemas();
 	}
+  
+	public void gravarResumo(String codigoPesquisa) throws IOException {
+		pesquisaController.gravarResumo(codigoPesquisa);
+	}
+	
+	public void gravarResultados(String codigoPesquisa) throws IOException {
+		pesquisaController.gravarResultado(codigoPesquisa);
+	}
 }
