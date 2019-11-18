@@ -371,9 +371,9 @@ public class Pesquisa implements Comparable<Pesquisa> {
 	}
 
 	public String gravarPesquisadores() {
-		String toStringPesquisadores = "		";
+		String toStringPesquisadores = "";
 		for (Pesquisador pesquisador : pesquisadores) {
-			toStringPesquisadores += "- " + pesquisador.toString() + System.lineSeparator();
+			toStringPesquisadores += "		- " + pesquisador.toString() + System.lineSeparator();
 		}
 		return toStringPesquisadores;
 	}
@@ -392,9 +392,9 @@ public class Pesquisa implements Comparable<Pesquisa> {
 	}
 
 	public String gravarAtividades() {
-		String str = "		";
+		String str = "";
 		for (Atividade atividade : atividades) {
-			str += atividade.gravarResumo();
+			str += "		" + atividade.gravarResumo();
 		}
 
 		return str;

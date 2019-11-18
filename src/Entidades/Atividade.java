@@ -396,7 +396,7 @@ public class Atividade implements Comparable<Atividade> {
 	public String gravarResumo() {
 		String str = "- " + this.descricaoAtvd + " (" + this.descricaoRisco + " - " + risco + ")" + System.lineSeparator();
 		for (int i = 0; i < itens.size(); i++) {
-			str += "			-" + itens.get(i).getStatus() + " - ITEM" + (i+1) + System.lineSeparator();			
+			str += "			- " + itens.get(i).getStatus() + " - ITEM" + (i+1) + System.lineSeparator();			
 		}
 		
 		return str;

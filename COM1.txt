@@ -9,7 +9,7 @@
 		- O3 - ESPECIFICO - Detectar, atraves de bot eletronico, a presenca de mensagens eletronicas com conteudo homofobico. - 7
 	- Atividades:
 		- Monitoramento de chats dos alunos de computacao do primeiro periodo. (Por se tratar de apenas um monitoramento, o risco nao e elevado. - BAIXO)
-			-REALIZADO - ITEM1
-			-REALIZADO - ITEM2
-			-REALIZADO - ITEM3
-			-REALIZADO - ITEM4
+			- REALIZADO - ITEM1
+			- REALIZADO - ITEM2
+			- REALIZADO - ITEM3
+			- REALIZADO - ITEM4
