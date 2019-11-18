@@ -33,7 +33,6 @@ class ProblemaTeste {
 	@Test
 	void criaProblemaPontuacaoInvalida() {
 		assertThrows(IllegalArgumentException.class, () -> new Problema("O problema do discurso homofobico em chats online de alunos de computacao de primeiro periodo", -3, "P1"));
-		assertThrows(IllegalArgumentException.class, () -> new Problema("O problema do discurso homofobico em chats online de alunos de computacao de primeiro periodo", 111, "P1"));
 		assertThrows(IllegalArgumentException.class, () -> new Problema("O problema do discurso homofobico em chats online de alunos de computacao de primeiro periodo", 0, "P1"));
 	}
 	
