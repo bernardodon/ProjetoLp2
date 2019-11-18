@@ -11,7 +11,6 @@ import java.io.ObjectOutputStream;
 import Entidades.Objetivo;
 import Entidades.Problema;
 import Repositorios.ObjetivosRepositorio;
-import Repositorios.PesquisasRepositorio;
 import Repositorios.ProblemasRepositorio;
 import utils.Validador;
 public class ProblemaObjetivoController {
