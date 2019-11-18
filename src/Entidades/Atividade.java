@@ -399,7 +399,7 @@ public class Atividade implements Comparable<Atividade>, Serializable {
 	}
 
 	public String gravarResumo() {
-		String str = "- " + this.descricaoAtvd + " (" + this.descricaoRisco + " - " + risco + ")" + System.lineSeparator();
+		String str = "- " + this.descricaoAtvd + " (" + risco + " - " + descricaoRisco + ")" + System.lineSeparator();
 		for (int i = 0; i < itens.size(); i++) {
 			str += "			- " + itens.get(i).getStatus() + " - ITEM" + (i+1) + System.lineSeparator();			
 		}
@@ -427,7 +427,6 @@ public class Atividade implements Comparable<Atividade>, Serializable {
 		for (String string : resultados) {
 			str += "			- " + string + System.lineSeparator();
 		}
-
 		return str;
 	}
 }

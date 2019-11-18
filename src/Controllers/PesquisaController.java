@@ -285,7 +285,7 @@ public class PesquisaController{
 		validador.validar(codigoPesquisa, "Pesquisa nao pode ser nula ou vazia.");
 		
 		Pesquisa pesquisa = pesquisasRepositorio.getPesquisa(codigoPesquisa);
-		String str = "- Pesquisa: " + pesquisa.toString() + System.lineSeparator();
+		String str = "\"- Pesquisa: " + pesquisa.toString() + System.lineSeparator();
 		str += "	- Pesquisadores:" + System.lineSeparator();
 		str += pesquisa.gravarPesquisadores();
 		str += "	- Problema:" + System.lineSeparator();
@@ -306,7 +306,7 @@ public class PesquisaController{
 	public void gravarResultado(String codigoPesquisa) throws IOException {
 		validador.validar(codigoPesquisa, "Pesquisa nao pode ser nula ou vazia.");
 		Pesquisa pesquisa = pesquisasRepositorio.getPesquisa(codigoPesquisa);
-		String str = "- Pesquisa: " + pesquisa.toString() + System.lineSeparator();
+		String str = "\"- Pesquisa: " + pesquisa.toString() + System.lineSeparator();
 		str += pesquisa.gravarResultado();
 		salvarEmArquivo(codigoPesquisa+"-Resultados.txt", str);
 	}

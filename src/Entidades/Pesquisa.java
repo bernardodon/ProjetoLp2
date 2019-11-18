@@ -401,7 +401,7 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
 		for (Atividade atividade : atividades) {
 			str += "		" + atividade.gravarResumo();
 		}
-
+		str = str.substring(0, str.length()-1) + "\"";
 		return str;
 	}
 
@@ -411,6 +411,7 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
 			str += atv.gravarResultado();
 		}
 
+		str = str.substring(0, str.length()-1) + "\"";
 		return str;
 	}
 }
