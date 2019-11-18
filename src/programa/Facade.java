@@ -257,5 +257,13 @@ public class Facade {
 	public String proximaAtividade(String codigoPesquisa) {
 		return pesquisaController.proximaAtividade(codigoPesquisa);
 	}
+	
+	public void gravarResumo(String codigoPesquisa) throws IOException {
+		pesquisaController.gravarResumo(codigoPesquisa);
+	}
+	
+	public void gravarResultados(String codigoPesquisa) throws IOException {
+		pesquisaController.gravarResultado(codigoPesquisa);
+	}
 
 }

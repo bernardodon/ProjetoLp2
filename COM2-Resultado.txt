@@ -1,4 +1,4 @@
-- Pesquisa: COM1 - Homofobia em mensagens online de alunos de computacao do primeiro periodo. - computacao, homofobia
+- Pesquisa: COM2 - Autoavaliacao na Disciplina de Programacao Orientada a Objeto. - computacao, poo
 	- Resultados:
 		- Monitoramento de chats dos alunos de computacao do primeiro periodo.
 			- ITEM1 - 5
