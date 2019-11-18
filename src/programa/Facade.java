@@ -12,15 +12,17 @@ import Repositorios.PesquisadoresRepositorio;
 import Repositorios.PesquisasRepositorio;
 import Repositorios.ProblemasRepositorio;
 import utils.Busca;
+import utils.Persistencia;
 
 public class Facade {
 
 	private PesquisasRepositorio pesquisasRepositorio;
 	private PesquisadoresRepositorio pesquisadoresRepositorio;
-	private AtividadesRepositorio atividadeRepositorio;
+	private AtividadesRepositorio atividadesRepositorio;
 	private ObjetivosRepositorio objetivosRepositorio;
 	private ProblemasRepositorio problemasRepositorio;
-
+	
+	private Persistencia persistencia;
 	private Busca busca;
 	private PesquisaController pesquisaController;
 	private PesquisadorController pesquisadorController;
@@ -31,16 +33,16 @@ public class Facade {
 	public Facade() {
 		this.pesquisasRepositorio = new PesquisasRepositorio();
 		this.pesquisadoresRepositorio = new PesquisadoresRepositorio();
-		this.atividadeRepositorio = new AtividadesRepositorio();
+		this.atividadesRepositorio = new AtividadesRepositorio();
 		this.objetivosRepositorio = new ObjetivosRepositorio();
 		this.problemasRepositorio = new ProblemasRepositorio();
-
+		
+		this.persistencia = new Persistencia();
 		this.busca = new Busca(objetivosRepositorio, problemasRepositorio, pesquisadoresRepositorio,
-				pesquisasRepositorio, atividadeRepositorio);
+				pesquisasRepositorio, atividadesRepositorio);
 		this.pesquisaController = new PesquisaController(pesquisasRepositorio);
 		this.pesquisadorController = new PesquisadorController(pesquisadoresRepositorio);
-		this.atividadeController = new AtividadeController(atividadeRepositorio);
-
+		this.atividadeController = new AtividadeController(atividadesRepositorio);
 		this.problemaObjetivoController = new ProblemaObjetivoController(objetivosRepositorio, problemasRepositorio);
 	}
 
@@ -169,8 +171,8 @@ public class Facade {
 		return pesquisaController.associaProblema(idPesquisa, idProblema, problemasRepositorio);
 	}
 
-	public boolean desassociaProblema(String idPesquisa, String idProblema) {
-		return pesquisaController.desassociaProblema(idPesquisa, idProblema, problemasRepositorio);
+	public boolean desassociaProblema(String idPesquisa) {
+		return pesquisaController.desassociaProblema(idPesquisa, problemasRepositorio);
 	}
 
 	public boolean associaObjetivo(String idPesquisa, String idObjetivo) {
@@ -186,11 +188,11 @@ public class Facade {
 	}
 
 	public boolean associaAtividade(String codigoPesquisa, String codigoAtividade) {
-		return pesquisaController.associaAtividade(codigoPesquisa, codigoAtividade, atividadeRepositorio);
+		return pesquisaController.associaAtividade(codigoPesquisa, codigoAtividade, atividadesRepositorio);
 	}
 
 	public boolean desassociaAtividade(String codigoPesquisa, String codigoAtividade) {
-		return pesquisaController.desassociaAtividade(codigoPesquisa, codigoAtividade, atividadeRepositorio);
+		return pesquisaController.desassociaAtividade(codigoPesquisa, codigoAtividade, atividadesRepositorio);
 	}
 
 	public void executaAtividade(String codigoAtividade, int item, int duracao) {
@@ -259,19 +261,25 @@ public class Facade {
 	}
 	
 	public void salvar() throws Exception {
-		pesquisaController.salvar();
-		pesquisadorController.salvar();
-		atividadeController.salvar();
-		problemaObjetivoController.salvarobjetivos();
-		problemaObjetivoController.salvarProblemas();
+		persistencia.salvarPesquisas(pesquisasRepositorio, "PesquisasRepositorio.txt");
+		persistencia.salvarpesquisadores(pesquisadoresRepositorio, "PesquisadoresRepositorio.txt");
+		persistencia.salvarProblemas(problemasRepositorio, "ProblemasRepositorio.txt");
+		persistencia.salvarObjetivos(objetivosRepositorio, "ObjetivosRepositorio.txt");
+		persistencia.salvarAtividades(atividadesRepositorio, "AtividadesRepositorio.txt");
 	}
 	
 	public void carregar() throws Exception {
-		pesquisaController.carregar();
-		pesquisadorController.carregar();
-		atividadeController.carregar();
-		problemaObjetivoController.carregarobjetivos();
-		problemaObjetivoController.carregarProblemas();
+		this.pesquisasRepositorio = persistencia.carregarPesquisas();
+		this.pesquisadoresRepositorio = persistencia.carregarpesquisadores();
+		this.problemasRepositorio = persistencia.carregarProblemas();
+		this.objetivosRepositorio = persistencia.carregarObjetivos();
+		this.atividadesRepositorio = persistencia.carregarAtividades();
+		this.pesquisaController = new PesquisaController(pesquisasRepositorio);
+		this.pesquisadorController = new PesquisadorController(pesquisadoresRepositorio);
+		this.atividadeController = new AtividadeController(atividadesRepositorio);
+		this.problemaObjetivoController = new ProblemaObjetivoController(objetivosRepositorio, problemasRepositorio);
+		this.busca = new Busca(objetivosRepositorio, problemasRepositorio, pesquisadoresRepositorio,
+				pesquisasRepositorio, atividadesRepositorio);
 	}
   
 	public void gravarResumo(String codigoPesquisa) throws IOException {
@@ -281,4 +289,5 @@ public class Facade {
 	public void gravarResultados(String codigoPesquisa) throws IOException {
 		pesquisaController.gravarResultado(codigoPesquisa);
 	}
+	
 }

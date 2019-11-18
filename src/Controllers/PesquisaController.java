@@ -322,6 +322,7 @@ public class PesquisaController{
 		BufferedWriter bf = new BufferedWriter(new FileWriter(path));
 		bf.append(texto);
 		bf.flush();
+		bf.close();
 	}
 	
 	/**
@@ -386,14 +387,12 @@ public class PesquisaController{
 	 * @param idProblema Id do problema.
 	 * @return Retorna sucesso caso tenha associado com sucesso e false caso contrario.
 	 */
-	public boolean desassociaProblema(String idPesquisa, String idProblema, ProblemasRepositorio
+	public boolean desassociaProblema(String idPesquisa, ProblemasRepositorio
 			problemasRepositorio) {
 		validador.validar(idPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
-		validador.validar(idProblema, "Campo idProblema nao pode ser nulo ou vazio.");
 		Pesquisa pesquisa = pesquisasRepositorio.getPesquisa(idPesquisa);
 		checaDesativacaoPesquisa(pesquisa);
-		Problema problema = problemasRepositorio.getProblema(idProblema);
-		return pesquisa.desassociaProblema(problema);
+		return pesquisa.desassociaProblema();
 	}	
 
 	
@@ -490,19 +489,12 @@ public class PesquisaController{
 			throw new IllegalArgumentException("Pesquisa desativada.");
 		}
 	}
-
-	public void salvar() throws Exception {
-		FileOutputStream fos = new FileOutputStream("PesquisasRepositorio.txt");
-		ObjectOutputStream oos = new ObjectOutputStream(fos);
-		oos.writeObject(pesquisasRepositorio);
-		oos.close();
+	
+	public void salvar() {
+		
 	}
 	
-	public void carregar() throws Exception{
-		FileInputStream fis = new FileInputStream("PesquisasRepositorio.txt");
-		ObjectInputStream ois = new ObjectInputStream(fis);
-		PesquisasRepositorio pesquisasRepositorio= (PesquisasRepositorio) ois.readObject();
-		this.pesquisasRepositorio = pesquisasRepositorio;
-		ois.close();
+	public void carregar() {
+		
 	}
 }

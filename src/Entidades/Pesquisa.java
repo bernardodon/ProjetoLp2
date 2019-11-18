@@ -237,8 +237,8 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
 	 * @param problema Problema a ser associado.
 	 * @return Retorna sucesso caso tenha sucesso e false caso contrario.
 	 */
-	public boolean desassociaProblema(Problema problema) {
-		if (this.problema == null || !this.problema.equals(problema)) {
+	public boolean desassociaProblema() {
+		if (this.problema == null) {
 			return false;
 		}
 		this.problema = null;
