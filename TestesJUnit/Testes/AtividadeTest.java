@@ -171,4 +171,60 @@ class AtividadeTest{
 		assertThrows(IllegalArgumentException.class, () -> a1.checaExecucaoItem(2));
 		assertThrows(IllegalArgumentException.class, () -> a2.checaExecucaoItem(1));
 	}
+	
+	@Test
+	void testDefineProximaAtividade() {
+		a1.defineProximaAtividade(a2);
+		a2.defineProximaAtividade(a4);
+		a4.defineProximaAtividade(a3);
+	}
+	
+	@Test
+	void testDefineProximaAtividadeInvalido() {
+		testDefineProximaAtividade();
+		assertThrows(IllegalArgumentException.class, () -> {
+			a1.defineProximaAtividade(a3);
+		});
+		assertThrows(IllegalArgumentException.class, () -> {
+			a3.defineProximaAtividade(a1);
+		});
+		assertThrows(IllegalArgumentException.class, () -> {
+			a1.defineProximaAtividade(null);
+		});
+	}
+	
+	@Test
+	void tiraProximaAtividade() {
+		testDefineProximaAtividade();
+		a1.tiraProximaAtividade();
+		a4.tiraProximaAtividade();
+		a5.tiraProximaAtividade();
+	}
+	
+	@Test
+	void testContaProximos() {
+		testDefineProximaAtividade();
+		assertEquals(3, a1.contaProximos());
+		assertEquals(0, a3.contaProximos());
+	}
+	
+	@Test
+	void testPegaProximo() {
+		testDefineProximaAtividade();
+		assertEquals("Descricao 2 (MEDIO - Risco medio)", a1.pegaProximo(1).toString());
+		assertEquals("Descricao 3 (BAIXO - Risco baixo)", a1.pegaProximo(3).toString());
+		assertThrows(IllegalArgumentException.class, () -> {
+			a1.pegaProximo(5);
+		});
+	}
+	
+	@Test
+	void testPegaMaiorRisco() {
+		testDefineProximaAtividade();
+		assertEquals("A4", a1.pegaMaiorRiscoAtividades().getCodigo());
+		assertThrows(IllegalArgumentException.class, () -> {
+			a3.pegaMaiorRiscoAtividades();
+		});
+	}
+	
 }
