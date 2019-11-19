@@ -285,7 +285,7 @@ public class PesquisaController{
 		validador.validar(codigoPesquisa, "Pesquisa nao pode ser nula ou vazia.");
 		
 		Pesquisa pesquisa = pesquisasRepositorio.getPesquisa(codigoPesquisa);
-		String str = "\"- Pesquisa: " + pesquisa.toString() + System.lineSeparator();
+		String str = "- Pesquisa: " + pesquisa.toString() + System.lineSeparator();
 		str += "	- Pesquisadores:" + System.lineSeparator();
 		str += pesquisa.gravarPesquisadores();
 		str += "	- Problema:" + System.lineSeparator();
@@ -294,7 +294,7 @@ public class PesquisaController{
 		str += pesquisa.gravarObjetivos();
 		str += "	- Atividades:" + System.lineSeparator();
 		str += pesquisa.gravarAtividades();
-		salvarEmArquivo(codigoPesquisa+".txt", str);
+		salvarEmArquivo("_"+codigoPesquisa+".txt", str);
 	}
 	
 	/**
