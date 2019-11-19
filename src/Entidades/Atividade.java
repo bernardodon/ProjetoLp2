@@ -387,14 +387,12 @@ public class Atividade implements Comparable<Atividade>, Serializable {
 		if (proxAtividade == null) {
 			throw new IllegalArgumentException("Nao existe proxima atividade.");
 		} else {
-			return pegaMaiorRiscoAtividades(this, this.proxAtividade);
+			return pegaMaiorRiscoAtividades(this.proxAtividade, this.proxAtividade.proxAtividade);
 		}
 		 
 	}
 	
 	private Atividade pegaMaiorRiscoAtividades(Atividade atv1, Atividade atv2) {
-		//System.out.println(atv1.getCodigo() + " - " + atv1.getRisco());
-		//System.out.println(atv2.getCodigo() + " - " + atv2.getRisco());
 		if (atv2 == null) {
 			return atv1;
 		} else if (atv2.risco.equals("ALTO")) {
