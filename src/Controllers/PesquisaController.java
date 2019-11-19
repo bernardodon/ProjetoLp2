@@ -411,14 +411,12 @@ public class PesquisaController{
 		Pesquisa pesquisa = pesquisasRepositorio.getPesquisa(idPesquisa);
 		checaDesativacaoPesquisa(pesquisa);
 		Objetivo objetivo = objetivosRepositorio.getObjetivo(idObjetivo);
-
+		
 		boolean retorno = pesquisa.associaObjetivo(objetivo);
 
 		if (retorno == false && objetivo.isAssociado()) {
 			return retorno;
-		} else if (objetivo.isAssociado()) {
-			throw new IllegalArgumentException("Objetivo ja associado a uma pesquisa.");
-		}
+		} 
 		objetivo.setAssociado(true);
 		return retorno;
 	}

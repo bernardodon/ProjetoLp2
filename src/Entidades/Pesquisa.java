@@ -1,4 +1,4 @@
-	package Entidades;
+package Entidades;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -257,6 +257,11 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
 				return false;
 			}
 		}
+
+		if (objetivo.isAssociado()) {
+			throw new IllegalArgumentException("Objetivo ja associado a uma pesquisa.");
+
+		}
 		objetivos.add(objetivo);
 		return true;
 	}
@@ -285,8 +290,12 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
 	}
 
 	public String getMaisAntigo() {
+		for (Atividade atividade : atividades) {
+			if (atividade.temPendentes())
+				return atividade.getCodigo();
+		}
+		return "";
 
-		return atividades.get(0).getCodigo();
 	}
 
 	public String getMenosPendentes() {
@@ -296,11 +305,16 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
 
 		for (int i = 0; i < atividades.size(); i++) {
 			int numero = atividades.get(i).quantPendentes();
-			if (numero < menorQuantPendentes) {
-				menosPendente = atividades.get(i);
+			if (numero != 0) {
+				if (numero < menorQuantPendentes) {
+					menorQuantPendentes = numero;
+					menosPendente = atividades.get(i);
+
+				}
 			}
 		}
 		return menosPendente.getCodigo();
+
 	}
 
 	public String getMaiorRisco() {
@@ -401,7 +415,7 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
 		for (Atividade atividade : atividades) {
 			str += "		" + atividade.gravarResumo();
 		}
-		str = str.substring(0, str.length()-1) + "\"";
+		str = str.substring(0, str.length() - 1);
 		return str;
 	}
 
@@ -411,7 +425,7 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
 			str += atv.gravarResultado();
 		}
 
-		str = str.substring(0, str.length()-1);
+		str = str.substring(0, str.length() - 1) + "\"";
 		return str;
 	}
 }
