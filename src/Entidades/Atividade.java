@@ -384,18 +384,35 @@ public class Atividade implements Comparable<Atividade>, Serializable {
 	 * @return a atividade que vem em seguida da atual com maior risco.
 	 */
 	public Atividade pegaMaiorRiscoAtividades() {
-		if (this.proxAtividade == null) {
+		if (proxAtividade == null) {
 			throw new IllegalArgumentException("Nao existe proxima atividade.");
 		} else {
-			if(this.proxAtividade.risco.equals("ALTO") && this.proxAtividade.proxAtividade.risco.equals("MEDIO") ||this.proxAtividade.proxAtividade.risco.equals("BAIXO")) {
-				return this.proxAtividade;
-			} else if (this.proxAtividade.risco.equals("ALTO") && this.proxAtividade.proxAtividade.risco.equals("ALTO")) {
-				return this.proxAtividade.proxAtividade;
-			} else if (this.proxAtividade.risco.equals("MEDIO") || this.proxAtividade.risco.equals("BAIXO") ||this.proxAtividade.proxAtividade.risco.equals("ALTO")) {
-				return this.proxAtividade.proxAtividade;
-			}
-			return this.proxAtividade.pegaMaiorRiscoAtividades();
+			return pegaMaiorRiscoAtividades(this, this.proxAtividade);
 		}
+		 
+	}
+	
+	private Atividade pegaMaiorRiscoAtividades(Atividade atv1, Atividade atv2) {
+		//System.out.println(atv1.getCodigo() + " - " + atv1.getRisco());
+		//System.out.println(atv2.getCodigo() + " - " + atv2.getRisco());
+		if (atv2 == null) {
+			return atv1;
+		} else if (atv2.risco.equals("ALTO")) {
+			return pegaMaiorRiscoAtividades(atv2, atv2.proxAtividade);
+		} else if (atv1.risco.equals("ALTO")) {
+			return pegaMaiorRiscoAtividades(atv1, atv2.proxAtividade);
+		} else if (atv2.risco.equals("MEDIO")) {
+			return pegaMaiorRiscoAtividades(atv2, atv2.proxAtividade);
+		} else if (atv1.risco.equals("MEDIO")) {
+			return pegaMaiorRiscoAtividades(atv1, atv2.proxAtividade);
+		} else if (atv2.risco.equals("BAIXO")) {
+			return pegaMaiorRiscoAtividades(atv2, atv2.proxAtividade);
+		} else if (atv1.risco.equals("BAIXO")) {
+			return pegaMaiorRiscoAtividades(atv1, atv2.proxAtividade);
+		}
+		
+		return null;
+		
 	}
 
 	public String gravarResumo() {
