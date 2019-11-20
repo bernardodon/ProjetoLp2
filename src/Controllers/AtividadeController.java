@@ -131,6 +131,11 @@ public class AtividadeController {
 
 	}
 
+	/**
+	 * Verifica se uma atividade existe
+	 * @param codigo O código da atividade que se quer verificar
+	 * @return Retorna um boolean. Verdadeiro, caso a atividade exista; falso, caso nao exista;
+	 */
 	public boolean existeAtividade(String codigo) {
 		Atividade atvd = atividadesRepositorio.getAtividade(codigo);
 		if (atvd == null) {
@@ -140,6 +145,11 @@ public class AtividadeController {
 		}
 	}
 
+	/**
+	 * Define a proxima Atividade de Uma atividade
+	 * @param idPrecedente O Identificador da Atividade Precendente
+	 * @param idSubsquente O Identificador da Atividade Subsequente
+	 */
 	public void defineProximaAtividade(String idPrecedente, String idSubsquente) {
 		validador.validar(idPrecedente, "Atividade nao pode ser nulo ou vazio.");
 		validador.validar(idSubsquente, "Atividade nao pode ser nulo ou vazio.");
@@ -153,6 +163,10 @@ public class AtividadeController {
 		}
 	}
 
+	/**
+	 * Tira a proxima atividade de uma atividade
+	 * @param idPrecedente O id da atividade que se deseja remover a proxima Atividade
+	 */
 	public void tiraProximaAtividade(String idPrecedente) {
 		validador.validar(idPrecedente, "Atividade nao pode ser nulo ou vazio.");
 
@@ -164,6 +178,11 @@ public class AtividadeController {
 		}
 	}
 
+	/**
+	 * Conta quantas atividades existem após uma determinada atividade
+	 * @param idPrecedente O id da atividade que se deseja contar os subsequentes
+	 * @return Retorna um inteiro com a quantidade de proximas atividade
+	 */
 	public int contaProximos(String idPrecedente) {
 		validador.validar(idPrecedente, "Atividade nao pode ser nulo ou vazio.");
 
@@ -177,6 +196,12 @@ public class AtividadeController {
 
 	}
 
+	/**
+	 * Pega a proxima atividade de uma atividade
+	 * @param idAtividade O id da atividade
+	 * @param enesimaAtividade Qual a atividade após uma atividade deverá ser retornada
+	 * @return Retorna A enesima Atividade de uma Atividade
+	 */
 	public String pegaProximo(String idAtividade, int enesimaAtividade) {
 		if (enesimaAtividade <= 0) {
 			throw new IllegalArgumentException("EnesimaAtividade nao pode ser negativa ou zero.");
@@ -236,18 +261,4 @@ public class AtividadeController {
 		return atividade.getDuracao();
 	}
 	
-	public void salvar() throws Exception {
-		FileOutputStream fos = new FileOutputStream("AtividadesRepositorio.txt");
-		ObjectOutputStream oos = new ObjectOutputStream(fos);
-		oos.writeObject(atividadesRepositorio);
-		oos.close();
-	}
-	
-	public void carregar() throws Exception{
-		FileInputStream fis = new FileInputStream("AtividadesRepositorio.txt");
-		ObjectInputStream ois = new ObjectInputStream(fis);
-		AtividadesRepositorio atividadesRepositorio = (AtividadesRepositorio) ois.readObject();
-		this.atividadesRepositorio = atividadesRepositorio; 
-		ois.close();
-	}
 }
