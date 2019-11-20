@@ -220,7 +220,7 @@ public class Atividade implements Comparable<Atividade>, Serializable {
 	public int quantPendentes() {
 		int cont = 0;
 		for (Item i : itens) {
-			if (i.getStatus() == "PENDENTE") {
+			if (i.getStatus().equals("PENDENTE")) {
 				cont++;
 			}
 		}
@@ -235,7 +235,7 @@ public class Atividade implements Comparable<Atividade>, Serializable {
 	public int quantRealizados() {
 		int cont = 0;
 		for (Item i : itens) {
-			if (i.getStatus() == "REALIZADO") {
+			if (i.getStatus().equals("REALIZADO")) {
 				cont++;
 			}
 		}

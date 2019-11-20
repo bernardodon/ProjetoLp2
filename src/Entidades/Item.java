@@ -53,6 +53,7 @@ public class Item implements Serializable {
 	}
 
 	public void executarItem() {
+
 		if (this.status.equals("REALIZADO")) {
 			throw new IllegalArgumentException("Item ja executado.");
 		} else {
