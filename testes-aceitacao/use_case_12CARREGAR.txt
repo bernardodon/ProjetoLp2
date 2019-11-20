@@ -448,4 +448,3 @@ configuraEstrategia estrategia="MAIOR_DURACAO"
 expect "A14" proximaAtividade codigoPesquisa="COM3"
 configuraEstrategia estrategia="MAIS_ANTIGA"
 expect "A7" proximaAtividade codigoPesquisa="COM3"
-

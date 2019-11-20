@@ -116,9 +116,11 @@ public class Atividade implements Comparable<Atividade>, Serializable {
 	}
 
 	public void executarItem(int numero, int duracao) {
+		if(!isAssociado()) {
+			throw new IllegalArgumentException("Atividade sem associacoes com pesquisas.");
+		}
 		itens.get(numero - 1).executarItem();
 		this.duracao += duracao;
-
 	}
 
 	public void adicionarResultado(String mensagem) {
@@ -187,6 +189,10 @@ public class Atividade implements Comparable<Atividade>, Serializable {
 		return risco;
 	}
 	
+	public boolean isAssociado() {
+		return isAssociado;
+	}
+
 	public Boolean temPendentes() {
 		for (Item item : itens) {
 			if (item.getStatus().equals("PENDENTE")) {
@@ -218,7 +224,6 @@ public class Atividade implements Comparable<Atividade>, Serializable {
 				cont++;
 			}
 		}
-
 		return cont;
 	}
 

@@ -205,8 +205,7 @@ public class AtividadeController {
 		Atividade atividade = atividadesRepositorio.getAtividade(codigoAtividade);
 		atividade.checaInexistenciaItem(item);
 		atividade.checaExecucaoItem(item);
-		atividade.executarItem(item, duracao); // executaAtividade codigoAtividade="A2" item=3 duracao=8
-												// mesma atividade itens diferentes
+		atividade.executarItem(item, duracao); // Atividade sem associacoes com pesquisas.
 	}
 
 	public int cadastraResultado(String codigoAtividade, String resultado) {
