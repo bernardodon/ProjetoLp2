@@ -40,6 +40,11 @@ public class PesquisaController{
 		this.validador = new Validador();
 	}
 	
+	/**
+	 * Configura a estrategia que será usada para recomendar a proxima atividade 
+	 * a ser executada
+	 * @param estrategia O nome da estratégia
+	 */
 	public void configuraEstrategia(String estrategia) {
 		validador.validar(estrategia, "Estrategia nao pode ser nula ou vazia.");
 		if(!estrategia.equals("MAIS_ANTIGA") && !estrategia.equals("MENOS_PENDENCIAS") && !estrategia.equals("MAIOR_RISCO") && !estrategia.equals("MAIOR_DURACAO")) {
@@ -48,6 +53,12 @@ public class PesquisaController{
 		pesquisasRepositorio.setAlgoritmo(estrategia);
 	}
 	
+	/**
+	 * Utila uma estrategia previamente escolhida para recomendar uma atividade
+	 * @param codigoPesquisa O codigo da Pesquisa que contém as atividades a ser
+	 * sugerida
+	 * @return Retorna uma String com o codigo da atividade que foi recomendad
+	 */
 	public String proximaAtividade(String codigoPesquisa) {
 		String texto = "";
 		validador.validar(codigoPesquisa, "Pesquisa nao pode ser nula ou vazia.");
@@ -441,6 +452,13 @@ public class PesquisaController{
 		return true;
 	}
 
+	/**
+	 * Associa Atividade a uma Pesquiosa
+	 * @param codigoPesquisa O codigo da Pesquisa que se deseja associar uma Atividade
+	 * @param codigoAtividade O codigo da Atividade que será associada
+	 * @param atividadesRepositorio O repositorio de Atividade
+	 * @return Retorna true, caso a associacao tenha ocorrida; Falso, caso nao tenha ocorrido.
+	 */
 	public boolean associaAtividade(String codigoPesquisa, String codigoAtividade, AtividadesRepositorio
 			atividadesRepositorio) {
 		validador.validar(codigoPesquisa, "Campo codigoPesquisa nao pode ser nulo ou vazio.");
@@ -454,6 +472,14 @@ public class PesquisaController{
 		return pesquisa.adicionaAtividade(atividade);
 	}
 
+
+	/**
+	 * Desassocia uma Atividade a uma Pesquiosa
+	 * @param codigoPesquisa O codigo da Pesquisa que se deseja desassociar uma Atividade
+	 * @param codigoAtividade O codigo da Atividade que será deassociada
+	 * @param atividadesRepositorio O repositorio de Atividade
+	 * @return Retorna true, caso a desassociacao tenha ocorrida; Falso, caso nao tenha ocorrido.
+	 */
 	public boolean desassociaAtividade(String codigoPesquisa, String codigoAtividade, AtividadesRepositorio
 			atividadesRepositorio) {
 		validador.validar(codigoPesquisa, "Campo codigoPesquisa nao pode ser nulo ou vazio.");

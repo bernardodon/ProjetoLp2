@@ -82,10 +82,18 @@ public class Atividade implements Comparable<Atividade>, Serializable {
 		validador.validar(codigo, "Valor invalido do nivel do risco.");
 	}
 
+	/**
+	 * Pega a duracao
+	 * @return retorna um inteiro com a duracao da atividade 
+	 */
 	public int getDuracao() {
 		return this.duracao;
 	}
 
+	/**
+	 * lista os resultados que tem dentro de uma atividade
+	 * @return uma string com a lista de resultados
+	 */
 	public String listarResultados() {
 		String texto = "";
 		for (int i = 0; i <= resultados.size() - 1; i++) {
@@ -96,33 +104,54 @@ public class Atividade implements Comparable<Atividade>, Serializable {
 
 		return texto;
 	}
-
+	/**
+	 * verifica se o item não existe em uma atividade
+	 * @param numero do item a ser verificado
+	 */
 	public void checaInexistenciaItem(int numero) {
 		if (itens.size() < numero) {
 			throw new IllegalArgumentException("Item nao encontrado.");
 		}
 	}
-
+	
+	/**
+	 * verifica se um item esta executado
+	 * @param numero numero do item a ser verificado
+	 */
 	public void checaExecucaoItem(int numero) {
 		if (itens.get(numero - 1).getStatus().equals("REALIZADO")) {
 			throw new IllegalArgumentException("Item ja executado.");
 		}
 
 	}
-
+	/**
+	 * da o tamanho da lista de resultados
+	 * @return inteiro com tamanho da lista de resultados
+	 */
 	public int tamanhoDeResultados() {
 		return resultados.size();
 	}
-
+	/**
+	 * Executa um item
+	 * @param numero numero do item a ser executado
+	 * @param duracao duracao do item a ser executado
+	 */
 	public void executarItem(int numero, int duracao) {
 		itens.get(numero - 1).executarItem();
 		this.duracao += duracao;
 	}
-
+	/**
+	 * Adiciona um resultado a atividade
+	 * @param mensagem mensagem que sera o resultado
+	 */
 	public void adicionarResultado(String mensagem) {
 		resultados.add(mensagem);
 	}
-
+	/**
+	 * tira um resultado da atividade
+	 * @param numeroResultado numero do resultado a ser removido
+	 * @return true caso consiga remover , false caso nao
+	 */
 	public boolean removerResultado(int numeroResultado) {
 		if (resultados.size() >= numeroResultado) {
 			resultados.remove(numeroResultado - 1);
@@ -131,11 +160,17 @@ public class Atividade implements Comparable<Atividade>, Serializable {
 			throw new IllegalArgumentException("Resultado nao encontrado.");
 		}
 	}
-
+	/**
+	 * Altera o atributo associado para verdadeiro
+	 */
 	public void associar() {
 		this.isAssociado = true;
 	}
 
+
+	/**
+	 * Altera o atributo associado para falso
+	 */
 	public void desassociar() {
 		this.isAssociado = false;
 	}
@@ -185,10 +220,18 @@ public class Atividade implements Comparable<Atividade>, Serializable {
 		return risco;
 	}
 	
+	/**
+	 * Pega o atributo isAssociadao da Atividade
+	 * @return Retorna o atributo isAssociado
+	 */
 	public boolean isAssociado() {
 		return isAssociado;
 	}
 
+	/**
+	 * Verifica se exist Itens pendentes na atividade
+	 * @return Retorna true caso haja itens pendentes; falso, caso nao
+	 */
 	public Boolean temPendentes() {
 		for (Item item : itens) {
 			if (item.getStatus().equals("PENDENTE")) {
@@ -393,6 +436,12 @@ public class Atividade implements Comparable<Atividade>, Serializable {
 		 
 	}
 	
+	/**
+	 * Pega a atividade de Maior risco depois da Atividade Atual
+	 * @param atv1 A atividade 1
+	 * @param atv2 A atividade 2
+	 * @return Retorna A atividade de maior risco depois da atividade atual
+	 */
 	private Atividade pegaMaiorRiscoAtividades(Atividade atv1, Atividade atv2) {
 		if (atv2 == null) {
 			return atv1;
@@ -414,6 +463,10 @@ public class Atividade implements Comparable<Atividade>, Serializable {
 		
 	}
 
+	/**
+	 * Pega o resumo de um atividade
+	 * @return Retorna uma string com o resumo da atividade
+	 */
 	public String gravarResumo() {
 		String str = "- " + this.descricaoAtvd + " (" + risco + " - " + descricaoRisco + ")" + System.lineSeparator();
 		for (int i = 0; i < itens.size(); i++) {
@@ -424,6 +477,10 @@ public class Atividade implements Comparable<Atividade>, Serializable {
 		
 	}
 
+	/**
+	 * Pega o Resultado de uma atividade
+	 * @return Retorna uma string com o resultado da atividade
+	 */
 	public String gravarResultado() {
 		String str = "		- " + descricaoAtvd + System.lineSeparator();
 		int qtdItem = 0;

@@ -274,7 +274,9 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
 	public void desassociaObjetivo(Objetivo objetivo) {
 		objetivos.remove(objetivo);
 	}
-
+	/**
+	 * verifica se a pesquisa tem atividades com itens pendentes
+	 */
 	public void validadorDePendencia() {
 		int contador = 0;
 		for (Atividade atividades : getAtividades()) {
@@ -288,7 +290,10 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
 		}
 
 	}
-
+	/**
+	 * pega a atividade mais antiga
+	 * @return string com o codigo da atividade mais antiga
+	 */
 	public String getMaisAntigo() {
 		for (Atividade atividade : getAtividades()) {
 			if (atividade.temPendentes())
@@ -297,7 +302,10 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
 		return "";
 
 	}
-
+	/**
+	 * pega a ativvidade com menos pendentes
+	 * @return string com o codigo da atividade com menos pendencias 
+	 */
 	public String getMenosPendentes() {
 
 		Atividade menosPendente = null;
@@ -316,7 +324,10 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
 		return menosPendente.getCodigo();
 
 	}
-
+	/**
+	 * pega a atividae com maior risco
+	 * @return	string com codigo da atividade com maior risco
+	 */
 	public String getMaiorRisco() {
 
 		for (int i = 0; i < getAtividades().size(); i++) {
@@ -340,7 +351,10 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
 		return "";
 
 	}
-
+	/**
+	 * pega a atividade com a maior duracao total
+	 * @return string com o codigo da atividade com maior duracao
+	 */
 	public String getAtividadeMaiorDuracao() {
 		Atividade maiorDuracao = null;
 		int numeroMaiorDuracao = 0;
@@ -370,7 +384,11 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
 	public List<Objetivo> getObjetivos() {
 		return objetivos;
 	}
-
+	/**
+	 * adiciona uma atividade na pesquisa
+	 * @param atividade a atividade a ser adcionada
+	 * @return true caso seja possivel adicionar , false caso nao
+	 */
 	public boolean adicionaAtividade(Atividade atividade) {
 		if (getAtividades().contains(atividade)) {
 			return false;
@@ -379,7 +397,11 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
 			return true;
 		}
 	}
-
+	/**
+	 * tira uma atividade de uma pesquisa
+	 * @param atividade a atividade a ser retirada
+	 * @return true caso consiga tirar , false caso nao
+	 */
 	public boolean tiraAtividade(Atividade atividade) {
 		if (getAtividades().contains(atividade)) {
 			getAtividades().remove(atividade);
@@ -388,7 +410,10 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
 			return false;
 		}
 	}
-
+	/**
+	 * Pega os dados de um Pesquisador para ser gravado
+	 * @return Retorna uma string com as informacoes do Pesquisador
+	 */
 	public String gravarPesquisadores() {
 		String toStringPesquisadores = "";
 		for (Pesquisador pesquisador : pesquisadores) {
@@ -397,10 +422,19 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
 		return toStringPesquisadores;
 	}
 
+	/**
+	 * Pega os dados de um problema para ser gravado
+	 * @return Retorna uma String com as informacoes do Problema
+	 */
 	public String gravarProblema() {
 		return "		- " + problema.toString();
 	}
 
+	/**
+	 * 
+	 * Pega os dados de um Obejtivo para ser gravado
+	 * @return Retorna uma String com as informaceos do Objetivo
+	 */
 	public String gravarObjetivos() {
 		String str = "";
 		for (Objetivo objetivo : objetivos) {
@@ -410,6 +444,10 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
 		return str;
 	}
 
+	/**
+	 * Pega os dados de uma atividade para ser gravado
+	 * @return Retorna uma string com os dados da atividade para ser gravado
+	 */
 	public String gravarAtividades() {
 		String str = "";
 		for (Atividade atividade : getAtividades()) {
@@ -419,6 +457,10 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
 		return str;
 	}
 
+	/**
+	 * Grava os resultado da Pesquisa
+	 * @return Retorna uma string com as informacoes da Pesquisa para ser gravado
+	 */
 	public String gravarResultado() {
 		String str = "	- Resultados:" + System.lineSeparator();
 		for (Atividade atv : getAtividades()) {
@@ -429,6 +471,10 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
 		return str;
 	}
 
+	/**
+	 * Pega as atividade de uma Pesquisa
+	 * @return
+	 */
 	public List<Atividade> getAtividades() {
 		return atividades;
 	}

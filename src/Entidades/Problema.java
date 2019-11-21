@@ -15,7 +15,12 @@ public class Problema implements Comparable<Problema>, Serializable {
 	private String codigo;
 	private Validador validador;
 	private int contador;
-	
+	/**
+	 * construtor da representação de um problema 
+	 * @param descricao descrição do problema
+	 * @param viabilidade viabilidade inteiro de 1 a 5 de um problema
+	 * @param codigo codigo de um problema 
+	 */
 	public Problema(String descricao,int viabilidade, String codigo) {
 		this.validador = new Validador();
 		validador.validar(descricao, "Campo descricao nao pode ser nulo ou vazio.");
@@ -25,15 +30,23 @@ public class Problema implements Comparable<Problema>, Serializable {
 		this.codigo = codigo;
 		this.contador = 1;
 	}
-
+	/**
+	 * representação de string de um problema
+	 */
 	public String toString() {
 		return this.codigo + " - " + this.descricao + " - " + this.viabilidade;
 	}
-
+	/**
+	 * pega a descricao em string de uma descrição
+	 * @return
+	 */
 	public String getDescricao() {
 		return descricao;
 	}
-	
+	/**
+	 * pega o codigo do problema
+	 * @return
+	 */
 	public String getCodigo() {
 		return codigo;
 	}
@@ -43,10 +56,16 @@ public class Problema implements Comparable<Problema>, Serializable {
 		return o.getCodigo().compareTo(this.codigo);
 	}
 	
+	/**
+	 * aumenta o contador 
+	 */
 	public void incrementaContador() {
 		this.contador = contador++;
 	}
-	
+	/**
+	 * pega o numero de contador
+	 * @return
+	 */
 	public int getContador() {
 		return contador;
 	}

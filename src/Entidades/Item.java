@@ -61,6 +61,9 @@ public class Item implements Serializable {
 		}
 	}
 
+	/**
+	 * Gera o hashCode de um item
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -69,7 +72,10 @@ public class Item implements Serializable {
 		result = prime * result + ((status == null) ? 0 : status.hashCode());
 		return result;
 	}
-
+	
+	/**
+	 * Compara dois itens 
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -92,6 +98,10 @@ public class Item implements Serializable {
 		return true;
 	}
 
+	/**
+	 * Pega a descricao de uma atividade
+	 * @return Retorna uma string da descricao da atividade
+	 */
 	public String getDescricao() {
 		return descricao;
 	}

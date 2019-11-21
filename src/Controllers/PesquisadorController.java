@@ -173,7 +173,12 @@ public class PesquisadorController {
 		}
 
 	}
-
+	
+	/**
+	 * Lista os pesquisadores do Pesquisadodor Repositorio 
+	 * @param tipo O Tipo do Pesquisador (Externo, Aluna, Professor)
+	 * @return Retorna uma representacao de um pesquisador
+	 */
 	public String listaPesquisadores(String tipo) {
 		validador.validarTipo(tipo);
 
@@ -189,6 +194,11 @@ public class PesquisadorController {
 
 	}
 
+	/**
+	 * Altera o Email de um pesquisador
+	 * @param email O email do Pesquisador Antigo
+	 * @param novoValor O novo email do Pesquisador
+	 */
 	private void alteraEmail(String email, String novoValor) {
 		validador.validar(novoValor, "Campo email nao pode ser nulo ou vazio.");
 		validador.validarEmailPesquisador(novoValor);
