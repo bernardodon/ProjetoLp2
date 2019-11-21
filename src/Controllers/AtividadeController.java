@@ -1,10 +1,5 @@
 package Controllers;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-
 import Entidades.Atividade;
 import Entidades.Item;
 import Repositorios.AtividadesRepositorio;
@@ -230,6 +225,9 @@ public class AtividadeController {
 		Atividade atividade = atividadesRepositorio.getAtividade(codigoAtividade);
 		atividade.checaInexistenciaItem(item);
 		atividade.checaExecucaoItem(item);
+		if(!atividade.isAssociado()) {
+			throw new IllegalArgumentException("Atividade sem associacoes com pesquisas.");
+		}
 		atividade.executarItem(item, duracao); // Atividade sem associacoes com pesquisas.
 	}
 

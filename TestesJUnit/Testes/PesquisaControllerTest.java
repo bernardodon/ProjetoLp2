@@ -1,21 +1,22 @@
 package Testes;
 
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import Controllers.PesquisaController;
+import Entidades.Atividade;
+import Entidades.Item;
+import Repositorios.AtividadesRepositorio;
 import Repositorios.PesquisasRepositorio;
-class PesquisaControllerTest {
+class PesquisaControllerTest{
 	
 	PesquisasRepositorio pesquisasRepositorio = new PesquisasRepositorio();
-	
 	PesquisaController controle = new PesquisaController(pesquisasRepositorio);
-
+	AtividadesRepositorio atividadesRepositorio = new AtividadesRepositorio();
+	
 	@BeforeEach
 	void testCadastraPesquisa() {
 		assertEquals("COM1", controle.cadastraPesquisa(
@@ -167,6 +168,83 @@ class PesquisaControllerTest {
 		});
 	}
 	
+	@Test
+	void testConfiguraAtividadesRepositorio() {
+		atividadesRepositorio.put("A1", new Atividade("Descricao 1", "BAIXO", "Risco alto", "A1"));
+		atividadesRepositorio.put("A2", new Atividade("Descricao 2", "MEDIO", "Risco medio", "A2"));
+		atividadesRepositorio.put("A3", new Atividade("Descricao 3", "ALTO", "Risco baixo", "A3"));
+		
+		Atividade A1 = atividadesRepositorio.getAtividade("A1");
+		Atividade A2 = atividadesRepositorio.getAtividade("A2");
+		Atividade A3 = atividadesRepositorio.getAtividade("A3");
+		
+		A1.adicionaItem(new Item("Item 1 para atividade 1"));
+		A1.adicionaItem(new Item("Item 2 para atividade 1"));
+		A1.adicionaItem(new Item("Item 3 para atividade 1"));
+		
+		A2.adicionaItem(new Item("Item 1 para atividade 2"));
+		A2.adicionaItem(new Item("Item 2 para atividade 2"));
+		A2.adicionaItem(new Item("Item 3 para atividade 2"));
+		A2.adicionaItem(new Item("Item 4 para atividade 2"));
+		
+		A3.adicionaItem(new Item("Item 1 para atividade 3"));
+		A3.adicionaItem(new Item("Item 2 para atividade 3"));
+		A3.adicionaItem(new Item("Item 3 para atividade 3"));
+		
+		A1.getItens().get(0).executarItem();
+		A2.getItens().get(0).executarItem();
+		A2.getItens().get(1).executarItem();
+		A2.getItens().get(2).executarItem();
+	}
 	
+	@Test
+	void testAssociaAtividade() {
+		testConfiguraAtividadesRepositorio();
+		assertEquals(true, controle.associaAtividade("COM1", "A1", atividadesRepositorio));
+		assertEquals(true, controle.associaAtividade("COM1", "A2", atividadesRepositorio));
+		assertEquals(true, controle.associaAtividade("COM1", "A3", atividadesRepositorio));
+	}
+	
+	@Test
+	void testConfiguraEstrategia() {
+		testAssociaAtividade();
+		controle.configuraEstrategia("MENOS_PENDENCIAS");
+		controle.configuraEstrategia("MAIOR_RISCO");
+		controle.configuraEstrategia("MAIOR_DURACAO");
+	}
 
+	@Test
+	void testConfiguraEstrategiaInvalida() {
+		testAssociaAtividade();
+		assertThrows(IllegalArgumentException.class, () -> controle.configuraEstrategia("invalido"));
+		assertThrows(IllegalArgumentException.class, () -> controle.configuraEstrategia("nao_possivel"));
+		assertThrows(IllegalArgumentException.class, () -> controle.configuraEstrategia("MENO_PEMDENCI"));
+	}
+	
+	@Test
+	void testConfiguraEstrategiaVaziaOuNula() {
+		testAssociaAtividade();
+		assertThrows(IllegalArgumentException.class, () -> controle.configuraEstrategia(""));
+		assertThrows(NullPointerException.class, () -> controle.configuraEstrategia(null));
+	}
+	
+	@Test
+	void testProximaAtividadeEstrategiaMaiorDuracao() {
+		testAssociaAtividade();
+		assertEquals("A1", controle.proximaAtividade("COM1"));
+	}
+	
+	@Test
+	void testProximaAtividadeEstrategiaMenosPendencias() {
+		testAssociaAtividade();
+		controle.configuraEstrategia("MENOS_PENDENCIAS");
+		assertEquals("A2" ,controle.proximaAtividade("COM1"));
+	}
+	
+	@Test
+	void testProximaAtividadeEstrategiaMaiorRisco() {
+		testAssociaAtividade();
+		controle.configuraEstrategia("MAIOR_RISCO");
+		assertEquals("A3" ,controle.proximaAtividade("COM1"));
+	}
 }

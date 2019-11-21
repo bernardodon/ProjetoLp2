@@ -18,7 +18,6 @@ class AtividadeTest{
 	Atividade a5;
 	Atividade a6;
 
-
 	@BeforeEach
 	void testCriaAtividade() {
 		a1 = new Atividade("Descricao 1", "ALTO", "Risco alto", "A1");

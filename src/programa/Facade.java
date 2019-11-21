@@ -261,11 +261,11 @@ public class Facade {
 	}
 	
 	public void salvar() throws Exception {
-		persistencia.salvarPesquisas(pesquisasRepositorio, "PesquisasRepositorio.txt");
-		persistencia.salvarpesquisadores(pesquisadoresRepositorio, "PesquisadoresRepositorio.txt");
-		persistencia.salvarProblemas(problemasRepositorio, "ProblemasRepositorio.txt");
-		persistencia.salvarObjetivos(objetivosRepositorio, "ObjetivosRepositorio.txt");
-		persistencia.salvarAtividades(atividadesRepositorio, "AtividadesRepositorio.txt");
+		persistencia.salvarPesquisas(pesquisasRepositorio);
+		persistencia.salvarpesquisadores(pesquisadoresRepositorio);
+		persistencia.salvarProblemas(problemasRepositorio);
+		persistencia.salvarObjetivos(objetivosRepositorio);
+		persistencia.salvarAtividades(atividadesRepositorio);
 	}
 	
 	public void carregar() throws Exception {

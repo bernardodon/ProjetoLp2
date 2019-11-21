@@ -27,6 +27,9 @@ class AtividadeControllerTest {
 		controller.cadastraAtividade("Atividade 3", "BAIXO", "Risco baixo");
 		controller.cadastraAtividade("Atividade 4", "ALTO", "Risco alto de novo");
 		controller.cadastraAtividade("Atividade 5", "MEDIO", "Risco medio de novo");
+		atividadesRepositorio.getAtividade("A1").associar();
+		atividadesRepositorio.getAtividade("A2").associar();
+		atividadesRepositorio.getAtividade("A3").associar();
 	}
 
 	@Test
@@ -93,7 +96,14 @@ class AtividadeControllerTest {
 		controller.cadastraItem("A1", "Item 1 para atividade 1");
 		controller.cadastraItem("A1", "Item 2 para atividade 1");
 		controller.cadastraItem("A1", "Item 3 para atividade 1");
-		controller.cadastraItem("A2", "Item 4 para atividade 2");
+		
+		controller.cadastraItem("A2", "Item 1 para atividade 2");
+		controller.cadastraItem("A2", "Item 2 para atividade 2");
+		controller.cadastraItem("A2", "Item 3 para atividade 2");
+		
+		controller.cadastraItem("A3", "Item 1 para atividade 3");
+		controller.cadastraItem("A3", "Item 2 para atividade 3");
+		controller.cadastraItem("A3", "Item 3 para atividade 3");
 	}
 
 	@Test
@@ -134,45 +144,14 @@ class AtividadeControllerTest {
 	}
 
 	@Test
-	void testContaItensPendentes() {
-		testCadastraItem();
-		assertEquals(3, controller.contaItensPendentes("A1"));
-		assertEquals(1, controller.contaItensPendentes("A2"));
-	}
-
-	@Test
-	void testContaItensPendentesCodigoVazioOuNulo() {
-		assertThrows(IllegalArgumentException.class, () -> {
-			controller.contaItensPendentes("");
-		});
-		assertThrows(NullPointerException.class, () -> {
-			controller.contaItensPendentes(null);
-		});
-	}
-
-	@Test
-	void testContaItensRealizados() {
-		testCadastraItem();
-		assertEquals(0, controller.contaItensRealizados("A1"));
-		assertEquals(0, controller.contaItensRealizados("A2"));
-	}
-
-	@Test
-	void testContaItensRealizadosCodigoVazioOuNulo() {
-		assertThrows(IllegalArgumentException.class, () -> {
-			controller.contaItensRealizados("");
-		});
-		assertThrows(NullPointerException.class, () -> {
-			controller.contaItensRealizados(null);
-		});
-	}
-
-	@Test
 	void testExecutaAtividade() {
 		testCadastraItem();
 		controller.executaAtividade("A1", 1, 25);
 		controller.executaAtividade("A1", 2, 15);
-		controller.executaAtividade("A2", 1, 10);
+		controller.executaAtividade("A2", 1, 20);
+		controller.executaAtividade("A2", 2, 10);
+		controller.executaAtividade("A2", 3, 10);
+		controller.executaAtividade("A3", 1, 10);
 	}
 
 	@Test
@@ -191,6 +170,42 @@ class AtividadeControllerTest {
 	void testExecutaAtividadeDuracaoInvalida() {
 		assertThrows(IllegalArgumentException.class, () -> controller.executaAtividade("A1", 1, -10));
 		assertThrows(IllegalArgumentException.class, () -> controller.executaAtividade("A1", 1, 0));
+	}
+	
+	@Test
+	void testContaItensPendentes() {
+		testExecutaAtividade();
+		assertEquals(1, controller.contaItensPendentes("A1"));
+		assertEquals(0, controller.contaItensPendentes("A2"));
+		assertEquals(2, controller.contaItensPendentes("A3"));
+	}
+
+	@Test
+	void testContaItensPendentesCodigoVazioOuNulo() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			controller.contaItensPendentes("");
+		});
+		assertThrows(NullPointerException.class, () -> {
+			controller.contaItensPendentes(null);
+		});
+	}
+
+	@Test
+	void testContaItensRealizados() {
+		testExecutaAtividade();
+		assertEquals(2, controller.contaItensRealizados("A1"));
+		assertEquals(3, controller.contaItensRealizados("A2"));
+		assertEquals(1, controller.contaItensRealizados("A3"));
+	}
+
+	@Test
+	void testContaItensRealizadosCodigoVazioOuNulo() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			controller.contaItensRealizados("");
+		});
+		assertThrows(NullPointerException.class, () -> {
+			controller.contaItensRealizados(null);
+		});
 	}
 
 	@Test
@@ -253,7 +268,8 @@ class AtividadeControllerTest {
 	void testGetDuracao() {
 		testListaResultados();
 		assertEquals(40, controller.getDuracao("A1"));
-		assertEquals(10, controller.getDuracao("A2"));
+		assertEquals(40, controller.getDuracao("A2"));
+		assertEquals(10, controller.getDuracao("A3"));
 	}
 
 	@Test

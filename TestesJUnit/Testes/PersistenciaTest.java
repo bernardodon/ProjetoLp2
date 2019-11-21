@@ -82,7 +82,7 @@ class PersistenciaTest {
 	
 	@Test
 	void testSalvarPesquisas() throws Exception{
-		persistencia.salvarPesquisas(pesquisasRepositorio, "ArquivoPesquisa");
+		persistencia.salvarPesquisas(pesquisasRepositorio);
 	}
 
 
@@ -93,7 +93,7 @@ class PersistenciaTest {
 
 	@Test
 	void testSalvarPesquisadores() throws Exception{
-		persistencia.salvarpesquisadores(pesquisadoresRepositorio, "ArquivoPesquisadores");
+		persistencia.salvarpesquisadores(pesquisadoresRepositorio);
 	}
 
 	@Test 
@@ -103,7 +103,7 @@ class PersistenciaTest {
 	
 	@Test
 	void testSalvarProblemas() throws Exception {
-		persistencia.salvarProblemas(problemasRepositorio, "ArquivoProblemas");
+		persistencia.salvarProblemas(problemasRepositorio);
 	}
 	
 	@Test 
@@ -113,7 +113,7 @@ class PersistenciaTest {
 	
 	@Test
 	void testSalvarObjetivos() throws Exception{
-		persistencia.salvarObjetivos(objetivosRepositorio, "ArquivoObjetivos");
+		persistencia.salvarObjetivos(objetivosRepositorio);
 		
 	}
 	
@@ -124,7 +124,7 @@ class PersistenciaTest {
 	
 	@Test 
 	void testSalvarAtividades() throws Exception{
-		persistencia.salvarAtividades(atividadeRepositorio, "ArquivoAtividades");
+		persistencia.salvarAtividades(atividadeRepositorio);
 	}
 	
 	@Test

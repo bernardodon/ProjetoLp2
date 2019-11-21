@@ -1,11 +1,6 @@
 package Controllers;
 
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-
 import Entidades.Pesquisador;
 import Repositorios.PesquisadoresRepositorio;
 import utils.Validador;

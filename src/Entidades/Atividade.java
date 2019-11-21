@@ -2,17 +2,16 @@ package Entidades;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import utils.Validador;
 
 /**
- * RepresentaÃ§Ã£o de uma atividade referentes a uma pesquisa cientÃ­fica. Toda
- * atividade deve ter uma descricao, uma duraÃ§Ã£o, um nÃ­vel de risco e uma
- * descriÃ§Ã£o do risco.
+ * Representacao de uma atividade referentes a uma pesquisa cientifica. Toda
+ * atividade deve ter uma descricao, uma duracao, um nivel de risco e uma
+ * descricao do risco.
  * 
- * @author Ã�talo Miguel Castor Diniz Pinheiro.
+ * @author Italo Miguel Castor Diniz Pinheiro.
  */
 public class Atividade implements Comparable<Atividade>, Serializable {
 
@@ -30,7 +29,7 @@ public class Atividade implements Comparable<Atividade>, Serializable {
 	private String codigo;
 
 	/*
-	 * DescriÃ§Ã£o da atividade.
+	 * Descricao da atividade.
 	 */
 	private String descricaoAtvd;
 
@@ -40,7 +39,7 @@ public class Atividade implements Comparable<Atividade>, Serializable {
 	private String risco;
 
 	/**
-	 * A descriÃ§Ã£o do risco.
+	 * A descricao do risco.
 	 */
 	private String descricaoRisco;
 
@@ -58,12 +57,12 @@ public class Atividade implements Comparable<Atividade>, Serializable {
 	private List<String> resultados;
 
 	/**
-	 * ConstrÃ³i uma atividade a partir de sua descriÃ§Ã£o, do nÃ­vel do risco dela e da
-	 * descriÃ§Ã£o do risco.
+	 * Constroi uma atividade a partir de sua descricao, do nÃ­vel do risco dela e da
+	 * descricao do risco.
 	 * 
-	 * @param descricaoAtvd  a descriÃ§Ã£o da atividade.
+	 * @param descricaoAtvd  a descricao da atividade.
 	 * @param risco          o nÃ­vel de risco da atividade.cc
-	 * @param descricaoRisco a descriÃ§Ã£o do risco da atividade.
+	 * @param descricaoRisco a descricao do risco da atividade.
 	 * @param codigo         o codigo da atividade.
 	 */
 	public Atividade(String descricaoAtvd, String risco, String descricaoRisco, String codigo) {
@@ -116,9 +115,6 @@ public class Atividade implements Comparable<Atividade>, Serializable {
 	}
 
 	public void executarItem(int numero, int duracao) {
-		if(!isAssociado()) {
-			throw new IllegalArgumentException("Atividade sem associacoes com pesquisas.");
-		}
 		itens.get(numero - 1).executarItem();
 		this.duracao += duracao;
 	}
@@ -154,25 +150,25 @@ public class Atividade implements Comparable<Atividade>, Serializable {
 	}
 
 	/**
-	 * Retorna a String que representa a descriÃ§Ã£o da ativdidade.
+	 * Retorna a String que representa a descricao da ativdidade.
 	 * 
-	 * @return a descriÃ§Ã£o da atividade.
+	 * @return a descricao da atividade.
 	 */
 	public String getDescricaoAtvd() {
 		return descricaoAtvd;
 	}
 
 	/**
-	 * Retorna a representaÃ§Ã£o em String da descriÃ§Ã£o do risco de uma atividade.
+	 * Retorna a representacao em String da descricao do risco de uma atividade.
 	 * 
-	 * @return a descriÃ§Ã£o do risco da atividade.
+	 * @return a descricao do risco da atividade.
 	 */
 	public String getDescricaoRisco() {
 		return descricaoRisco;
 	}
 
 	/**
-	 * Retorna a representaÃ§Ã£o em String do codigo da atividade.
+	 * Retorna a representacao em String do codigo da atividade.
 	 * 
 	 * @return o codigo da atividade.
 	 */
@@ -181,7 +177,7 @@ public class Atividade implements Comparable<Atividade>, Serializable {
 	}
 
 	/**
-	 * Retorna a representaÃ§Ã£o em String do risco de uma atividade.
+	 * Retorna a representacao em String do risco de uma atividade.
 	 * 
 	 * @return o risco de uma atividade.
 	 */
@@ -276,7 +272,7 @@ public class Atividade implements Comparable<Atividade>, Serializable {
 	/**
 	 * Retorna a String que representa os itens de uma atividade.
 	 * 
-	 * @return a representaÃ§Ã£o em String que representa todos os itens de uma
+	 * @return a representacao em String que representa todos os itens de uma
 	 *         atividade.
 	 */
 	public String exibeItens() {
@@ -297,8 +293,8 @@ public class Atividade implements Comparable<Atividade>, Serializable {
 	}
 
 	/**
-	 * Retorna a String que representa uma atividade. A representaÃ§Ã£o segue o
-	 * formato "DescriÃ§Ã£oAtvd (Risco - DescriÃ§Ã£oRisco)
+	 * Retorna a String que representa uma atividade. A representacao segue o
+	 * formato "DescricaoAtvd (Risco - DescricaoRisco)
 	 */
 	@Override
 	public String toString() {
@@ -306,7 +302,7 @@ public class Atividade implements Comparable<Atividade>, Serializable {
 	}
 
 	/**
-	 * Impede que ocorram loops na funÃ§ao de definir a proxima atividade.
+	 * Impede que ocorram loops na funcao de definir a proxima atividade.
 	 * 
 	 * @param atividade uma atividade.
 	 * @param valor     o valor que representa a distancia entre a atividade atual e
@@ -348,7 +344,7 @@ public class Atividade implements Comparable<Atividade>, Serializable {
 	}
 
 	/**
-	 * Retorna a representaÃ§Ã£o em inteiro da quantidade de atividades proximas existentes depois da atividade atual.
+	 * Retorna a representacao em inteiro da quantidade de atividades proximas existentes depois da atividade atual.
 	 * 
 	 * @return o inteiro que representa a quantidade de atividades proximas depois da atividade atual.
 	 */
@@ -361,7 +357,7 @@ public class Atividade implements Comparable<Atividade>, Serializable {
 	}
 
 	/**
-	 * Pega a enesima atividade depois da atividade atual. Caso nÃ£o, um erro serÃ¡ lanÃ§ado explicando o que ocorreu. 
+	 * Pega a enesima atividade depois da atividade atual. Caso nao, um erro sera lancado explicando o que ocorreu. 
 	 * 
 	 * @param enesimaAtividade
 	 * @return a enesima atividade depois da atividade atual.

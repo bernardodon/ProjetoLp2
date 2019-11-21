@@ -277,7 +277,7 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
 
 	public void validadorDePendencia() {
 		int contador = 0;
-		for (Atividade atividades : atividades) {
+		for (Atividade atividades : getAtividades()) {
 			if (atividades.temPendentes()) {
 				contador += 1;
 			}
@@ -290,7 +290,7 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
 	}
 
 	public String getMaisAntigo() {
-		for (Atividade atividade : atividades) {
+		for (Atividade atividade : getAtividades()) {
 			if (atividade.temPendentes())
 				return atividade.getCodigo();
 		}
@@ -303,12 +303,12 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
 		Atividade menosPendente = null;
 		int menorQuantPendentes = 1000;
 
-		for (int i = 0; i < atividades.size(); i++) {
-			int numero = atividades.get(i).quantPendentes();
+		for (int i = 0; i < getAtividades().size(); i++) {
+			int numero = getAtividades().get(i).quantPendentes();
 			if (numero != 0) {
 				if (numero < menorQuantPendentes) {
 					menorQuantPendentes = numero;
-					menosPendente = atividades.get(i);
+					menosPendente = getAtividades().get(i);
 
 				}
 			}
@@ -319,21 +319,21 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
 
 	public String getMaiorRisco() {
 
-		for (int i = 0; i < atividades.size(); i++) {
-			if (atividades.get(i).getRisco().equals("ALTO")) {
-				return atividades.get(i).getCodigo();
+		for (int i = 0; i < getAtividades().size(); i++) {
+			if (getAtividades().get(i).getRisco().equals("ALTO")) {
+				return getAtividades().get(i).getCodigo();
 			}
 		}
 
-		for (int i = 0; i < atividades.size(); i++) {
-			if (atividades.get(i).getRisco().equals("MEDIO")) {
-				return atividades.get(i).getCodigo();
+		for (int i = 0; i < getAtividades().size(); i++) {
+			if (getAtividades().get(i).getRisco().equals("MEDIO")) {
+				return getAtividades().get(i).getCodigo();
 			}
 		}
 
-		for (int i = 0; i < atividades.size(); i++) {
-			if (atividades.get(i).getRisco().equals("BAIXO")) {
-				return atividades.get(i).getCodigo();
+		for (int i = 0; i < getAtividades().size(); i++) {
+			if (getAtividades().get(i).getRisco().equals("BAIXO")) {
+				return getAtividades().get(i).getCodigo();
 			}
 		}
 
@@ -344,10 +344,10 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
 	public String getAtividadeMaiorDuracao() {
 		Atividade maiorDuracao = null;
 		int numeroMaiorDuracao = 0;
-		for (int i = 0; i < atividades.size(); i++) {
-			int numero = atividades.get(i).getDuracao();
+		for (int i = 0; i < getAtividades().size(); i++) {
+			int numero = getAtividades().get(i).getDuracao();
 			if (numero > numeroMaiorDuracao) {
-				maiorDuracao = atividades.get(i);
+				maiorDuracao = getAtividades().get(i);
 			}
 		}
 		return maiorDuracao.getCodigo();
@@ -372,17 +372,17 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
 	}
 
 	public boolean adicionaAtividade(Atividade atividade) {
-		if (atividades.contains(atividade)) {
+		if (getAtividades().contains(atividade)) {
 			return false;
 		} else {
-			atividades.add(atividade);
+			getAtividades().add(atividade);
 			return true;
 		}
 	}
 
 	public boolean tiraAtividade(Atividade atividade) {
-		if (atividades.contains(atividade)) {
-			atividades.remove(atividade);
+		if (getAtividades().contains(atividade)) {
+			getAtividades().remove(atividade);
 			return true;
 		} else {
 			return false;
@@ -412,7 +412,7 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
 
 	public String gravarAtividades() {
 		String str = "";
-		for (Atividade atividade : atividades) {
+		for (Atividade atividade : getAtividades()) {
 			str += "		" + atividade.gravarResumo();
 		}
 		str = str.substring(0, str.length() - 1);
@@ -421,11 +421,15 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
 
 	public String gravarResultado() {
 		String str = "	- Resultados:" + System.lineSeparator();
-		for (Atividade atv : atividades) {
+		for (Atividade atv : getAtividades()) {
 			str += atv.gravarResultado();
 		}
 
 		str = str.substring(0, str.length() - 1) + "\"";
 		return str;
+	}
+
+	public List<Atividade> getAtividades() {
+		return atividades;
 	}
 }

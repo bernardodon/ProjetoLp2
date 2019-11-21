@@ -39,6 +39,7 @@ class ItemTest {
 	
 	@Test 
 	void testItemgetStatus1() {
+		testExecutaItem();
 		assertEquals("PENDENTE",i1.getStatus());
 		assertEquals("PENDENTE",i2.getStatus());
 		assertEquals("PENDENTE",i3.getStatus());
@@ -48,11 +49,11 @@ class ItemTest {
 	
 	@Test 
 	void testGetDescricao() {
-		assertEquals("bola",i1.getStatus());
-		assertEquals("golf",i2.getStatus());
-		assertEquals("loucura",i3.getStatus());
-		assertEquals("disney",i4.getStatus());
-		assertEquals("dale",i5.getStatus());
+		assertEquals("bola",i1.getDescricao());
+		assertEquals("golf",i2.getDescricao());
+		assertEquals("loucura",i3.getDescricao());
+		assertEquals("disney",i4.getDescricao());
+		assertEquals("dale",i5.getDescricao());
 	}
 	
 	

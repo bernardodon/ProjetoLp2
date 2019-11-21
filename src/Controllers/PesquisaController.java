@@ -1,7 +1,6 @@
 package Controllers;
 
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -40,6 +39,7 @@ public class PesquisaController{
 		this.pesquisasRepositorio = pesquisasRepositorio;
 		this.validador = new Validador();
 	}
+	
 	public void configuraEstrategia(String estrategia) {
 		validador.validar(estrategia, "Estrategia nao pode ser nula ou vazia.");
 		if(!estrategia.equals("MAIS_ANTIGA") && !estrategia.equals("MENOS_PENDENCIAS") && !estrategia.equals("MAIOR_RISCO") && !estrategia.equals("MAIOR_DURACAO")) {
@@ -56,8 +56,6 @@ public class PesquisaController{
 			throw new IllegalArgumentException("Pesquisa desativada.");
 		}
 		pesquisa.validadorDePendencia();
-		
-		
 		
 		if(pesquisasRepositorio.getAlgoritmo().equals("MAIS_ANTIGA")) {
 			texto = pesquisa.getMaisAntigo();
@@ -314,7 +312,6 @@ public class PesquisaController{
 	 * @throws IOException
 	 */
 	private void salvarEmArquivo(String path, String texto) throws IOException {
-		File file = new File(path);
 		BufferedWriter bf = new BufferedWriter(new FileWriter(path));
 		bf.append(texto);
 		bf.flush();
